@@ -1,0 +1,4 @@
+{
+  "rust-analyzer.rustfmt.rangeFormatting.enable": true,
+  "rust-analyzer.rustfmt.overrideCommand": ["rustfmt", "--edition", "2021"]
+}

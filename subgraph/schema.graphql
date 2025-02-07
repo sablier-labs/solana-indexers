@@ -1,0 +1,18 @@
+type Stream @entity {
+  id: ID!
+  sender: String!
+  recipient: String!
+  senderAta: String!
+  recipientAta: String!
+  tokenMintAccount: String!
+  depositedAmount: BigInt!
+  withdrawnAmount: BigInt!
+  refundedAmount: BigInt!
+  isCancelable: Boolean!
+  wasCanceled: Boolean!
+  startTime: BigInt!
+  cliffTime: BigInt!
+  endTime: BigInt!
+  block: BigInt!
+  timestamp: BigInt!
+}

@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package substreams.v1.program;
+
+message Data {
+    repeated Cancel cancel_list = 1;
+    repeated CreateWithTimestamps create_with_timestamps_list = 2;
+    repeated Initialize initialize_list = 3;
+    repeated Renounce renounce_list = 4;
+    repeated Withdraw withdraw_list = 5;
+    repeated WithdrawMax withdraw_max_list = 6;
+    uint64 block_number = 7;
+    int64 block_timestamp = 8;
+}
+
+
+message Cancel {
+  string trx_hash = 1;
+    string acct_sender = 2;
+    string acct_stream = 3;
+    string acct_mint = 4;
+    string acct_sender_ata = 5;
+    string acct_recipient_ata = 6;
+    string acct_treasury_pda = 7;
+    string acct_treasury_ata = 8;
+    string acct_token_program = 9;
+}
+message CreateWithTimestamps {
+  string trx_hash = 1;
+    int64 start_time = 2;
+    int64 cliff_time = 3;
+    int64 end_time = 4;
+    uint64 deposited_amount = 5;
+    bool is_cancelable = 6;
+    string acct_sender = 7;
+    string acct_mint = 8;
+    string acct_sender_ata = 9;
+    string acct_recipient = 10;
+    string acct_recipient_ata = 11;
+    string acct_treasury_pda = 12;
+    string acct_treasury_ata = 13;
+    string acct_stream = 14;
+    string acct_token_program = 15;
+}
+message Initialize {
+  string trx_hash = 1;
+    string acct_signer = 2;
+    string acct_treasury_pda = 3;
+}
+message Renounce {
+  string trx_hash = 1;
+    string acct_sender = 2;
+    string acct_stream = 3;
+    string acct_sender_ata = 4;
+    string acct_recipient_ata = 5;
+}
+message Withdraw {
+  string trx_hash = 1;
+    uint64 amount = 2;
+    string acct_signer = 3;
+    string acct_stream = 4;
+    string acct_mint = 5;
+    string acct_sender_ata = 6;
+    string acct_recipient_ata = 7;
+    string acct_treasury_pda = 8;
+    string acct_treasury_ata = 9;
+    string acct_token_program = 10;
+}
+message WithdrawMax {
+  string trx_hash = 1;
+    string acct_signer = 2;
+    string acct_stream = 3;
+    string acct_mint = 4;
+    string acct_sender_ata = 5;
+    string acct_recipient_ata = 6;
+    string acct_treasury_pda = 7;
+    string acct_treasury_ata = 8;
+    string acct_token_program = 9;
+}
+
