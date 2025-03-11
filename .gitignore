@@ -1,13 +1,15 @@
 # substreams auth file
-.substreams.env
+**/.substreams.env
 
 # Compiled source files
-target/
+**/target/
 
 # Sink data when running any sinker
-sink-data/
+**/sink-data/
 
-# The spkg packed by the subtreams cli
-*.spkg
+# The spkg packed by the substreams cli
+**/*.spkg
 
-replay.log
+**/ replay.log
+
+target
