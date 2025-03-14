@@ -1,9 +1,0 @@
-[workspace]
-resolver = "2"
-members = ["apps/lockup"]
-
-
-[profile.release]
-lto = true
-opt-level = 's'
-strip = "debuginfo"

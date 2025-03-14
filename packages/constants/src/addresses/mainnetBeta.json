@@ -1,0 +1,9 @@
+{
+  "chainId": 900000010,
+  "cluster": "mainnetBeta",
+  "substream": "solana-mainnet-beta",
+  "startBlock": {
+    "lockup": 0
+  },
+  "linear": []
+}

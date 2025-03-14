@@ -2,14 +2,14 @@
 **/.substreams.env
 
 # Compiled source files
-**/target/
+**/target
+**/**/target
 
 # Sink data when running any sinker
 **/sink-data/
 
 # The spkg packed by the substreams cli
 **/*.spkg
+**/**/*.spkg
 
-**/ replay.log
-
-target
+**/replay.log
