@@ -11,7 +11,7 @@ dataSources:
     source:
       package:
         moduleName: map_program_data
-        file: ../solsab-substream-v0.1.0.spkg
+        file: ../lockup-v0.1.0.spkg
     mapping:
       apiVersion: 0.0.7
       kind: substreams/graph-entities

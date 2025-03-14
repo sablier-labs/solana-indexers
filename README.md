@@ -1,68 +1,108 @@
-# Substreams Starter Dev Kit
+# Sablier Subgraphs and Indexers (Solana)
+
+## Development
 
 ## Getting Started
 
-<table><tr><td valign="top" align="right">Try <b>now</b>, click <b>Open</b>:
-
-Your first 60h/month are free!
-</td><td>
-
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new/streamingfast/substreams-starter?machine=standardLinux32gb)
-</td></tr></table>
-
-> This will open a fully featured **Devcontainer-based** development environment, using [GitHub Codespaces](https://github.com/features/codespaces).
-
-Within the IDE, in a Terminal (`F1` -> `Terminal: Create New Terminal`), run:
+#### 1. Install Rust
 
 ```bash
-substreams init
-substreams build
+   brew install rust
+   rustup target add wasm32-unknown-unknown
+```
+
+Other crates will be installed later with `substreams run` or `substreams gui`.
+
+#### 2. Install Docker Desktop
+
+https://www.docker.com/products/docker-desktop/
+
+#### 3. Install Substream CLI
+
+```bash
+brew install streamingfast/tap/substreams
+brew install bufbuild/buf/buf
+```
+
+This will also install a dependency for Protobuf support.
+
+## Registration
+
+You'll need to create an account or log into an existing one on The Graph Market. This will grant you access to a token which enables indexing.
+
+#### 1. Get the API Key and Access Token
+
+- Docs: https://docs.substreams.dev/reference-material/substreams-cli/authentication
+- Dashboard: https://thegraph.market/
+
+#### 2. Set API Key into your local environment
+
+The CLI utility looks for `SUBSTREAMS_API_TOKEN` being declared in your shell.
+
+```bash
+export SUBSTREAMS_API_TOKEN=<ACCESS_TOKEN>
+```
+
+Either manually add the token to your shell or follow the automated process with:
+
+```bash
 substreams auth
-substreams gui
-substreams registry login
-substreams registry publish
 ```
 
-Run `help` to better navigate the development environment and generate sink projects with:
+#### 3. Register with buf.build to avoid rate limits
+
+The system uses buf.build to create/validate protobufs.
+It [rate-limits](https://buf.build/docs/bsr/rate-limits/) after 10 queries / hour, so it's advised to create a free account for active development.
+
+```
+buf registry login
+```
+
+## Development
+
+After dealing with all the necessary dependencies from [Getting Started](#getting-started) and [Registration](#registration) you can start development on the substreams / subgraphs.
+
+### Substreams
 
 ```bash
-substreams codegen subgraph
-substreams codegen sql
+
+substreams build
+substreams gui -e devnet.sol.streamingfast.io:443 ./substreams.yaml
+
 ```
 
-Learn more:
-- [Tutorials](https://substreams.streamingfast.io/tutorials/)
-- [Substreams Documentation](https://substreams.streamingfast.io)
+### Subgraphs
 
-Discover community Substreams modules: 
+#### 1. Create a new subgraph on thegraph.com
 
-- [Substreams Registry](https://substreams.dev/)
+Create a placeholder project on thegraph.com
+We'll need the `auth` key and the name.
 
-## Clone in local VSCode
+#### 2. Replace details in package.json and subgraph.yaml
 
-VSCode has excellent support for such containers. See [their documentation](https://code.visualstudio.com/docs/devcontainers/containers).
+- Make sure the `dataSources.source.package.file` is set to the actual name of the substream `spkg` (produced after build)
+- Make sure the name for protogen also matches
+- Replace slug in `deploy-studio` with the one created at step 1
 
-- Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-- Install [VSCode](https://code.visualstudio.com/download)
-- Install the [Devcontainer Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) in VSCode
-- Open this repository, and execute "Rebuild & open in container"
+#### 3. Deploy
 
-> [!NOTE]
-> Devcontainers, the environment proposed here, have **greatly matured** in the past 3 years. They have been [standardized](https://containers.dev/), implemented in [multiple IDEs and tools](https://containers.dev/supporting), and are used at scale in great companies (eg. [Shopify](https://shopify.engineering/shopifys-cloud-development-journey)).
+```bash
+cd ./subgraph
 
+yarn generate # runs codegen and protogen
+yarn auth-studio
+yarn deploy-studio
 
-## Local install
+```
 
-The **Devcontainer is the preferred way** to develop Substreams. Our documentation generally assumes this environment.
+## Useful Resources
 
-If you prefer, you can install all components locally by following our [installation docs](https://substreams.streamingfast.io/documentation/consume/installing-the-cli).
+### `substreams.yaml`
 
+- The [manifest reference](https://docs.substreams.dev/reference-material/substreams-components/manifests) for the structure of `substreams.yaml`
+- Examples of [existing modules](https://substreams.dev/packages/solana-common/latest) show some versions of query strings (they can have `||` operators)
 
-## Included in the dev environment
+## Caveats / Technical Debt
 
-- `substreams` preinstalled
-- For _Substreams_ development: **Rust** toolchain, `buf` and protobuf tooling, 
-- For _subgraph_ development: **node/npm**, along with all subgraph services, running in the devcontainer (`graph-node`, `postgres`, `ipfs`) directly accessible locally or remotely.
-- Pre-configured VSCode extensions for everything, plus a custom _VSCode Substreams Extension_.
-
-
+- Tried moving to a workspace structure. Rust doesn't like it.
+- Tried implementing a package.json to store useful scripts. Rust doesn't like it (it actually crashes something during `substreams run`)

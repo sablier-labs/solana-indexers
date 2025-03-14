@@ -35,7 +35,7 @@ fn map_program_data(blk: Block) -> Data {
             .for_each(|inst| {
                 let slice_u8: &[u8] = &inst.data()[..];
                 if slice_u8[0..8] == idl::idl::program::client::args::Cancel::DISCRIMINATOR {
-                    if let Ok(instruction) = idl::idl::program::client::args::Cancel::deserialize(&mut &slice_u8[8..]) {
+                    if let Ok(_instruction) = idl::idl::program::client::args::Cancel::deserialize(&mut &slice_u8[8..]) {
                         let accts = inst.accounts();
                         cancel_list.push(Cancel {
                             trx_hash: transaction.id(),
@@ -75,7 +75,7 @@ fn map_program_data(blk: Block) -> Data {
                     }
                 }
                 if slice_u8[0..8] == idl::idl::program::client::args::Initialize::DISCRIMINATOR {
-                    if let Ok(instruction) =
+                    if let Ok(_instruction) =
                         idl::idl::program::client::args::Initialize::deserialize(&mut &slice_u8[8..])
                     {
                         let accts = inst.accounts();
@@ -87,7 +87,7 @@ fn map_program_data(blk: Block) -> Data {
                     }
                 }
                 if slice_u8[0..8] == idl::idl::program::client::args::Renounce::DISCRIMINATOR {
-                    if let Ok(instruction) = idl::idl::program::client::args::Renounce::deserialize(&mut &slice_u8[8..])
+                    if let Ok(_instruction) = idl::idl::program::client::args::Renounce::deserialize(&mut &slice_u8[8..])
                     {
                         let accts = inst.accounts();
                         renounce_list.push(Renounce {
@@ -118,7 +118,7 @@ fn map_program_data(blk: Block) -> Data {
                     }
                 }
                 if slice_u8[0..8] == idl::idl::program::client::args::WithdrawMax::DISCRIMINATOR {
-                    if let Ok(instruction) =
+                    if let Ok(_instruction) =
                         idl::idl::program::client::args::WithdrawMax::deserialize(&mut &slice_u8[8..])
                     {
                         let accts = inst.accounts();
