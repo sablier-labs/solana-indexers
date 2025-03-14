@@ -14,14 +14,13 @@ num-bigint = "0.4"
 num-traits = "0.2.15"
 prost = "0.13"
 prost-types = "0.13"
-substreams = "0.6"
-substreams-solana = "0.14"
+substreams = "0.6.1"
+substreams-solana = "0.14.1"
 substreams-solana-program-instructions = "0.2"
-anchor-lang = ">=0.30.1"
-sologger_log_context = "0.1.2"
+anchor-lang = ">=0.31.0"
+sologger_log_context = "0.2.2"
 base64 = "0.22.1"
 
-# Required so that ethabi > ethereum-types build correctly under wasm32-unknown-unknown
 [target.wasm32-unknown-unknown.dependencies]
 getrandom = { version = "0.2", features = ["custom"] }
 

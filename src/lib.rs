@@ -12,11 +12,12 @@ use pb::substreams::v1::program::Renounce;
 use pb::substreams::v1::program::Withdraw;
 use pb::substreams::v1::program::WithdrawMax;
 
-use crate::constants::constants::SABLIER_LOCKUP_LINEAR_V10;
+// use crate::constants::constants::SABLIER_LOCKUP_LINEAR_V10;
 
 use substreams_solana::pb::sf::solana::r#type::v1::Block;
 
-const PROGRAM_ID: &str = SABLIER_LOCKUP_LINEAR_V10[0];
+// const PROGRAM_ID: &str = SABLIER_LOCKUP_LINEAR_V10[0];
+const PROGRAM_ID: &str = "6DndfMHWPQ1Jg86ong4wi8MvoVvfsgDmTFW4dm9Znr4D";
 
 #[substreams::handlers::map]
 fn map_program_data(blk: Block) -> Data {
@@ -37,9 +38,8 @@ fn map_program_data(blk: Block) -> Data {
             .filter(|inst| inst.program_id().to_string() == PROGRAM_ID)
             .for_each(|inst| {
                 let slice_u8: &[u8] = &inst.data()[..];
-                if slice_u8[0..8] == idl::idl::sablier_lockup_linear_v10::client::args::Cancel::DISCRIMINATOR {
-                    if let Ok(_instruction) =
-                        idl::idl::sablier_lockup_linear_v10::client::args::Cancel::deserialize(&mut &slice_u8[8..])
+                if slice_u8[0..8] == *idl::idl::program::client::args::Cancel::DISCRIMINATOR {
+                    if let Ok(_instruction) = idl::idl::program::client::args::Cancel::deserialize(&mut &slice_u8[8..])
                     {
                         let accts = inst.accounts();
                         cancel_list.push(Cancel {
@@ -55,13 +55,9 @@ fn map_program_data(blk: Block) -> Data {
                         });
                     }
                 }
-                if slice_u8[0..8]
-                    == idl::idl::sablier_lockup_linear_v10::client::args::CreateWithTimestamps::DISCRIMINATOR
-                {
+                if slice_u8[0..8] == *idl::idl::program::client::args::CreateWithTimestamps::DISCRIMINATOR {
                     if let Ok(instruction) =
-                        idl::idl::sablier_lockup_linear_v10::client::args::CreateWithTimestamps::deserialize(
-                            &mut &slice_u8[8..],
-                        )
+                        idl::idl::program::client::args::CreateWithTimestamps::deserialize(&mut &slice_u8[8..])
                     {
                         let accts = inst.accounts();
                         create_with_timestamps_list.push(CreateWithTimestamps {
@@ -83,9 +79,9 @@ fn map_program_data(blk: Block) -> Data {
                         });
                     }
                 }
-                if slice_u8[0..8] == idl::idl::sablier_lockup_linear_v10::client::args::Initialize::DISCRIMINATOR {
+                if slice_u8[0..8] == *idl::idl::program::client::args::Initialize::DISCRIMINATOR {
                     if let Ok(_instruction) =
-                        idl::idl::sablier_lockup_linear_v10::client::args::Initialize::deserialize(&mut &slice_u8[8..])
+                        idl::idl::program::client::args::Initialize::deserialize(&mut &slice_u8[8..])
                     {
                         let accts = inst.accounts();
                         initialize_list.push(Initialize {
@@ -95,9 +91,9 @@ fn map_program_data(blk: Block) -> Data {
                         });
                     }
                 }
-                if slice_u8[0..8] == idl::idl::sablier_lockup_linear_v10::client::args::Renounce::DISCRIMINATOR {
+                if slice_u8[0..8] == *idl::idl::program::client::args::Renounce::DISCRIMINATOR {
                     if let Ok(_instruction) =
-                        idl::idl::sablier_lockup_linear_v10::client::args::Renounce::deserialize(&mut &slice_u8[8..])
+                        idl::idl::program::client::args::Renounce::deserialize(&mut &slice_u8[8..])
                     {
                         let accts = inst.accounts();
                         renounce_list.push(Renounce {
@@ -109,9 +105,8 @@ fn map_program_data(blk: Block) -> Data {
                         });
                     }
                 }
-                if slice_u8[0..8] == idl::idl::sablier_lockup_linear_v10::client::args::Withdraw::DISCRIMINATOR {
-                    if let Ok(instruction) =
-                        idl::idl::sablier_lockup_linear_v10::client::args::Withdraw::deserialize(&mut &slice_u8[8..])
+                if slice_u8[0..8] == *idl::idl::program::client::args::Withdraw::DISCRIMINATOR {
+                    if let Ok(instruction) = idl::idl::program::client::args::Withdraw::deserialize(&mut &slice_u8[8..])
                     {
                         let accts = inst.accounts();
                         withdraw_list.push(Withdraw {
@@ -128,9 +123,9 @@ fn map_program_data(blk: Block) -> Data {
                         });
                     }
                 }
-                if slice_u8[0..8] == idl::idl::sablier_lockup_linear_v10::client::args::WithdrawMax::DISCRIMINATOR {
+                if slice_u8[0..8] == *idl::idl::program::client::args::WithdrawMax::DISCRIMINATOR {
                     if let Ok(_instruction) =
-                        idl::idl::sablier_lockup_linear_v10::client::args::WithdrawMax::deserialize(&mut &slice_u8[8..])
+                        idl::idl::program::client::args::WithdrawMax::deserialize(&mut &slice_u8[8..])
                     {
                         let accts = inst.accounts();
                         withdraw_max_list.push(WithdrawMax {

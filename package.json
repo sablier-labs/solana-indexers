@@ -18,13 +18,16 @@
     "url": "https://github.com/sablier-labs/subgraphs-solana.git"
   },
   "scripts": {
-    "clean-generated": "rimraf substreams/$FEATURE/substreams.yaml",
-    "g:local:run-subgraph": "./packages/infrastructure/graph-node/start.sh injective-mainnet https://mainnet.injective.streamingfast.io:443",
-    "g:setup:lockup-devnet": "CLUSTER=devnet FEATURE=lockup yarn setup",
-    "setup": "yarn clean-generated && yarn template",
+    "g:setup:devnet": "CLUSTER=devnet yarn setup",
+    "g:gui:devnet": "CLUSTER=devnet SF=devnet.sol.streamingfast.io:443 yarn substreams-gui",
+    "g:run:devnet": "CLUSTER=devnet SF=devnet.sol.streamingfast.io:443 yarn substreams-run",
+    "substreams-gui": "yarn setup && substreams gui -e $SF",
+    "substreams-run": "yarn setup && substreams run -e $SF ./substreams.yaml -o JSON",
+    "clean-generated": "rimraf substreams.yaml src/constants/mod.rs",
+    "setup": "yarn clean-generated && yarn template && substreams build",
     "template": "yarn template-substreams-yaml && yarn template-constants-rs",
-    "template-constants-rs": "mustache ./packages/constants/src/addresses/$CLUSTER.json ./substreams/$FEATURE/src/constants/mod.template.mustache > ./substreams/$FEATURE/src/constants/mod.rs",
-    "template-substreams-yaml": "mustache ./packages/constants/src/addresses/$CLUSTER.json ./substreams/$FEATURE/substreams.template.mustache > ./substreams/$FEATURE/substreams.yaml"
+    "template-constants-rs": "mustache ./constants/src/addresses/$CLUSTER.json ./src/constants/mod.template.mustache > ./src/constants/mod.rs",
+    "template-substreams-yaml": "mustache ./constants/src/addresses/$CLUSTER.json ./substreams.template.mustache > ./substreams.yaml"
   },
   "devDependencies": {
     "mustache": "^4.2.0",

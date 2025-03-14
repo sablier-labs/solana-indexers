@@ -1,6 +1,6 @@
 specVersion: v0.1.0
 package:
-  name: solsab_substream
+  name: lockup
   version: v0.1.0
 
 imports:
@@ -37,6 +37,6 @@ modules:
     blockFilter:
       module: solana:program_ids_without_votes
       query:
-        string: 1 == 0 OR program:6DndfMHWPQ1Jg86ong4wi8MvoVvfsgDmTFW4dm9Znr4D
+        string: program:6DndfMHWPQ1Jg86ong4wi8MvoVvfsgDmTFW4dm9Znr4D #  1 == 0 OR program:6DndfMHWPQ1Jg86ong4wi8MvoVvfsgDmTFW4dm9Znr4D
 
 network: solana-devnet
