@@ -1,8 +1,12 @@
 # Sablier Subgraphs and Indexers (Solana)
 
-## Development
+1. [Getting Started](#getting-started-)
+2. [Registration](#registration-)
+3. [Deployment](#deployment-)
+4. [Development](#development-)
+5. [Useful Resources](#useful-resources-)
 
-## Getting Started
+## Getting Started 🔮
 
 #### 1. Install Rust
 
@@ -26,7 +30,7 @@ brew install bufbuild/buf/buf
 
 This will also install a dependency for Protobuf support.
 
-## Registration
+## Registration 📑
 
 You'll need to create an account or log into an existing one on The Graph Market. This will grant you access to a token which enables indexing.
 
@@ -58,9 +62,26 @@ It [rate-limits](https://buf.build/docs/bsr/rate-limits/) after 10 queries / hou
 buf registry login
 ```
 
-## Development
+## Deployment 🚀
 
-After dealing with all the necessary dependencies from [Getting Started](#getting-started) and [Registration](#registration) you can start development on the substreams / subgraphs.
+The [`./subgraph/package.json`](./subgraph/package.json) file has some handy scripts for quick configurations. They'll mostly be used to re-configure support between clusters. To engage with the `devnet` substream gui for example you can run:
+
+```bash
+cd ./subgraph
+yarn stream-gui:devnet
+```
+
+To configure a subgraph for deployment on the studio, you can run:
+
+```bash
+cd ./subgraph
+yarn setup:devnet
+
+```
+
+## Development 👨‍💻
+
+After dealing with all the necessary dependencies from [Getting Started](#getting-started-) and [Registration](#registration-) you can start development on the substreams / subgraphs.
 
 ### Substreams
 
@@ -89,20 +110,13 @@ We'll need the `auth` key and the name.
 ```bash
 cd ./subgraph
 
-yarn generate # runs codegen and protogen
-yarn auth-studio
-yarn deploy-studio
+yarn setup:devnet
 
 ```
 
-## Useful Resources
+## Useful Resources 📦
 
 ### `substreams.yaml`
 
 - The [manifest reference](https://docs.substreams.dev/reference-material/substreams-components/manifests) for the structure of `substreams.yaml`
 - Examples of [existing modules](https://substreams.dev/packages/solana-common/latest) show some versions of query strings (they can have `||` operators)
-
-## Caveats / Technical Debt
-
-- Tried moving to a workspace structure. Rust doesn't like it.
-- Tried implementing a package.json to store useful scripts. Rust doesn't like it (it actually crashes something during `substreams run`)

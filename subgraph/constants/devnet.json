@@ -1,0 +1,11 @@
+{
+  "chainId": 900000020,
+  "cluster": "devnet",
+  "substream": "solana-devnet",
+  "startBlock": {
+    "lockup": 359011859
+  },
+  "linear": {
+    "V10": [["6DndfMHWPQ1Jg86ong4wi8MvoVvfsgDmTFW4dm9Znr4D", "LL", "V10"]]
+  }
+}
