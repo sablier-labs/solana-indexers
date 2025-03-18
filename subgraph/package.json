@@ -8,7 +8,7 @@
     "codegen-proto": "buf generate --type=\"substreams.v1.program.Data\" ../lockup-v0.1.0.spkg#format=bin; echo ''; echo '^^^ You can safely ignore warnings about \"non-conform Protobuf generation specification\": they come from the assemblyscript buf plugin'; echo ''",
     "stream": "yarn stream-template-yaml && yarn stream-build",
     "stream-build": "cd ../ && substreams build",
-    "stream-template-yaml": "mustache ./constants/$CLUSTER.json ../substreams.mustache > ../substreams.yaml",
+    "stream-template-yaml": "mustache ../constants/$CLUSTER.json ../substreams.mustache > ../substreams.yaml",
     "stream-gui:devnet": "substreams gui -e devnet.sol.streamingfast.io:443 ../substreams.yaml",
     "gui:devnet": "CLUSTER=devnet yarn setup && yarn stream-gui:devnet",
     "setup:devnet": "CLUSTER=devnet yarn setup",
