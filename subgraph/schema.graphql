@@ -109,8 +109,10 @@ type Stream @entity {
   cluster: String!
   "contract through which this stream has been created"
   contract: Contract!
-  "transaction hash for the stream creation"
+  "transaction hash for the stream creation - 🚨 since transactions include multiple instructions, the same hash can be shared by multiple streams"
   hash: String!
+  "index of the instruction that creates the stream"
+  instruction: BigInt!
   "timestamp of the stream creation (for sorting reasons)"
   timestamp: BigInt!
 

@@ -1,5 +1,7 @@
 export let chainId = {{chainId}};    
 export let cluster = "{{cluster}}";
 export let substream = "{{substream}}";
-export let startBlock = { lockup: {{startBlock.lockup}} };
+
+export let startBlock_lockup = {{startBlock.lockup}};
+
 export let linear: string[][] = [{{#linear.V10}}["{{0}}", "{{1}}", "{{2}}"],{{/linear.V10}}];

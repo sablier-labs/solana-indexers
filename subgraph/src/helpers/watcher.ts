@@ -1,5 +1,5 @@
 import { Watcher } from "../../generated/schema";
-import { getChainId, one } from "../constants";
+import { getChainId, getCluster, one } from "../constants";
 
 export function getOrCreateWatcher(): Watcher {
   let id = getChainId().toString();
@@ -8,10 +8,12 @@ export function getOrCreateWatcher(): Watcher {
   if (entity == null) {
     entity = new Watcher(id);
     entity.chainId = getChainId();
+    entity.cluster = getCluster();
     entity.streamIndex = one;
     entity.actionIndex = one;
-    entity.initialized = false;
+    entity.initialized = true;
     entity.logs = [];
+    entity.save();
   }
 
   return entity;

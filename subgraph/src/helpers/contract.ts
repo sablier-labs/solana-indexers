@@ -18,24 +18,30 @@ export function getOrCreateContract(address: string): Contract {
 
   if (entity == null) {
     entity = new Contract(id);
-  } else return entity;
+  } else {
+    return entity;
+  }
 
   /** Check if the contract is a Lockup Linear */
 
   let linear = getContractsLinear();
-  let index = linear.findIndex((entry) => entry[0] === address);
-  if (index == null) {
-    throw new Error("Missing contract from configuration");
+  let index = _findContractIndex(linear, address);
+  if (index == -1) {
+    throw new Error(
+      `Missing contract ${address} from configuration ${linear
+        .map<string>((item) => item[0])
+        .join(",")}`
+    );
   }
 
   const definition = linear[index];
 
-  entity.alias = linear[index][1];
+  entity.alias = definition[1];
   entity.address = address;
   entity.chainId = chainId;
   entity.cluster = cluster;
   entity.category = "LockupLinear";
-  entity.version = linear[index][2];
+  entity.version = definition[2];
 
   entity.save();
   return entity;
@@ -46,5 +52,19 @@ export function getOrCreateContract(address: string): Contract {
 /** --------------------------------------------------------------------------------------------------------- */
 
 export function generateContractId(address: string, chainId: BigInt): string {
-  return "".concat(address);
+  return ""
+    .concat(chainId.toString())
+    .concat("-")
+    .concat(address);
+}
+
+function _findContractIndex(haystack: string[][], needle: string): i32 {
+  let index: i32 = -1;
+  for (let i = 0; i < haystack.length; i++) {
+    if (haystack[i][0] == needle) {
+      index = i;
+      break;
+    }
+  }
+  return index;
 }

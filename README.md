@@ -96,9 +96,9 @@ To test your changes locally, you can run:
 
 ### Subgraphs
 
-#### 1. Create a new subgraph on [thegraph.com](https://thegraph.com/)
+#### 1. Create a new subgraph on [thegraph.com/studio](https://thegraph.com/studio/)
 
-Create a placeholder project on thegraph.com. We'll need the `auth` key and the name.
+Create a placeholder project in the Studio. We'll need the `auth` key and the name.
 
 #### 2. Replace details in package.json and subgraph.yaml
 

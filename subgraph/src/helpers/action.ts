@@ -1,6 +1,6 @@
-import { BigInt, dataSource, log } from "@graphprotocol/graph-ts";
+import { BigInt, log } from "@graphprotocol/graph-ts";
 import { Action } from "../../generated/schema";
-import { getChainId, getCluster, one, zero } from "../constants";
+import { one, zero } from "../constants";
 import { getOrCreateContract } from "./contract";
 import { getOrCreateWatcher } from "./watcher";
 
@@ -11,30 +11,27 @@ export function getActionById(id: string): Action | null {
 export function createAction(
   program: string,
   hash: string,
-  timestamp: number,
-  block: number
+  timestamp: BigInt,
+  block: BigInt,
+  instruction: BigInt
 ): Action {
   let watcher = getOrCreateWatcher();
-  let id = generateActionId(hash, watcher.chainId);
+  let id = generateActionId(hash, watcher.chainId, instruction);
   let entity = new Action(id);
 
-  entity.block = BigInt.fromI32(block);
+  entity.block = block;
   entity.hash = hash;
-  entity.timestamp = BigInt.fromI32(timestamp);
+  entity.timestamp = timestamp;
+
+  entity.chainId = watcher.chainId;
+  entity.cluster = watcher.cluster;
+
   entity.subgraphId = watcher.actionIndex;
-  entity.chainId = getChainId();
   entity.fee = zero; // TODO: Implement fees
 
   /** --------------- */
   let contract = getOrCreateContract(program);
-  if (contract == null) {
-    log.debug("[SABLIER] Contract hasn't been successfully registered {}", [
-      dataSource.address().toHexString(),
-    ]);
-    log.error("[SABLIER]", []);
-  } else {
-    entity.contract = contract.id;
-  }
+  entity.contract = contract.id;
 
   /** --------------- */
   watcher.actionIndex = watcher.actionIndex.plus(one);
@@ -47,9 +44,15 @@ export function createAction(
 /** --------------------------------------------------------------------------------------------------------- */
 /** --------------------------------------------------------------------------------------------------------- */
 
-export function generateActionId(hash: string, chainId: BigInt): string {
+export function generateActionId(
+  hash: string,
+  chainId: BigInt,
+  instruction: BigInt
+): string {
   return ""
+    .concat(chainId.toString())
+    .concat("-")
     .concat(hash)
     .concat("-")
-    .concat(chainId.toString());
+    .concat(instruction.toString());
 }
