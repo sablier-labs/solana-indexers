@@ -37,6 +37,6 @@ modules:
     blockFilter:
       module: solana:program_ids_without_votes
       query:
-        string: program:6DndfMHWPQ1Jg86ong4wi8MvoVvfsgDmTFW4dm9Znr4D #  1 == 0{{#linear.V10}} OR program:{{0}}{{/linear.V10}}
+        string: (1==0{{#linear.V10}} || program:{{0}}{{/linear.V10}})
 
 network: {{substream}}

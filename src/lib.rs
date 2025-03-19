@@ -1,15 +1,15 @@
 mod idl;
-mod pb;
+mod generated;
 
 use anchor_lang::AnchorDeserialize;
 use anchor_lang::Discriminator;
-use pb::substreams::v1::program::Cancel;
-use pb::substreams::v1::program::CreateWithTimestamps;
-use pb::substreams::v1::program::Data;
-use pb::substreams::v1::program::Initialize;
-use pb::substreams::v1::program::Renounce;
-use pb::substreams::v1::program::Withdraw;
-use pb::substreams::v1::program::WithdrawMax;
+use generated::substreams::v1::program::Cancel;
+use generated::substreams::v1::program::CreateWithTimestamps;
+use generated::substreams::v1::program::Data;
+use generated::substreams::v1::program::Initialize;
+use generated::substreams::v1::program::Renounce;
+use generated::substreams::v1::program::Withdraw;
+use generated::substreams::v1::program::WithdrawMax;
 
 use substreams_solana::pb::sf::solana::r#type::v1::Block;
 

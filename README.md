@@ -2,8 +2,8 @@
 
 1. [Getting Started](#getting-started-)
 2. [Registration](#registration-)
-3. [Deployment](#deployment-)
-4. [Development](#development-)
+3. [Development](#development-)
+4. [Deployment](#deployment-)
 5. [Useful Resources](#useful-resources-)
 
 ## Getting Started 🔮
@@ -24,8 +24,8 @@ https://www.docker.com/products/docker-desktop/
 #### 3. Install Substream CLI
 
 ```bash
-brew install streamingfast/tap/substreams
-brew install bufbuild/buf/buf
+   brew install streamingfast/tap/substreams
+   brew install bufbuild/buf/buf
 ```
 
 This will also install a dependency for Protobuf support.
@@ -50,7 +50,8 @@ export SUBSTREAMS_API_TOKEN=<ACCESS_TOKEN>
 Either manually add the token to your shell or follow the automated process with:
 
 ```bash
-substreams auth
+   cd ./subgraph
+   yarn substreams-auth # or simply substreams auth
 ```
 
 #### 3. Register with buf.build to avoid rate limits
@@ -62,9 +63,58 @@ It [rate-limits](https://buf.build/docs/bsr/rate-limits/) after 10 queries / hou
 buf registry login
 ```
 
+## Development 👨‍💻
+
+After dealing with all the necessary dependencies from [Getting Started](#getting-started-) and [Registration](#registration-) you can start submitting updates for the substreams / subgraphs. The [`./subgraph/package.json`](./subgraph/package.json) file has some handy scripts for quick configurations so we're going to assume commands will from now on be run from inside the **`./subgraph`** folder.
+
+### Set up ⭐
+
+```bash
+   yarn codegen:devnet
+```
+
+The `codegen` command will:
+
+1. generate `./substream.yaml`, with the cluster configurations
+2. generate `./src/generated`, with the typed models based on `./proto`
+3. build the substream `*.spkg` based on `./substreams.yaml`, `./proto` and `./buf.gen.yaml`
+4. generate `./subgraph/generated` based on `*.spkg` and `./subgraphs/bug.gen.yaml`
+
+### Substreams
+
+To develop new features into the substream, look into modifying the following files:
+
+1. `./proto/program.proto` - Add data structures to save transaction values into
+2. `./src/lib.rs` - Implement support for new events or data structures
+
+To test your changes locally, you can run:
+
+```bash
+   # Relies on files already generated using yarn codegen:devnet
+   yarn substreams-gui:devnet
+```
+
+### Subgraphs
+
+#### 1. Create a new subgraph on [thegraph.com](https://thegraph.com/)
+
+Create a placeholder project on thegraph.com. We'll need the `auth` key and the name.
+
+#### 2. Replace details in package.json and subgraph.yaml
+
+- Make sure the `dataSources.source.package.file` is set to the actual name of the substream `spkg` (produced after build)
+- Make sure the name for protogen also matches
+- Replace slug in `studio-deploy` (package.json) with the one created at step 1
+
+#### 3. Deploy
+
+```bash
+   yarn codegen:devnet
+```
+
 ## Deployment 🚀
 
-The [`./subgraph/package.json`](./subgraph/package.json) file has some handy scripts for quick configurations. They'll mostly be used to re-configure support between clusters. To engage with the `devnet` substream gui for example you can run:
+To engage with the `devnet` substream gui you can run:
 
 ```bash
 cd ./subgraph
@@ -75,42 +125,7 @@ To configure a subgraph for deployment on the studio, you can run:
 
 ```bash
 cd ./subgraph
-yarn setup:devnet
-
-```
-
-## Development 👨‍💻
-
-After dealing with all the necessary dependencies from [Getting Started](#getting-started-) and [Registration](#registration-) you can start development on the substreams / subgraphs.
-
-### Substreams
-
-```bash
-
-substreams build
-substreams gui -e devnet.sol.streamingfast.io:443 ./substreams.yaml
-
-```
-
-### Subgraphs
-
-#### 1. Create a new subgraph on thegraph.com
-
-Create a placeholder project on thegraph.com
-We'll need the `auth` key and the name.
-
-#### 2. Replace details in package.json and subgraph.yaml
-
-- Make sure the `dataSources.source.package.file` is set to the actual name of the substream `spkg` (produced after build)
-- Make sure the name for protogen also matches
-- Replace slug in `deploy-studio` with the one created at step 1
-
-#### 3. Deploy
-
-```bash
-cd ./subgraph
-
-yarn setup:devnet
+yarn codegen:devnet
 
 ```
 

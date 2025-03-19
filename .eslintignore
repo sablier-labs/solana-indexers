@@ -1,0 +1,14 @@
+# directories
+.yarn
+**/.next
+**/build
+**/dist
+**/lib
+**/node_modules
+**/generated
+
+# files
+*.typegen.ts
+next.config.base.js
+sentry.config.base.ts
+yarn.lock
