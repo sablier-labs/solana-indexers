@@ -51,7 +51,7 @@ Either manually add the token to your shell or follow the automated process with
 
 ```bash
    cd ./subgraph
-   yarn substreams-auth # or simply substreams auth
+   yarn substream-auth # or simply substreams auth
 ```
 
 #### 3. Register with buf.build to avoid rate limits
@@ -70,10 +70,10 @@ After dealing with all the necessary dependencies from [Getting Started](#gettin
 ### Set up ⭐
 
 ```bash
-   yarn codegen:devnet
+   yarn setup:devnet
 ```
 
-The `codegen` command will:
+The `setup` command will:
 
 1. generate `./substream.yaml`, with the cluster configurations
 2. generate `./src/generated`, with the typed models based on `./proto`
@@ -90,8 +90,8 @@ To develop new features into the substream, look into modifying the following fi
 To test your changes locally, you can run:
 
 ```bash
-   # Relies on files already generated using yarn codegen:devnet
-   yarn substreams-gui:devnet
+   # Relies on files already generated using yarn setup:devnet
+   yarn substream-gui:devnet
 ```
 
 ### Subgraphs
@@ -104,12 +104,12 @@ Create a placeholder project on thegraph.com. We'll need the `auth` key and the 
 
 - Make sure the `dataSources.source.package.file` is set to the actual name of the substream `spkg` (produced after build)
 - Make sure the name for protogen also matches
-- Replace slug in `studio-deploy` (package.json) with the one created at step 1
+- Replace slug in `subgraph-deploy` (package.json) with the one created at step 1
 
 #### 3. Deploy
 
 ```bash
-   yarn codegen:devnet
+   yarn setup:devnet
 ```
 
 ## Deployment 🚀
@@ -125,7 +125,7 @@ To configure a subgraph for deployment on the studio, you can run:
 
 ```bash
 cd ./subgraph
-yarn codegen:devnet
+yarn setup:devnet
 
 ```
 

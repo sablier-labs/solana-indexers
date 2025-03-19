@@ -15,66 +15,84 @@ message Data {
 
 
 message Cancel {
-  string trx_hash = 1;
-    string acct_sender = 2;
-    string acct_stream = 3;
-    string acct_mint = 4;
-    string acct_sender_ata = 5;
-    string acct_recipient_ata = 6;
-    string acct_treasury_pda = 7;
-    string acct_treasury_ata = 8;
-    string acct_token_program = 9;
+    string transaction_hash = 1;
+    string instruction_program = 2;
+    uint64 instruction_index = 3;
+
+    string acct_sender = 4;
+    string acct_stream = 5;
+    string acct_mint = 6;
+    string acct_sender_ata = 7;
+    string acct_recipient_ata = 8;
+    string acct_treasury_pda = 9;
+    string acct_treasury_ata = 10;
+    string acct_token_program = 11;
 }
 message CreateWithTimestamps {
-  string trx_hash = 1;
-    int64 start_time = 2;
-    int64 cliff_time = 3;
-    int64 end_time = 4;
-    uint64 deposited_amount = 5;
-    bool is_cancelable = 6;
-    string acct_sender = 7;
-    string acct_mint = 8;
-    string acct_sender_ata = 9;
-    string acct_recipient = 10;
-    string acct_recipient_ata = 11;
-    string acct_treasury_pda = 12;
-    string acct_treasury_ata = 13;
-    string acct_stream = 14;
-    string acct_token_program = 15;
+    string transaction_hash = 1;
+    string instruction_program = 2;
+    uint64 instruction_index = 3;
+    
+    int64 start_time = 4;
+    int64 cliff_time = 5;
+    int64 end_time = 6;
+    uint64 deposited_amount = 7;
+    bool is_cancelable = 8;
+    string acct_sender = 9;
+    string acct_mint = 10;
+    string acct_sender_ata = 11;
+    string acct_recipient = 12;
+    string acct_recipient_ata = 13;
+    string acct_treasury_pda = 14;
+    string acct_treasury_ata = 15;
+    string acct_stream = 16;
+    string acct_token_program = 17;
 }
 message Initialize {
-  string trx_hash = 1;
-    string acct_signer = 2;
-    string acct_treasury_pda = 3;
+    string transaction_hash = 1;
+    string instruction_program = 2;
+    uint64 instruction_index = 3;
+
+    string acct_signer = 4;
+    string acct_treasury_pda = 5;
 }
 message Renounce {
-  string trx_hash = 1;
-    string acct_sender = 2;
-    string acct_stream = 3;
-    string acct_sender_ata = 4;
-    string acct_recipient_ata = 5;
-}
-message Withdraw {
-  string trx_hash = 1;
-    uint64 amount = 2;
-    string acct_signer = 3;
-    string acct_stream = 4;
-    string acct_mint = 5;
+    string transaction_hash = 1;
+    string instruction_program = 2;
+    uint64 instruction_index = 3;
+
+    string acct_sender = 4;
+    string acct_stream = 5;
     string acct_sender_ata = 6;
     string acct_recipient_ata = 7;
-    string acct_treasury_pda = 8;
-    string acct_treasury_ata = 9;
-    string acct_token_program = 10;
+}
+message Withdraw {
+    string transaction_hash = 1;
+    string instruction_program = 2;
+    uint64 instruction_index = 3;
+
+    uint64 amount = 4;
+    string acct_signer = 5;
+    string acct_stream = 6;
+    string acct_mint = 7;
+    string acct_sender_ata = 8;
+    string acct_recipient_ata = 9;
+    string acct_treasury_pda = 10;
+    string acct_treasury_ata = 11;
+    string acct_token_program = 12;
 }
 message WithdrawMax {
-  string trx_hash = 1;
-    string acct_signer = 2;
-    string acct_stream = 3;
-    string acct_mint = 4;
-    string acct_sender_ata = 5;
-    string acct_recipient_ata = 6;
-    string acct_treasury_pda = 7;
-    string acct_treasury_ata = 8;
-    string acct_token_program = 9;
+    string transaction_hash = 1;
+    string instruction_program = 2;
+    uint64 instruction_index = 3;
+
+    string acct_signer = 4;
+    string acct_stream = 5;
+    string acct_mint = 6;
+    string acct_sender_ata = 7;
+    string acct_recipient_ata = 8;
+    string acct_treasury_pda = 9;
+    string acct_treasury_ata = 10;
+    string acct_token_program = 11;
 }
 

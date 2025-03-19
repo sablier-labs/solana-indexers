@@ -26,17 +26,19 @@
   },
   "license": "Apache-2.0",
   "scripts": {
-    "_codegen": "yarn _codegen-yaml && yarn _codegen-proto-rs && yarn substreams-build && yarn _codegen-proto-assembly && yarn _codegen-assembly",
+    "_codegen": "yarn _codegen-yaml && yarn _codegen-constants-rs && yarn _codegen-constants-assembly && yarn _codegen-proto-rs && yarn substream-build && yarn _codegen-proto-assembly && yarn _codegen-assembly",
     "_codegen-assembly": "graph codegen",
-    "_codegen-proto-rs": "cd ../ && substreams protogen ./substreams.yaml",
+    "_codegen-constants-assembly": "mustache ../constants/$CLUSTER.json ../templates/subgraph-constants.mustache > ../subgraph/generated/env.ts",
+    "_codegen-constants-rs": "mustache ../constants/$CLUSTER.json ../templates/src-constants.mustache > ../src/generated/constants.rs",
     "_codegen-proto-assembly": "buf generate --type=\"substreams.v1.program.Data\" ../lockup-v0.1.0.spkg#format=bin > /dev/null 2>&1; echo ''; echo '^^^ $ buf generate output silenced'; echo ''",
-    "_codegen-yaml": "mustache ../constants/$CLUSTER.json ../substreams.mustache > ../substreams.yaml",
-    "codegen:devnet": "CLUSTER=devnet yarn _codegen",
-    "studio-auth": "graph auth --studio",
-    "studio-build": "graph build",
-    "studio-deploy": "graph deploy --studio solana-lockup-experimental",
-    "substreams-auth": "substreams auth",
-    "substreams-build": "substreams build",
-    "substreams-gui:devnet": "substreams gui -e devnet.sol.streamingfast.io:443 ../substreams.yaml"
+    "_codegen-proto-rs": "cd ../ && substreams protogen ./substreams.yaml",
+    "_codegen-yaml": "mustache ../constants/$CLUSTER.json ../templates/substreams.mustache > ../substreams.yaml",
+    "setup:devnet": "CLUSTER=devnet yarn _codegen",
+    "subgraph-auth": "graph auth --studio",
+    "subgraph-build": "graph build",
+    "subgraph-deploy": "graph deploy --studio solana-lockup-experimental",
+    "substream-auth": "substreams auth",
+    "substream-build": "substreams build",
+    "substream-gui:devnet": "substreams gui -e devnet.sol.streamingfast.io:443 ../substreams.yaml"
   }
 }

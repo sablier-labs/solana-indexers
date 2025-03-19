@@ -1,5 +1,6 @@
 mod idl;
 mod generated;
+#[path = "./generated/constants.rs"] mod constants;
 
 use anchor_lang::AnchorDeserialize;
 use anchor_lang::Discriminator;
@@ -13,7 +14,8 @@ use generated::substreams::v1::program::WithdrawMax;
 
 use substreams_solana::pb::sf::solana::r#type::v1::Block;
 
-const PROGRAM_ID: &str = "6DndfMHWPQ1Jg86ong4wi8MvoVvfsgDmTFW4dm9Znr4D";
+const PROGRAM_ID: &str = constants::cluster::SABLIER_LOCKUP_LINEAR_V10[0]; /** TODO: edit this to allow for multiple contracts */
+
 
 #[substreams::handlers::map]
 fn map_program_data(blk: Block) -> Data {
@@ -31,14 +33,18 @@ fn map_program_data(blk: Block) -> Data {
         transaction
             .walk_instructions()
             .into_iter()
-            .filter(|inst| inst.program_id().to_string() == PROGRAM_ID)
-            .for_each(|inst| {
+            .enumerate()
+            .filter(|(_,inst)| inst.program_id().to_string() == PROGRAM_ID)
+            .for_each(|(index, inst)| {
                 let slice_u8: &[u8] = &inst.data()[..];
                 if slice_u8[0..8] == idl::idl::program::client::args::Cancel::DISCRIMINATOR {
                     if let Ok(_instruction) = idl::idl::program::client::args::Cancel::deserialize(&mut &slice_u8[8..]) {
                         let accts = inst.accounts();
+
                         cancel_list.push(Cancel {
-                            trx_hash: transaction.id(),
+                            transaction_hash: transaction.id(),
+                            instruction_program:  inst.program_id().to_string(),
+                            instruction_index: index as u64,
                             acct_sender: accts[0].to_string(),
                             acct_stream: accts[1].to_string(),
                             acct_mint: accts[2].to_string(),
@@ -56,7 +62,10 @@ fn map_program_data(blk: Block) -> Data {
                     {
                         let accts = inst.accounts();
                         create_with_timestamps_list.push(CreateWithTimestamps {
-                            trx_hash: transaction.id(),
+                            transaction_hash: transaction.id(),
+                            instruction_program:  inst.program_id().to_string(),
+                            instruction_index: index as u64,
+
                             start_time: instruction.start_time,
                             cliff_time: instruction.cliff_time,
                             end_time: instruction.end_time,
@@ -80,7 +89,10 @@ fn map_program_data(blk: Block) -> Data {
                     {
                         let accts = inst.accounts();
                         initialize_list.push(Initialize {
-                            trx_hash: transaction.id(),
+                            transaction_hash: transaction.id(),
+                            instruction_program:  inst.program_id().to_string(),
+                            instruction_index: index as u64,
+
                             acct_signer: accts[0].to_string(),
                             acct_treasury_pda: accts[1].to_string(),
                         });
@@ -91,7 +103,10 @@ fn map_program_data(blk: Block) -> Data {
                     {
                         let accts = inst.accounts();
                         renounce_list.push(Renounce {
-                            trx_hash: transaction.id(),
+                            transaction_hash: transaction.id(),
+                            instruction_program:  inst.program_id().to_string(),
+                            instruction_index: index as u64,
+
                             acct_sender: accts[0].to_string(),
                             acct_stream: accts[1].to_string(),
                             acct_sender_ata: accts[2].to_string(),
@@ -104,7 +119,10 @@ fn map_program_data(blk: Block) -> Data {
                     {
                         let accts = inst.accounts();
                         withdraw_list.push(Withdraw {
-                            trx_hash: transaction.id(),
+                             transaction_hash: transaction.id(),
+                            instruction_program:  inst.program_id().to_string(),
+                            instruction_index: index as u64,
+
                             amount: instruction.amount,
                             acct_signer: accts[0].to_string(),
                             acct_stream: accts[1].to_string(),
@@ -123,7 +141,10 @@ fn map_program_data(blk: Block) -> Data {
                     {
                         let accts = inst.accounts();
                         withdraw_max_list.push(WithdrawMax {
-                            trx_hash: transaction.id(),
+                            transaction_hash: transaction.id(),
+                            instruction_program:  inst.program_id().to_string(),
+                            instruction_index: index as u64,
+
                             acct_signer: accts[0].to_string(),
                             acct_stream: accts[1].to_string(),
                             acct_mint: accts[2].to_string(),

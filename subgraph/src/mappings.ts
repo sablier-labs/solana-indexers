@@ -14,7 +14,9 @@ export function handleTriggers(bytes: Uint8Array): void {
 
     const stream = new Stream(createStream.acctStream);
 
-    stream.sender = createStream.acctSender;
+    input.blockNumber;
+
+    createStream.acctSender.stream.sender = createStream.acctSender;
     stream.recipient = createStream.acctRecipient;
     stream.senderAta = createStream.acctSenderAta;
     stream.recipientAta = createStream.acctRecipientAta;
