@@ -53,9 +53,9 @@ export function getOrCreateContract(address: string): Contract {
 
 export function generateContractId(address: string, chainId: BigInt): string {
   return ""
-    .concat(chainId.toString())
+    .concat(address)
     .concat("-")
-    .concat(address);
+    .concat(chainId.toString());
 }
 
 function _findContractIndex(haystack: string[][], needle: string): i32 {

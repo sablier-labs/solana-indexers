@@ -50,9 +50,9 @@ export function generateActionId(
   instruction: BigInt
 ): string {
   return ""
-    .concat(chainId.toString())
-    .concat("-")
     .concat(hash)
     .concat("-")
-    .concat(instruction.toString());
+    .concat(instruction.toString())
+    .concat("-")
+    .concat(chainId.toString());
 }

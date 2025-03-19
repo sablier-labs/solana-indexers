@@ -1,6 +1,6 @@
 import { BigInt } from "@graphprotocol/graph-ts";
 import { Stream, Contract } from "../../generated/schema";
-import { one, zero } from "../constants";
+import { getChainId, one, zero } from "../constants";
 import { getOrCreateContract } from "./contract";
 import { getOrCreateWatcher } from "./watcher";
 import { getOrCreateAsset } from "./asset";
@@ -19,7 +19,7 @@ function createStream(
   let contract = getOrCreateContract(program);
 
   /** --------------- */
-  let id = generateStreamId(tokenId, contract);
+  let id = generateStreamId(tokenId, program);
   if (id == null) {
     return null;
   }
@@ -127,11 +127,13 @@ export function createLinearStream(
 /** --------------------------------------------------------------------------------------------------------- */
 /** --------------------------------------------------------------------------------------------------------- */
 
-export function generateStreamId(tokenId: BigInt, contract: Contract): string {
+export function generateStreamId(tokenId: BigInt, program: string): string {
+  const chainId = getChainId();
+
   let id = ""
-    .concat(contract.address)
+    .concat(program)
     .concat("-")
-    .concat(contract.chainId.toString())
+    .concat(chainId.toString())
     .concat("-")
     .concat(tokenId.toString());
 
@@ -150,4 +152,9 @@ export function generateStreamAlias(
     .concat(tokenId.toString());
 
   return alias;
+}
+
+export function getStreamById(tokenId: BigInt, program: string): Stream | null {
+  let id = generateStreamId(tokenId, program);
+  return Stream.load(id);
 }

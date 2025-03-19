@@ -29,7 +29,7 @@ export function getOrCreateAsset(address: string): Asset {
 
 export function generateAssetId(address: string, chainId: BigInt): string {
   return ""
-    .concat(chainId.toString())
+    .concat(address)
     .concat("-")
-    .concat(address);
+    .concat(chainId.toString());
 }
