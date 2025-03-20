@@ -5,6 +5,7 @@ import {
   handleCreateStream,
   handleRenounce,
   handleWithdraw,
+  handleWithdrawMax,
 } from "./handlers";
 
 export function handleTriggers(bytes: Uint8Array): void {
@@ -33,5 +34,9 @@ export function handleTriggers(bytes: Uint8Array): void {
 
   for (let i = 0; i < input.withdrawList.length; i++) {
     handleWithdraw(input.withdrawList[i], input);
+  }
+
+  for (let i = 0; i < input.withdrawMaxList.length; i++) {
+    handleWithdrawMax(input.withdrawMaxList[i], input);
   }
 }

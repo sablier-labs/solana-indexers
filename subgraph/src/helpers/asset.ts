@@ -2,11 +2,11 @@ import { BigInt } from "@graphprotocol/graph-ts";
 import { Asset } from "../../generated/schema";
 import { getChainId, getCluster } from "../constants";
 
-export function getOrCreateAsset(address: string): Asset {
+export function getOrCreateAsset(mint: string, program: string): Asset {
   const chainId = getChainId();
   const cluster = getCluster();
 
-  let id = generateAssetId(address, chainId);
+  let id = generateAssetId(mint, chainId);
 
   let entity = Asset.load(id);
 
@@ -15,7 +15,9 @@ export function getOrCreateAsset(address: string): Asset {
 
     entity.chainId = chainId;
     entity.cluster = cluster;
-    entity.address = address;
+    entity.address = mint;
+    entity.mint = mint;
+    entity.program = program;
 
     entity.save();
   }

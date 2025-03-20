@@ -15,84 +15,109 @@ message Data {
 
 
 message Cancel {
-    string transaction_hash = 1;
-    string instruction_program = 2;
-    uint64 instruction_index = 3;
+    string instruction_program = 1;
+    uint64 instruction_index = 2;
+    string transaction_hash = 3;
 
-    string acct_sender = 4;
-    string acct_stream = 5;
-    string acct_mint = 6;
-    string acct_sender_ata = 7;
-    string acct_recipient_ata = 8;
-    string acct_treasury_pda = 9;
-    string acct_treasury_ata = 10;
-    string acct_token_program = 11;
+    uint64 refunded = 4;
+
+    string sender = 5;
+    string sender_ata = 6;
+    string recipient_ata = 7;
+
+    string token_mint = 8;
+    string token_program = 9;
+
+    string treasury_pda = 10;
+    string treasury_ata = 11;
+ 
+    string stream = 12;
+
 }
 message CreateWithTimestamps {
-    string transaction_hash = 1;
-    string instruction_program = 2;
-    uint64 instruction_index = 3;
-    
+    string instruction_program = 1;
+    uint64 instruction_index = 2;
+    string transaction_hash = 3;
+   
     int64 start_time = 4;
     int64 cliff_time = 5;
     int64 end_time = 6;
     uint64 deposited_amount = 7;
-    bool is_cancelable = 8;
-    string acct_sender = 9;
-    string acct_mint = 10;
-    string acct_sender_ata = 11;
-    string acct_recipient = 12;
-    string acct_recipient_ata = 13;
-    string acct_treasury_pda = 14;
-    string acct_treasury_ata = 15;
-    string acct_stream = 16;
-    string acct_token_program = 17;
+    bool cancelable = 8;
+
+    string sender = 9;
+    string sender_ata = 10;
+    string recipient = 11;
+    string recipient_ata = 12;
+    
+    string token_mint = 13;
+    string token_program = 14;
+
+    string treasury_pda = 15;
+    string treasury_ata = 16;
+
+    string stream = 17;
+
 }
 message Initialize {
-    string transaction_hash = 1;
-    string instruction_program = 2;
-    uint64 instruction_index = 3;
+    string instruction_program = 1;
+    uint64 instruction_index = 2;
+    string transaction_hash = 3;
 
-    string acct_signer = 4;
-    string acct_treasury_pda = 5;
+    string signer = 4;
+    string treasury_pda = 5;
 }
 message Renounce {
-    string transaction_hash = 1;
-    string instruction_program = 2;
-    uint64 instruction_index = 3;
+    string instruction_program = 1;
+    uint64 instruction_index = 2;
+    string transaction_hash = 3;
 
-    string acct_sender = 4;
-    string acct_stream = 5;
-    string acct_sender_ata = 6;
-    string acct_recipient_ata = 7;
+    string sender = 4;
+    string sender_ata = 5;
+
+    string recipient_ata = 6;
+
+    string stream = 7;
+
 }
 message Withdraw {
-    string transaction_hash = 1;
-    string instruction_program = 2;
-    uint64 instruction_index = 3;
+    string instruction_program = 1;
+    uint64 instruction_index = 2;
+    string transaction_hash = 3;
 
     uint64 amount = 4;
-    string acct_signer = 5;
-    string acct_stream = 6;
-    string acct_mint = 7;
-    string acct_sender_ata = 8;
-    string acct_recipient_ata = 9;
-    string acct_treasury_pda = 10;
-    string acct_treasury_ata = 11;
-    string acct_token_program = 12;
+
+    string sender_ata = 5;
+    string recipient_ata = 6;
+
+    string token_mint = 7;
+    string token_program = 8;
+
+    string treasury_pda = 9;
+    string treasury_ata = 10;
+
+    string stream = 11;
+    string signer = 12;
+
+
 }
 message WithdrawMax {
-    string transaction_hash = 1;
-    string instruction_program = 2;
-    uint64 instruction_index = 3;
+    string instruction_program = 1;
+    uint64 instruction_index = 2;
+    string transaction_hash = 3;
 
-    string acct_signer = 4;
-    string acct_stream = 5;
-    string acct_mint = 6;
-    string acct_sender_ata = 7;
-    string acct_recipient_ata = 8;
-    string acct_treasury_pda = 9;
-    string acct_treasury_ata = 10;
-    string acct_token_program = 11;
+    uint64 amount = 4;
+
+    string sender_ata = 5;
+    string recipient_ata = 6;
+
+    string token_mint = 7;
+    string token_program = 8;
+
+    string treasury_pda = 9;
+    string treasury_ata = 10;
+
+    string stream = 11;
+    string signer = 12;
 }
 

@@ -84,19 +84,19 @@ export function createLinearStream(
 
   /** --------------- */
   entity.category = "LockupLinear";
-  entity.sender = event.acctSender;
-  entity.senderAta = event.acctSenderAta;
-  entity.recipient = event.acctRecipient;
-  entity.recipientAta = event.acctRecipientAta;
+  entity.sender = event.sender;
+  entity.senderAta = event.senderAta;
+  entity.recipient = event.recipient;
+  entity.recipientAta = event.recipientAta;
 
-  entity.parties = [event.acctSender, event.acctRecipient];
+  entity.parties = [event.sender, event.recipient];
 
   entity.depositAmount = BigInt.fromU64(event.depositedAmount);
   entity.intactAmount = BigInt.fromU64(event.depositedAmount);
 
   entity.startTime = BigInt.fromU64(event.startTime);
   entity.endTime = BigInt.fromU64(event.endTime);
-  entity.cancelable = !!event.isCancelable;
+  entity.cancelable = !!event.cancelable;
 
   /** --------------- */
   let duration = BigInt.fromU64(event.endTime).minus(
@@ -117,7 +117,7 @@ export function createLinearStream(
   entity.duration = duration;
 
   /** --------------- */
-  let asset = getOrCreateAsset(event.acctTokenProgram);
+  let asset = getOrCreateAsset(event.tokenMint, event.tokenProgram);
   entity.asset = asset.id;
 
   return entity;

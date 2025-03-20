@@ -57,10 +57,15 @@ type Asset @entity(immutable: true) {
 
   "mint address of the asset/token"
   address: String!
+  "mint address of the asset/token"
+  mint: String!
   "hardcoded chain id"
   chainId: BigInt!
   "hardcoded cluster name"
   cluster: String!
+
+  "token program (manager) address of the asset/token"
+  program: String!
 
   "streams that rely on this asset/token"
   streams: [Stream!]! @derivedFrom(field: "asset")
