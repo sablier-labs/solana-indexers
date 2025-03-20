@@ -102,7 +102,7 @@ type Stream @entity {
   "unique global id tracked by the subgraph watcher - 🚨 these may change if new contracts are added and the chronological order of streams changes"
   subgraphId: BigInt!
   "unique identifier for the stream released by the origin contract - same as the tokenId or streamId values given by the contract"
-  tokenId: BigInt!
+  tokenId: String! # TODO convert tokenId to BigInt
   "extended version of the lockup contracts (e.g. V10)"
   version: String!
 

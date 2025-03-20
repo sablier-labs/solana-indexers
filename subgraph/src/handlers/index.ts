@@ -52,7 +52,7 @@ export function handleCreateStream(
 }
 
 export function handleCancel(event: EventCancel, system: ProtoData): void {
-  let tokenId = BigInt.fromI64(system.blockTimestamp); // TODO: replace with actual stream id after NFTs get implemented
+  let tokenId = event.stream; // TODO: replace with actual stream id after NFTs get implemented
   let stream = getStreamById(tokenId, event.instructionProgram);
 
   if (stream == null) {
@@ -94,7 +94,7 @@ export function handleCancel(event: EventCancel, system: ProtoData): void {
 }
 
 export function handleRenounce(event: EventRenounce, system: ProtoData): void {
-  let tokenId = BigInt.fromI64(system.blockTimestamp); // TODO: replace with actual stream id after NFTs get implemented
+  let tokenId = event.stream; // TODO: replace with actual stream id after NFTs get implemented
   let stream = getStreamById(tokenId, event.instructionProgram);
 
   if (stream == null) {
@@ -128,7 +128,7 @@ export function handleRenounce(event: EventRenounce, system: ProtoData): void {
 
 // TODO: implement transfer watcher on the NFT - also change to EventTransfer
 export function handleTransfer(event: EventCancel, system: ProtoData): void {
-  let tokenId = BigInt.fromI64(system.blockTimestamp); // TODO: replace with actual stream id after NFTs get implemented
+  let tokenId = event.stream; // TODO: replace with actual stream id after NFTs get implemented
   let stream = getStreamById(tokenId, event.instructionProgram);
 
   if (stream == null) {
@@ -166,7 +166,7 @@ export function handleTransfer(event: EventCancel, system: ProtoData): void {
 }
 
 export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
-  let tokenId = BigInt.fromI64(system.blockTimestamp); // TODO: replace with actual stream id after NFTs get implemented
+  let tokenId = event.stream; // TODO: replace with actual stream id after NFTs get implemented
   let stream = getStreamById(tokenId, event.instructionProgram);
 
   if (stream == null) {
@@ -213,7 +213,7 @@ export function handleWithdrawMax(
   event: EventWithdrawMax,
   system: ProtoData
 ): void {
-  let tokenId = BigInt.fromI64(system.blockTimestamp); // TODO: replace with actual stream id after NFTs get implemented
+  let tokenId = event.stream; // TODO: replace with actual stream id after NFTs get implemented
   let stream = getStreamById(tokenId, event.instructionProgram);
 
   if (stream == null) {

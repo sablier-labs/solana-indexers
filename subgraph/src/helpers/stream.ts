@@ -7,7 +7,7 @@ import { getOrCreateAsset } from "./asset";
 import { EventCreateWithTimestamps, ProtoData } from "../adapters";
 
 function createStream(
-  tokenId: BigInt,
+  tokenId: string, // TODO convert tokenId to BigInt
   program: string,
   instruction: BigInt,
   hash: string,
@@ -69,7 +69,7 @@ export function createLinearStream(
   event: EventCreateWithTimestamps,
   system: ProtoData
 ): Stream | null {
-  let tokenId = BigInt.fromI64(system.blockTimestamp); // TODO: replace with actual stream id after NFTs get implemented
+  let tokenId = event.stream; // TODO: replace with actual stream id after NFTs get implemented
   let entity = createStream(
     tokenId,
     event.instructionProgram,
@@ -127,7 +127,8 @@ export function createLinearStream(
 /** --------------------------------------------------------------------------------------------------------- */
 /** --------------------------------------------------------------------------------------------------------- */
 
-export function generateStreamId(tokenId: BigInt, program: string): string {
+export function generateStreamId(tokenId: string, program: string): string {
+  // TODO convert tokenId to BigInt
   const chainId = getChainId();
 
   let id = ""
@@ -141,7 +142,7 @@ export function generateStreamId(tokenId: BigInt, program: string): string {
 }
 
 export function generateStreamAlias(
-  tokenId: BigInt,
+  tokenId: string, // TODO convert tokenId to BigInt
   contract: Contract
 ): string {
   let alias = ""
@@ -154,7 +155,8 @@ export function generateStreamAlias(
   return alias;
 }
 
-export function getStreamById(tokenId: BigInt, program: string): Stream | null {
+export function getStreamById(tokenId: string, program: string): Stream | null {
+  // TODO convert tokenId to BigInt
   let id = generateStreamId(tokenId, program);
   return Stream.load(id);
 }
