@@ -3,4 +3,4 @@ plugins:
   - name: as-generator
     path: ./node_modules/.bin/as-proto-gen
     strategy: all
-    out: src/pb
+    out: ./generated

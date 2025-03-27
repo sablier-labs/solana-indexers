@@ -1,0 +1,37 @@
+import { BigInt } from "@graphprotocol/graph-ts";
+import { Asset } from "../../generated/schema";
+import { getChainId, getCluster } from "../constants";
+
+export function getOrCreateAsset(mint: string, program: string): Asset {
+  const chainId = getChainId();
+  const cluster = getCluster();
+
+  let id = generateAssetId(mint, chainId);
+
+  let entity = Asset.load(id);
+
+  if (entity == null) {
+    entity = new Asset(id);
+
+    entity.chainId = chainId;
+    entity.cluster = cluster;
+    entity.address = mint;
+    entity.mint = mint;
+    entity.program = program;
+
+    entity.save();
+  }
+
+  return entity;
+}
+
+/** --------------------------------------------------------------------------------------------------------- */
+/** --------------------------------------------------------------------------------------------------------- */
+/** --------------------------------------------------------------------------------------------------------- */
+
+export function generateAssetId(address: string, chainId: BigInt): string {
+  return ""
+    .concat(address)
+    .concat("-")
+    .concat(chainId.toString());
+}
