@@ -52,7 +52,7 @@ export function handleCreateStream(
 }
 
 export function handleCancel(event: EventCancel, system: ProtoData): void {
-  let tokenId = event.stream; // TODO: replace with actual stream id after NFTs get implemented
+  let tokenId = BigInt.fromU64(event.streamId);
   let stream = getStreamById(tokenId, event.instructionProgram);
 
   if (stream == null) {
@@ -94,7 +94,7 @@ export function handleCancel(event: EventCancel, system: ProtoData): void {
 }
 
 export function handleRenounce(event: EventRenounce, system: ProtoData): void {
-  let tokenId = event.stream; // TODO: replace with actual stream id after NFTs get implemented
+  let tokenId = BigInt.fromU64(event.streamId);
   let stream = getStreamById(tokenId, event.instructionProgram);
 
   if (stream == null) {
@@ -128,7 +128,7 @@ export function handleRenounce(event: EventRenounce, system: ProtoData): void {
 
 // TODO: implement transfer watcher on the NFT - also change to EventTransfer
 export function handleTransfer(event: EventCancel, system: ProtoData): void {
-  let tokenId = event.stream; // TODO: replace with actual stream id after NFTs get implemented
+  let tokenId = BigInt.fromU64(event.streamId);
   let stream = getStreamById(tokenId, event.instructionProgram);
 
   if (stream == null) {
@@ -158,7 +158,9 @@ export function handleTransfer(event: EventCancel, system: ProtoData): void {
   /** --------------- */
 
   stream.recipient = receiver;
-  let parties = [stream.sender, receiver];
+  // stream.recipientAta = ; // TODO
+  // let parties = [stream.sender, receiver];
+  // stream.parties = parties
 
   stream.save();
   action.stream = stream.id;
@@ -166,7 +168,7 @@ export function handleTransfer(event: EventCancel, system: ProtoData): void {
 }
 
 export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
-  let tokenId = event.stream; // TODO: replace with actual stream id after NFTs get implemented
+  let tokenId = BigInt.fromU64(event.streamId);
   let stream = getStreamById(tokenId, event.instructionProgram);
 
   if (stream == null) {
@@ -189,7 +191,7 @@ export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
   let amount = BigInt.fromU64(event.amount);
 
   action.category = "Withdraw";
-  action.addressB = stream.recipient; // TODO: check if we have withdraw-to
+  action.addressB = stream.recipient;
   action.amountB = amount;
 
   /** --------------- */
@@ -202,6 +204,10 @@ export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
     stream.intactAmount = stream.intactAmount.minus(amount);
   } else {
     stream.intactAmount = stream.depositAmount.minus(withdrawn);
+  }
+
+  if (stream.recipientAta == null) {
+    stream.recipient = event.recipientAta;
   }
 
   stream.save();
@@ -213,7 +219,7 @@ export function handleWithdrawMax(
   event: EventWithdrawMax,
   system: ProtoData
 ): void {
-  let tokenId = event.stream; // TODO: replace with actual stream id after NFTs get implemented
+  let tokenId = BigInt.fromU64(event.streamId);
   let stream = getStreamById(tokenId, event.instructionProgram);
 
   if (stream == null) {
@@ -249,6 +255,10 @@ export function handleWithdrawMax(
     stream.intactAmount = stream.intactAmount.minus(amount);
   } else {
     stream.intactAmount = stream.depositAmount.minus(withdrawn);
+  }
+
+  if (stream.recipientAta == null) {
+    stream.recipient = event.recipientAta;
   }
 
   stream.save();

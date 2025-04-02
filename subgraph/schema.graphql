@@ -102,7 +102,7 @@ type Stream @entity {
   "unique global id tracked by the subgraph watcher - 🚨 these may change if new contracts are added and the chronological order of streams changes"
   subgraphId: BigInt!
   "unique identifier for the stream released by the origin contract - same as the tokenId or streamId values given by the contract"
-  tokenId: String! # TODO convert tokenId to BigInt
+  tokenId: BigInt!
   "extended version of the lockup contracts (e.g. V10)"
   version: String!
 
@@ -128,10 +128,10 @@ type Stream @entity {
   "list of relevant stream parties (for filtering) - sender, recipient, possibly sender's"
   parties: [String!]!
 
-  "associated token account for recipient"
-  recipientAta: String!
+  "associated token account for sender, may be missing on create only to be initialized after the first withdraw"
+  recipientAta: String
   "associated token account for sender"
-  senderAta: String!
+  senderAta: String
 
   "flag for linear streams with a cliff"
   cliff: Boolean!
