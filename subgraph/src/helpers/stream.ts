@@ -7,7 +7,7 @@ import { getOrCreateAsset } from "./asset";
 import { EventCreateWithTimestamps, ProtoData } from "../adapters";
 
 function createStream(
-  tokenId: string, // TODO convert tokenId to BigInt
+  tokenId: BigInt,
   program: string,
   instruction: BigInt,
   hash: string,
@@ -56,6 +56,9 @@ function createStream(
   entity.transferable = true; // All streams are transferable by default
   entity.withdrawnAmount = zero;
 
+  entity.senderAta = null;
+  entity.recipientAta = null;
+
   /** --------------- */
   watcher.streamIndex = watcher.streamIndex.plus(one);
   watcher.save();
@@ -69,7 +72,7 @@ export function createLinearStream(
   event: EventCreateWithTimestamps,
   system: ProtoData
 ): Stream | null {
-  let tokenId = event.stream; // TODO: replace with actual stream id after NFTs get implemented
+  let tokenId = BigInt.fromU64(event.streamId);
   let entity = createStream(
     tokenId,
     event.instructionProgram,
@@ -85,9 +88,9 @@ export function createLinearStream(
   /** --------------- */
   entity.category = "LockupLinear";
   entity.sender = event.sender;
-  entity.senderAta = event.senderAta;
   entity.recipient = event.recipient;
-  entity.recipientAta = event.recipientAta;
+
+  entity.senderAta = event.senderAta;
 
   entity.parties = [event.sender, event.recipient];
 
@@ -102,19 +105,25 @@ export function createLinearStream(
   let duration = BigInt.fromU64(event.endTime).minus(
     BigInt.fromU64(event.startTime)
   );
+  entity.duration = duration;
 
   /** --------------- */
   let cliffTime = BigInt.fromU64(event.cliffTime);
+  let cliffAmount = BigInt.fromU64(event.cliffAmount);
 
   if (!cliffTime.isZero()) {
     entity.cliff = true;
-    entity.cliffAmount = zero; // TODO: actual cliff amount when unlocks PR is merged
+    entity.cliffAmount = cliffAmount;
     entity.cliffTime = cliffTime;
   } else {
     entity.cliff = false;
   }
 
-  entity.duration = duration;
+  let initialAmount = BigInt.fromU64(event.initialAmount);
+  if (!initialAmount.isZero()) {
+    entity.initial = true;
+    entity.initialAmount = initialAmount;
+  }
 
   /** --------------- */
   let asset = getOrCreateAsset(event.tokenMint, event.tokenProgram);
@@ -127,8 +136,7 @@ export function createLinearStream(
 /** --------------------------------------------------------------------------------------------------------- */
 /** --------------------------------------------------------------------------------------------------------- */
 
-export function generateStreamId(tokenId: string, program: string): string {
-  // TODO convert tokenId to BigInt
+export function generateStreamId(tokenId: BigInt, program: string): string {
   const chainId = getChainId();
 
   let id = ""
@@ -142,7 +150,7 @@ export function generateStreamId(tokenId: string, program: string): string {
 }
 
 export function generateStreamAlias(
-  tokenId: string, // TODO convert tokenId to BigInt
+  tokenId: BigInt,
   contract: Contract
 ): string {
   let alias = ""
@@ -155,8 +163,7 @@ export function generateStreamAlias(
   return alias;
 }
 
-export function getStreamById(tokenId: string, program: string): Stream | null {
-  // TODO convert tokenId to BigInt
+export function getStreamById(tokenId: BigInt, program: string): Stream | null {
   let id = generateStreamId(tokenId, program);
   return Stream.load(id);
 }

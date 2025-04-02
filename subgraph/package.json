@@ -1,6 +1,6 @@
 {
   "name": "lockup",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "dependencies": {
     "@graphprotocol/graph-cli": "^0.73.0",
     "@graphprotocol/graph-ts": "^0.34.0",
@@ -29,8 +29,8 @@
     "_codegen": "yarn _codegen-yaml && yarn _codegen-constants-rs && yarn _codegen-constants-assembly && yarn _codegen-proto-rs && yarn substream-build && yarn _codegen-proto-assembly && yarn _codegen-assembly",
     "_codegen-assembly": "graph codegen",
     "_codegen-constants-assembly": "mustache ../constants/$CLUSTER.json ../templates/subgraph-constants.mustache > ../subgraph/generated/env.ts",
-    "_codegen-constants-rs": "mustache ../constants/$CLUSTER.json ../templates/src-constants.mustache > ../src/generated/constants.rs",
-    "_codegen-proto-assembly": "buf generate --type=\"substreams.v1.program.Data\" ../lockup-v0.1.0.spkg#format=bin > /dev/null 2>&1; echo ''; echo '^^^ $ buf generate output silenced'; echo ''",
+    "_codegen-constants-rs": "mkdir -p ../src/generated && mustache ../constants/$CLUSTER.json ../templates/src-constants.mustache > ../src/generated/constants.rs",
+    "_codegen-proto-assembly": "buf generate --type=\"substreams.v1.program.Data\" ../lockup-v0.2.0.spkg#format=bin > /dev/null 2>&1; echo ''; echo '^^^ $ buf generate output silenced'; echo ''",
     "_codegen-proto-rs": "cd ../ && substreams protogen ./substreams.yaml",
     "_codegen-yaml": "mustache ../constants/$CLUSTER.json ../templates/substreams.mustache > ../substreams.yaml",
     "setup:devnet": "CLUSTER=devnet yarn _codegen",
@@ -39,6 +39,7 @@
     "subgraph-deploy": "graph deploy --studio solana-lockup-experimental",
     "substream-auth": "substreams auth",
     "substream-build": "substreams build",
-    "substream-gui:devnet": "substreams gui -e devnet.sol.streamingfast.io:443 ../substreams.yaml"
+    "substream-gui:devnet": "substreams gui -e devnet.sol.streamingfast.io:443 ../substreams.yaml",
+    "substream-run:devnet": "substreams run -e devnet.sol.streamingfast.io:443 ../substreams.yaml"
   }
 }
