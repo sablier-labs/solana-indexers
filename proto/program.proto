@@ -5,7 +5,7 @@ package substreams.v1.program;
 message Data {
     repeated Cancel cancel_list = 1;
     repeated CreateWithTimestamps create_with_timestamps_list = 2;
-    repeated Initialize initialize_list = 3;
+    repeated Transfer transfer_list = 3;
     repeated Renounce renounce_list = 4;
     repeated Withdraw withdraw_list = 5;
     repeated WithdrawMax withdraw_max_list = 6;
@@ -23,15 +23,16 @@ message Cancel {
 
     string sender = 5;
     string sender_ata = 6;
-    string recipient_ata = 7;
 
-    string token_mint = 8;
-    string token_program = 9;
+    string token_mint = 7;
+    string token_program = 8;
 
-    string treasury_pda = 10;
-    string treasury_ata = 11;
+    string treasury = 9;
+    string treasury_ata = 10;
  
-    string stream = 12;
+    uint64 stream_id = 11;
+    string nft_mint = 12;
+    string nft_data = 13;
 
 }
 message CreateWithTimestamps {
@@ -42,32 +43,43 @@ message CreateWithTimestamps {
     int64 start_time = 4;
     int64 cliff_time = 5;
     int64 end_time = 6;
+
     uint64 deposited_amount = 7;
-    bool cancelable = 8;
+    uint64 initial_amount = 8;
+    uint64 cliff_amount = 9;
 
-    string sender = 9;
-    string sender_ata = 10;
-    string recipient = 11;
-    string recipient_ata = 12;
+    bool cancelable = 10;
+
+    string sender = 11;
+    string sender_ata = 12;
+    string recipient = 13;
     
-    string token_mint = 13;
-    string token_program = 14;
+    string token_mint = 14;
+    string token_program = 15;
 
-    string treasury_pda = 15;
-    string treasury_ata = 16;
+    string treasury = 16;
+    string treasury_ata = 17;
 
-    string stream = 17;
+    uint64 stream_id = 18;
+    string nft_mint = 19;
+    string nft_data = 20;
 
 }
-message Initialize {
+
+message Renounce {
     string instruction_program = 1;
     uint64 instruction_index = 2;
     string transaction_hash = 3;
 
-    string signer = 4;
-    string treasury_pda = 5;
+    string sender = 4;
+
+    uint64 stream_id = 5;
+    string nft_mint = 6;
+    string nft_data = 7;
+
 }
-message Renounce {
+
+message Transfer {
     string instruction_program = 1;
     uint64 instruction_index = 2;
     string transaction_hash = 3;
@@ -75,11 +87,15 @@ message Renounce {
     string sender = 4;
     string sender_ata = 5;
 
-    string recipient_ata = 6;
+    string recipient = 6;
+    string recipient_ata = 7;
 
-    string stream = 7;
+    uint64 stream_id = 8;
+    string nft_mint = 9;
+    string nft_data = 10;
 
 }
+
 message Withdraw {
     string instruction_program = 1;
     uint64 instruction_index = 2;
@@ -87,17 +103,20 @@ message Withdraw {
 
     uint64 amount = 4;
 
-    string sender_ata = 5;
+    string recipient = 5;
     string recipient_ata = 6;
 
     string token_mint = 7;
     string token_program = 8;
 
-    string treasury_pda = 9;
+    string treasury = 9;
     string treasury_ata = 10;
 
-    string stream = 11;
-    string signer = 12;
+    uint64 stream_id = 11;
+    string nft_mint = 12;
+    string nft_data = 13;
+
+    string signer = 14;
 
 
 }
@@ -108,16 +127,19 @@ message WithdrawMax {
 
     uint64 amount = 4;
 
-    string sender_ata = 5;
+    string recipient = 5;
     string recipient_ata = 6;
 
     string token_mint = 7;
     string token_program = 8;
 
-    string treasury_pda = 9;
+    string treasury = 9;
     string treasury_ata = 10;
 
-    string stream = 11;
-    string signer = 12;
+    uint64 stream_id = 11;
+    string nft_mint = 12;
+    string nft_data = 13;
+
+    string signer = 14;
 }
 
