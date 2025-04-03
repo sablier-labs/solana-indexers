@@ -92,6 +92,9 @@ export function createLinearStream(
 
   entity.senderAta = event.senderAta;
 
+  entity.nftMint = event.nftMint;
+  entity.nftData = event.nftData;
+
   entity.parties = [event.sender, event.recipient];
 
   entity.depositAmount = BigInt.fromU64(event.depositedAmount);

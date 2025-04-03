@@ -179,6 +179,12 @@ type Stream @entity {
   "the initial unlock amount specifically for lockup linear"
   initialAmount: BigInt
 
+  "stream nft mint"
+  nftMint: String!
+
+  "stream nft data"
+  nftData: String!
+
   "actions triggered in the context of this stream"
   actions: [Action!]! @derivedFrom(field: "stream")
 }
