@@ -1,5 +1,5 @@
 import { BigInt, log } from "@graphprotocol/graph-ts";
-import { Ownership, Stream } from "../../generated/schema";
+import { Stream } from "../../generated/schema";
 import {
   EventCancel,
   EventCreateWithTimestamps,
@@ -14,13 +14,10 @@ import {
   createLinearStream,
   generateStreamId,
   getStreamById,
+  getStreamByTokenId,
 } from "../helpers/stream";
-import { zero } from "../constants";
-import {
-  createOwnership,
-  generateOwnershipId,
-  getOwnership,
-} from "../helpers/ownership";
+import { createOwnership, getOwnership } from "../helpers/ownership";
+import { getContractById } from "../helpers/contract";
 
 export function handleCreateStream(
   event: EventCreateWithTimestamps,
@@ -58,10 +55,12 @@ export function handleCreateStream(
 
   let ownership = createOwnership(
     event.nftMint,
-    stream.tokenId,
-    stream.recipient,
-    stream.recipientNFTAta
+    BigInt.fromU64(event.streamId),
+    event.recipient,
+    event.nftRecipientAta
   );
+
+  ownership.stream = stream.id;
   ownership.save();
 
   return stream;
@@ -69,7 +68,7 @@ export function handleCreateStream(
 
 export function handleCancel(event: EventCancel, system: ProtoData): void {
   let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamById(tokenId, event.instructionProgram);
+  let stream = getStreamByTokenId(tokenId, event.instructionProgram);
 
   if (stream == null) {
     log.info(
@@ -113,7 +112,7 @@ export function handleCancel(event: EventCancel, system: ProtoData): void {
 
 export function handleRenounce(event: EventRenounce, system: ProtoData): void {
   let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamById(tokenId, event.instructionProgram);
+  let stream = getStreamByTokenId(tokenId, event.instructionProgram);
 
   if (stream == null) {
     log.info(
@@ -149,7 +148,6 @@ export function handleSPLTransfer(
   system: ProtoData
 ): void {
   let fromRecipient = event.fromOwner;
-  let fromRecipientAta = event.from;
 
   let toRecipient = event.toOwner;
   let toRecipientAta = event.to;
@@ -157,26 +155,28 @@ export function handleSPLTransfer(
   let ownership = getOwnership(event.nftMint);
 
   if (ownership == null) {
-    log.info("[SABLIER] Ownership hasn't been registered before: {}", [
-      fromRecipientAta,
-    ]);
-    log.error("[SABLIER]", []);
     return;
   }
 
-  let stream = getStreamById(ownership.tokenId, event.instructionProgram);
+  let stream = getStreamById(ownership.stream);
 
   if (stream == null) {
     log.info(
       "[SABLIER] Stream hasn't been registered before this transfer event: {}",
-      [generateStreamId(ownership.tokenId, event.instructionProgram)]
+      [event.nftMint]
     );
     log.error("[SABLIER]", []);
     return;
   }
 
+  let contract = getContractById(stream.contract);
+
+  if (contract == null) {
+    return;
+  }
+
   let action = createAction(
-    event.instructionProgram,
+    contract.address,
     event.transactionHash,
     BigInt.fromI64(system.blockTimestamp),
     BigInt.fromU64(system.blockNumber),
@@ -206,7 +206,7 @@ export function handleSPLTransfer(
 
 export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
   let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamById(tokenId, event.instructionProgram);
+  let stream = getStreamByTokenId(tokenId, event.instructionProgram);
 
   if (stream == null) {
     log.info(
@@ -257,7 +257,7 @@ export function handleWithdrawMax(
   system: ProtoData
 ): void {
   let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamById(tokenId, event.instructionProgram);
+  let stream = getStreamByTokenId(tokenId, event.instructionProgram);
 
   if (stream == null) {
     log.info(

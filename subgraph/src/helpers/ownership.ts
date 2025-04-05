@@ -26,8 +26,6 @@ export function createOwnership(
   entity.owner = owner;
   entity.owner_ata = owner_ata;
 
-  entity.save();
-
   return entity;
 }
 

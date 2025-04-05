@@ -165,7 +165,14 @@ export function generateStreamAlias(
   return alias;
 }
 
-export function getStreamById(tokenId: BigInt, program: string): Stream | null {
+export function getStreamByTokenId(
+  tokenId: BigInt,
+  program: string
+): Stream | null {
   let id = generateStreamId(tokenId, program);
   return Stream.load(id);
+}
+
+export function getStreamById(streamId: string): Stream | null {
+  return Stream.load(streamId);
 }

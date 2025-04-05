@@ -210,6 +210,9 @@ type Ownership @entity {
 
   "id of the stream token this ownership is referring to"
   tokenId: BigInt!
+
+  "stream entity this ownership is referring to"
+  stream: Stream!
 }
 
 type Watcher @entity {
