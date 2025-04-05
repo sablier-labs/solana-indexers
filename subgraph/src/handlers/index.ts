@@ -1,9 +1,10 @@
 import { BigInt, log } from "@graphprotocol/graph-ts";
-import { Stream } from "../../generated/schema";
+import { Ownership, Stream } from "../../generated/schema";
 import {
   EventCancel,
   EventCreateWithTimestamps,
   EventRenounce,
+  EventSPLTransfer,
   EventWithdraw,
   EventWithdrawMax,
   ProtoData,
@@ -15,6 +16,11 @@ import {
   getStreamById,
 } from "../helpers/stream";
 import { zero } from "../constants";
+import {
+  createOwnership,
+  generateOwnershipId,
+  getOwnership,
+} from "../helpers/ownership";
 
 export function handleCreateStream(
   event: EventCreateWithTimestamps,
@@ -47,6 +53,16 @@ export function handleCreateStream(
   stream.save();
   action.stream = stream.id;
   action.save();
+
+  /** --------------- */
+
+  let ownership = createOwnership(
+    event.nftMint,
+    stream.tokenId,
+    stream.recipient,
+    stream.recipientNFTAta
+  );
+  ownership.save();
 
   return stream;
 }
@@ -86,7 +102,9 @@ export function handleCancel(event: EventCancel, system: ProtoData): void {
   stream.canceled = true;
   stream.canceledAction = action.id;
   stream.canceledTime = BigInt.fromI64(system.blockTimestamp);
-  stream.intactAmount = zero; // TODO: Figure out the only amount remaining in the stream is the non-withdrawn recipient amount (same as amountB)
+  stream.intactAmount = stream.depositAmount
+    .minus(BigInt.fromU64(event.refunded))
+    .minus(stream.withdrawnAmount);
 
   stream.save();
   action.stream = stream.id;
@@ -126,15 +144,32 @@ export function handleRenounce(event: EventRenounce, system: ProtoData): void {
   action.save();
 }
 
-// TODO: implement transfer watcher on the NFT - also change to EventTransfer
-export function handleTransfer(event: EventCancel, system: ProtoData): void {
-  let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamById(tokenId, event.instructionProgram);
+export function handleSPLTransfer(
+  event: EventSPLTransfer,
+  system: ProtoData
+): void {
+  let fromRecipient = event.fromOwner;
+  let fromRecipientAta = event.from;
+
+  let toRecipient = event.toOwner;
+  let toRecipientAta = event.to;
+
+  let ownership = getOwnership(event.nftMint);
+
+  if (ownership == null) {
+    log.info("[SABLIER] Ownership hasn't been registered before: {}", [
+      fromRecipientAta,
+    ]);
+    log.error("[SABLIER]", []);
+    return;
+  }
+
+  let stream = getStreamById(ownership.tokenId, event.instructionProgram);
 
   if (stream == null) {
     log.info(
-      "[SABLIER] Stream hasn't been registered before this cancel event: {}",
-      [generateStreamId(tokenId, event.instructionProgram)]
+      "[SABLIER] Stream hasn't been registered before this transfer event: {}",
+      [generateStreamId(ownership.tokenId, event.instructionProgram)]
     );
     log.error("[SABLIER]", []);
     return;
@@ -148,23 +183,25 @@ export function handleTransfer(event: EventCancel, system: ProtoData): void {
     BigInt.fromU64(event.instructionIndex)
   );
 
-  let receiver = stream.recipient; // TODO: extract new recipient
-
   action.category = "Transfer";
-
-  action.addressA = stream.recipient;
-  action.addressB = receiver;
+  action.addressA = fromRecipient;
+  action.addressB = toRecipient;
 
   /** --------------- */
 
-  stream.recipient = receiver;
-  // stream.recipientAta = ; // TODO
-  // let parties = [stream.sender, receiver];
-  // stream.parties = parties
+  stream.recipient = toRecipient;
+  stream.recipientNFTAta = toRecipientAta;
+
+  let parties = [stream.sender, toRecipient];
+  stream.parties = parties;
+
+  ownership.owner = toRecipient;
+  ownership.owner_ata = toRecipientAta;
 
   stream.save();
   action.stream = stream.id;
   action.save();
+  ownership.save();
 }
 
 export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
@@ -242,7 +279,7 @@ export function handleWithdrawMax(
   let amount = BigInt.fromU64(event.amount);
 
   action.category = "Withdraw";
-  action.addressB = stream.recipient; // TODO: check if we have withdraw-to
+  action.addressB = stream.recipient;
   action.amountB = amount;
 
   /** --------------- */

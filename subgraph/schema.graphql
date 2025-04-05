@@ -128,10 +128,13 @@ type Stream @entity {
   "list of relevant stream parties (for filtering) - sender, recipient, possibly sender's"
   parties: [String!]!
 
-  "associated token account for sender, may be missing on create only to be initialized after the first withdraw"
+  "associated token account for recipient and asset, may be missing on create only to be initialized after the first withdraw"
   recipientAta: String
-  "associated token account for sender"
+  "associated token account for sender and asset"
   senderAta: String
+
+  "associated token account for recipient and nft itself"
+  recipientNFTAta: String!
 
   "flag for linear streams with a cliff"
   cliff: Boolean!
@@ -187,6 +190,26 @@ type Stream @entity {
 
   "actions triggered in the context of this stream"
   actions: [Action!]! @derivedFrom(field: "stream")
+}
+
+type Ownership @entity {
+  "nft mint address concatenated with chainId"
+  id: String!
+
+  "nft mint"
+  mint: String!
+
+  "owner account a.k.a stream recipient"
+  owner: String!
+
+  "associated token account between recipient and nft"
+  owner_ata: String!
+
+  "hardcoded chain id"
+  chainId: BigInt!
+
+  "id of the stream token this ownership is referring to"
+  tokenId: BigInt!
 }
 
 type Watcher @entity {

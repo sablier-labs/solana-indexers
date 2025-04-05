@@ -6,33 +6,26 @@ mod util;
 
 use anchor_lang::AnchorDeserialize;
 use anchor_lang::Discriminator;
-use generated::substreams::v1::program::Cancel;
-use generated::substreams::v1::program::CreateWithTimestamps;
-use generated::substreams::v1::program::Data;
-use generated::substreams::v1::program::Renounce;
-use generated::substreams::v1::program::Transfer;
-use generated::substreams::v1::program::Withdraw;
-use generated::substreams::v1::program::WithdrawMax;
-
 use substreams_solana::block_view::InstructionView;
 use substreams_solana::pb::sf::solana::r#type::v1::Block;
-use util::get_anchor_logs;
 
-const PROGRAM_ID: &str = constants::cluster::SABLIER_LOCKUP_LINEAR_V10[0];
-/** TODO: edit this to allow for multiple contracts */
+use generated::substreams::v1::program::{
+    Cancel, CreateWithTimestamps, Data, Renounce, Transfer, Withdraw, WithdrawMax,
+};
+use idl::idl::lockup_linear_v10::{client::args as lockup_linear_v10_methods, events as lockup_linear_v10_events};
 
 fn handle_cancel(index: usize, instruction: &InstructionView) -> Option<Cancel> {
     let slice_u8: &[u8] = &instruction.data()[..];
 
-    if let Ok(arguments) = idl::idl::lockup_linear_v10::client::args::Cancel::deserialize(&mut &slice_u8[8..]) {
+    if let Ok(arguments) = lockup_linear_v10_methods::Cancel::deserialize(&mut &slice_u8[8..]) {
         let accounts = instruction.accounts();
 
-        let logs = get_anchor_logs(instruction);
+        let logs = util::get_anchor_logs(instruction);
         let mut refunded = 0;
 
         for log in logs {
-            if log[0..8] == idl::idl::lockup_linear_v10::events::StreamCancelation::DISCRIMINATOR {
-                if let Ok(event) = idl::idl::lockup_linear_v10::events::StreamCancelation::deserialize(&mut &log[8..]) {
+            if log[0..8] == lockup_linear_v10_events::StreamCancelation::DISCRIMINATOR {
+                if let Ok(event) = lockup_linear_v10_events::StreamCancelation::deserialize(&mut &log[8..]) {
                     refunded = event.refunded_amount;
                 }
             }
@@ -63,17 +56,15 @@ fn handle_cancel(index: usize, instruction: &InstructionView) -> Option<Cancel> 
 fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) -> Option<CreateWithTimestamps> {
     let slice_u8: &[u8] = &instruction.data()[..];
 
-    if let Ok(arguments) =
-        idl::idl::lockup_linear_v10::client::args::CreateWithTimestamps::deserialize(&mut &slice_u8[8..])
-    {
+    if let Ok(arguments) = lockup_linear_v10_methods::CreateWithTimestamps::deserialize(&mut &slice_u8[8..]) {
         let accounts = instruction.accounts();
-        let logs = get_anchor_logs(instruction);
+        let logs = util::get_anchor_logs(instruction);
 
         let mut stream_id = 0;
 
         for log in logs {
-            if log[0..8] == idl::idl::lockup_linear_v10::events::StreamCreation::DISCRIMINATOR {
-                if let Ok(event) = idl::idl::lockup_linear_v10::events::StreamCreation::deserialize(&mut &log[8..]) {
+            if log[0..8] == lockup_linear_v10_events::StreamCreation::DISCRIMINATOR {
+                if let Ok(event) = lockup_linear_v10_events::StreamCreation::deserialize(&mut &log[8..]) {
                     stream_id = event.stream_id;
                 }
             }
@@ -103,6 +94,7 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
 
             nft_mint: accounts[10].to_string(),
             nft_data: accounts[11].to_string(),
+            nft_recipient_ata: accounts[12].to_string(),
             token_program: accounts[16].to_string(),
         })
     } else {
@@ -113,7 +105,7 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
 fn handle_renounce(index: usize, instruction: &InstructionView) -> Option<Renounce> {
     let slice_u8: &[u8] = &instruction.data()[..];
 
-    if let Ok(arguments) = idl::idl::lockup_linear_v10::client::args::Renounce::deserialize(&mut &slice_u8[8..]) {
+    if let Ok(arguments) = lockup_linear_v10_methods::Renounce::deserialize(&mut &slice_u8[8..]) {
         let accounts = instruction.accounts();
 
         Some(Renounce {
@@ -132,10 +124,51 @@ fn handle_renounce(index: usize, instruction: &InstructionView) -> Option<Renoun
     }
 }
 
+fn handle_spl_transfers(index: usize, instruction: &InstructionView) -> Vec<Transfer> {
+    let mut transfers: Vec<Transfer> = Vec::new();
+
+    let inner_instructions = instruction.inner_instructions();
+    let root = util::get_transfer(instruction);
+
+    if let Some((from, to, from_owner, to_owner, nft_mint, amount)) = root {
+        transfers.push(Transfer {
+            instruction_program: instruction.program_id().to_string(),
+            instruction_index: index as u64,
+            transaction_hash: instruction.transaction().id(),
+            from,
+            to,
+            from_owner,
+            to_owner,
+            nft_mint,
+            amount,
+        });
+    }
+
+    inner_instructions.enumerate().for_each(|(index, inner_instruction)| {
+        let inner = util::get_transfer(&inner_instruction);
+
+        if let Some((from, to, from_owner, to_owner, nft_mint, amount)) = inner {
+            transfers.push(Transfer {
+                instruction_program: inner_instruction.program_id().to_string(),
+                instruction_index: index as u64,
+                transaction_hash: inner_instruction.transaction().id(),
+                from,
+                to,
+                from_owner,
+                to_owner,
+                nft_mint,
+                amount,
+            });
+        }
+    });
+
+    transfers
+}
+
 fn handle_withdraw(index: usize, instruction: &InstructionView) -> Option<Withdraw> {
     let slice_u8: &[u8] = &instruction.data()[..];
 
-    if let Ok(arguments) = idl::idl::lockup_linear_v10::client::args::Withdraw::deserialize(&mut &slice_u8[8..]) {
+    if let Ok(arguments) = lockup_linear_v10_methods::Withdraw::deserialize(&mut &slice_u8[8..]) {
         let accounts = instruction.accounts();
 
         Some(Withdraw {
@@ -166,15 +199,15 @@ fn handle_withdraw(index: usize, instruction: &InstructionView) -> Option<Withdr
 fn handle_withdraw_max(index: usize, instruction: &InstructionView) -> Option<WithdrawMax> {
     let slice_u8: &[u8] = &instruction.data()[..];
 
-    if let Ok(arguments) = idl::idl::lockup_linear_v10::client::args::WithdrawMax::deserialize(&mut &slice_u8[8..]) {
+    if let Ok(arguments) = lockup_linear_v10_methods::WithdrawMax::deserialize(&mut &slice_u8[8..]) {
         let accounts = instruction.accounts();
-        let logs = get_anchor_logs(instruction);
+        let logs = util::get_anchor_logs(instruction);
 
         let mut amount = 0;
 
         for log in logs {
-            if log[0..8] == idl::idl::lockup_linear_v10::events::StreamWithdrawal::DISCRIMINATOR {
-                if let Ok(event) = idl::idl::lockup_linear_v10::events::StreamWithdrawal::deserialize(&mut &log[8..]) {
+            if log[0..8] == lockup_linear_v10_events::StreamWithdrawal::DISCRIMINATOR {
+                if let Ok(event) = lockup_linear_v10_events::StreamWithdrawal::deserialize(&mut &log[8..]) {
                     amount = event.withdrawn_amount;
                 }
             }
@@ -207,56 +240,71 @@ fn handle_withdraw_max(index: usize, instruction: &InstructionView) -> Option<Wi
 
 #[substreams::handlers::map]
 fn map_program_data(block: Block) -> Data {
+    let watched_programs: Vec<&str> = constants::cluster::SABLIER_LOCKUP_LINEAR_V10
+        .iter()
+        .copied()
+        .chain(util::SPL_PROGRAMS.iter().copied())
+        .collect();
+
     let mut cancel_list: Vec<Cancel> = Vec::new();
     let mut create_with_timestamps_list: Vec<CreateWithTimestamps> = Vec::new();
-    // TODO: implement transfers when we can have some transactions to test against
-    // ix.program_id == SPL_TOKEN_PROGRAM_ID && ix.data.starts_with(&[3]) // 3 = Transfer
-    let transfer_list: Vec<Transfer> = Vec::new();
     let mut renounce_list: Vec<Renounce> = Vec::new();
     let mut withdraw_list: Vec<Withdraw> = Vec::new();
     let mut withdraw_max_list: Vec<WithdrawMax> = Vec::new();
+
+    let mut spl_transfer_list: Vec<Transfer> = Vec::new();
+
     let block_number = block.block_height.as_ref().map_or(0, |h| h.block_height);
     let block_timestamp = block.block_time.as_ref().map_or(0, |t| t.timestamp);
 
     block.transactions().for_each(|transaction| {
-        // ------------- INSTRUCTIONS -------------
+        // ------------- TRANSACTIONS -------------
         transaction
             .walk_instructions()
             .into_iter()
             .enumerate()
-            .filter(|(_, instruction)| instruction.program_id().to_string() == PROGRAM_ID)
+            .filter(|(_, instruction)| watched_programs.contains(&instruction.program_id().to_string().as_str()))
             .for_each(|(index, instruction)| {
-                let slice_u8: &[u8] = &instruction.data()[..];
-                if slice_u8[0..8] == idl::idl::lockup_linear_v10::client::args::Cancel::DISCRIMINATOR {
-                    let entry = handle_cancel(index, &instruction);
-                    if let Some(_) = entry {
-                        cancel_list.push(entry.unwrap());
-                    }
-                }
-                if slice_u8[0..8] == idl::idl::lockup_linear_v10::client::args::CreateWithTimestamps::DISCRIMINATOR {
-                    let entry: Option<CreateWithTimestamps> = handle_create_with_timestamps(index, &instruction);
-                    if let Some(_) = entry {
-                        create_with_timestamps_list.push(entry.unwrap());
+                // ------------- INSTRUCTIONS -------------
+
+                if constants::cluster::SABLIER_LOCKUP_LINEAR_V10
+                    .contains(&instruction.program_id().to_string().as_str())
+                {
+                    let slice_u8: &[u8] = &instruction.data()[..];
+                    if slice_u8[0..8] == lockup_linear_v10_methods::Cancel::DISCRIMINATOR {
+                        let entry = handle_cancel(index, &instruction);
+                        if let Some(_) = entry {
+                            cancel_list.push(entry.unwrap());
+                        }
+                    } else if slice_u8[0..8] == lockup_linear_v10_methods::CreateWithTimestamps::DISCRIMINATOR {
+                        let entry: Option<CreateWithTimestamps> = handle_create_with_timestamps(index, &instruction);
+                        if let Some(_) = entry {
+                            create_with_timestamps_list.push(entry.unwrap());
+                        }
+                    } else if slice_u8[0..8] == lockup_linear_v10_methods::Renounce::DISCRIMINATOR {
+                        let entry: Option<Renounce> = handle_renounce(index, &instruction);
+                        if let Some(_) = entry {
+                            renounce_list.push(entry.unwrap());
+                        }
+                    } else if slice_u8[0..8] == lockup_linear_v10_methods::Withdraw::DISCRIMINATOR {
+                        let entry: Option<Withdraw> = handle_withdraw(index, &instruction);
+                        if let Some(_) = entry {
+                            withdraw_list.push(entry.unwrap());
+                        }
+                    } else if slice_u8[0..8] == lockup_linear_v10_methods::WithdrawMax::DISCRIMINATOR {
+                        let entry: Option<WithdrawMax> = handle_withdraw_max(index, &instruction);
+                        if let Some(_) = entry {
+                            withdraw_max_list.push(entry.unwrap());
+                        }
                     }
                 }
 
-                if slice_u8[0..8] == idl::idl::lockup_linear_v10::client::args::Renounce::DISCRIMINATOR {
-                    let entry: Option<Renounce> = handle_renounce(index, &instruction);
-                    if let Some(_) = entry {
-                        renounce_list.push(entry.unwrap());
-                    }
-                }
-                if slice_u8[0..8] == idl::idl::lockup_linear_v10::client::args::Withdraw::DISCRIMINATOR {
-                    let entry: Option<Withdraw> = handle_withdraw(index, &instruction);
-                    if let Some(_) = entry {
-                        withdraw_list.push(entry.unwrap());
-                    }
-                }
-                if slice_u8[0..8] == idl::idl::lockup_linear_v10::client::args::WithdrawMax::DISCRIMINATOR {
-                    let entry: Option<WithdrawMax> = handle_withdraw_max(index, &instruction);
-                    if let Some(_) = entry {
-                        withdraw_max_list.push(entry.unwrap());
-                    }
+                if util::SPL_TOKEN_PROGRAM_ID == instruction.program_id().to_string().as_str() {
+                    let list: Vec<Transfer> = handle_spl_transfers(index, &instruction);
+
+                    list.iter().for_each(|entry| {
+                        spl_transfer_list.push(entry.clone());
+                    });
                 }
             });
     });
@@ -264,7 +312,7 @@ fn map_program_data(block: Block) -> Data {
     Data {
         cancel_list,
         create_with_timestamps_list,
-        transfer_list,
+        spl_transfer_list,
         renounce_list,
         withdraw_list,
         withdraw_max_list,

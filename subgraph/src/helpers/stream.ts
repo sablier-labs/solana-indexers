@@ -1,5 +1,5 @@
 import { BigInt } from "@graphprotocol/graph-ts";
-import { Stream, Contract } from "../../generated/schema";
+import { Stream, Contract, Ownership } from "../../generated/schema";
 import { getChainId, one, zero } from "../constants";
 import { getOrCreateContract } from "./contract";
 import { getOrCreateWatcher } from "./watcher";
@@ -63,8 +63,6 @@ function createStream(
   watcher.streamIndex = watcher.streamIndex.plus(one);
   watcher.save();
 
-  /** --------------- */
-
   return entity;
 }
 
@@ -89,6 +87,7 @@ export function createLinearStream(
   entity.category = "LockupLinear";
   entity.sender = event.sender;
   entity.recipient = event.recipient;
+  entity.recipientNFTAta = event.nftRecipientAta;
 
   entity.senderAta = event.senderAta;
 
