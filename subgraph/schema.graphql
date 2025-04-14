@@ -22,7 +22,9 @@ type Action @entity {
   block: BigInt!
   "category of action e.g. Deposit or Withdraw"
   category: ActionCategory!
-  "hardcoded chain id"
+  "hardcoded chain code, to be included in aliases and cross-chain filtering"
+  chainCode: String!
+  "hardcoded chain id, made up chain id to make chain definitions compatible with those on the EVM"
   chainId: BigInt!
   "hardcoded cluster name"
   cluster: String!
@@ -59,7 +61,9 @@ type Asset @entity(immutable: true) {
   address: String!
   "mint address of the asset/token"
   mint: String!
-  "hardcoded chain id"
+  "hardcoded chain code, to be included in aliases and cross-chain filtering"
+  chainCode: String!
+  "hardcoded chain id, made up chain id to make chain definitions compatible with those on the EVM"
   chainId: BigInt!
   "hardcoded cluster name"
   cluster: String!
@@ -82,7 +86,9 @@ type Contract @entity {
   "address of the contract"
   address: String!
 
-  "hardcoded chain id"
+  "hardcoded chain code, to be included in aliases and cross-chain filtering"
+  chainCode: String!
+  "hardcoded chain id, made up chain id to make chain definitions compatible with those on the EVM"
   chainId: BigInt!
   "hardcoded cluster name"
   cluster: String!
@@ -94,7 +100,7 @@ type Contract @entity {
 }
 
 type Stream @entity {
-  "unique identifier for the stream, resolving to the origin contract address concatenated with the chainId and the tokenId"
+  "unique identifier for the stream, resolving to the origin contract address concatenated with the chainCode and the tokenId"
   id: String!
 
   "hardcoded alias, resolved by replacing the contract address from the id with the contract alias"
@@ -108,7 +114,9 @@ type Stream @entity {
 
   "type of stream (for sorting reasons)"
   category: StreamCategory!
-  "hardcoded chain id"
+  "hardcoded chain code, to be included in aliases and cross-chain filtering"
+  chainCode: String!
+  "hardcoded chain id, made up chain id to make chain definitions compatible with those on the EVM"
   chainId: BigInt!
   "hardcoded cluster name"
   cluster: String!
@@ -193,7 +201,7 @@ type Stream @entity {
 }
 
 type Ownership @entity {
-  "nft mint address concatenated with chainId"
+  "nft mint address concatenated with chainCode"
   id: String!
 
   "nft mint"
@@ -205,7 +213,9 @@ type Ownership @entity {
   "associated token account between recipient and nft"
   owner_ata: String!
 
-  "hardcoded chain id"
+  "hardcoded chain code, to be included in aliases and cross-chain filtering"
+  chainCode: String!
+  "hardcoded chain id, made up chain id to make chain definitions compatible with those on the EVM"
   chainId: BigInt!
 
   "id of the stream token this ownership is referring to"
@@ -216,9 +226,11 @@ type Ownership @entity {
 }
 
 type Watcher @entity {
-  "unique identifier for the watcher, resolving to the chainId - there is one watcher for entire subgraph"
+  "unique identifier for the watcher, resolving to the chainCode - there is one watcher for entire subgraph"
   id: String!
-  "hardcoded chain id"
+  "hardcoded chain code, to be included in aliases and cross-chain filtering"
+  chainCode: String!
+  "hardcoded chain id, made up chain id to make chain definitions compatible with those on the EVM"
   chainId: BigInt!
   "hardcoded cluster name"
   cluster: String!

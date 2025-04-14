@@ -1,6 +1,12 @@
 import { BigInt } from "@graphprotocol/graph-ts";
 
-import { chainId, cluster, substream, linear } from "../../generated/env";
+import {
+  chainCode,
+  chainId,
+  cluster,
+  substream,
+  linear,
+} from "../../generated/env";
 
 export let zero = BigInt.fromI32(0);
 export let one = BigInt.fromI32(1);
@@ -15,13 +21,17 @@ export function getContractsLinear(): string[][] {
   }
   return linear.map<string[]>((item) => [
     item[0].toString(),
-    item[1].toString().toLowerCase(),
+    item[1].toString().toUpperCase(),
     item.length >= 3 ? item[2].toString() : StreamVersion_V10,
   ]);
 }
 
 export function getChainId(): BigInt {
   return BigInt.fromI32(chainId);
+}
+
+export function getChainCode(): string {
+  return chainCode;
 }
 
 export function getCluster(): string {

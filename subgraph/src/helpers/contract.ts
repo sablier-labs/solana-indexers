@@ -1,12 +1,14 @@
 import { BigInt } from "@graphprotocol/graph-ts";
 import { Contract } from "../../generated/schema";
-import { getChainId, getCluster, getContractsLinear } from "../constants";
+import {
+  getChainCode,
+  getChainId,
+  getCluster,
+  getContractsLinear,
+} from "../constants";
 
-export function getContractByAddress(
-  address: string,
-  chainId: BigInt
-): Contract | null {
-  return Contract.load(generateContractId(address, chainId));
+export function getContractByAddress(address: string): Contract | null {
+  return Contract.load(generateContractId(address));
 }
 
 export function getContractById(id: string): Contract | null {
@@ -14,11 +16,8 @@ export function getContractById(id: string): Contract | null {
 }
 
 export function getOrCreateContract(address: string): Contract {
-  let chainId = getChainId();
-  let cluster = getCluster();
-
-  let id = generateContractId(address, chainId);
-  let entity = getContractByAddress(address, chainId);
+  let id = generateContractId(address);
+  let entity = getContractByAddress(address);
 
   if (entity == null) {
     entity = new Contract(id);
@@ -42,8 +41,9 @@ export function getOrCreateContract(address: string): Contract {
 
   entity.alias = definition[1];
   entity.address = address;
-  entity.chainId = chainId;
-  entity.cluster = cluster;
+  entity.chainCode = getChainCode();
+  entity.chainId = getChainId();
+  entity.cluster = getCluster();
   entity.category = "LockupLinear";
   entity.version = definition[2];
 
@@ -55,11 +55,13 @@ export function getOrCreateContract(address: string): Contract {
 /** --------------------------------------------------------------------------------------------------------- */
 /** --------------------------------------------------------------------------------------------------------- */
 
-export function generateContractId(address: string, chainId: BigInt): string {
+export function generateContractId(address: string): string {
+  const chainCode = getChainCode();
+
   return ""
     .concat(address)
     .concat("-")
-    .concat(chainId.toString());
+    .concat(chainCode);
 }
 
 function _findContractIndex(haystack: string[][], needle: string): i32 {
