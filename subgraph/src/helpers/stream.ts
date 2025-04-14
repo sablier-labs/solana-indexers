@@ -1,6 +1,6 @@
 import { BigInt } from "@graphprotocol/graph-ts";
-import { Stream, Contract, Ownership } from "../../generated/schema";
-import { getChainId, one, zero } from "../constants";
+import { Stream, Contract } from "../../generated/schema";
+import { getChainCode, one, zero } from "../constants";
 import { getOrCreateContract } from "./contract";
 import { getOrCreateWatcher } from "./watcher";
 import { getOrCreateAsset } from "./asset";
@@ -35,6 +35,7 @@ function createStream(
   entity.instruction = instruction;
   entity.timestamp = timestamp;
 
+  entity.chainCode = watcher.chainCode;
   entity.chainId = watcher.chainId;
   entity.cluster = watcher.cluster;
 
@@ -139,12 +140,12 @@ export function createLinearStream(
 /** --------------------------------------------------------------------------------------------------------- */
 
 export function generateStreamId(tokenId: BigInt, program: string): string {
-  const chainId = getChainId();
+  const chainCode = getChainCode();
 
   let id = ""
     .concat(program)
     .concat("-")
-    .concat(chainId.toString())
+    .concat(chainCode)
     .concat("-")
     .concat(tokenId.toString());
 
@@ -158,7 +159,7 @@ export function generateStreamAlias(
   let alias = ""
     .concat(contract.alias)
     .concat("-")
-    .concat(contract.chainId.toString())
+    .concat(contract.chainCode)
     .concat("-")
     .concat(tokenId.toString());
 

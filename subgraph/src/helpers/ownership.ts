@@ -1,11 +1,9 @@
 import { BigInt } from "@graphprotocol/graph-ts";
 import { Ownership } from "../../generated/schema";
-import { getChainId } from "../constants";
+import { getChainCode, getChainId } from "../constants";
 
 export function getOwnership(mint: string): Ownership | null {
-  const chainId = getChainId();
-
-  return Ownership.load(generateOwnershipId(mint, chainId));
+  return Ownership.load(generateOwnershipId(mint));
 }
 
 export function createOwnership(
@@ -14,12 +12,11 @@ export function createOwnership(
   owner: string,
   owner_ata: string
 ): Ownership {
-  const chainId = getChainId();
-
-  let id = generateOwnershipId(mint, chainId);
+  let id = generateOwnershipId(mint);
   let entity = new Ownership(id);
 
-  entity.chainId = chainId;
+  entity.chainCode = getChainCode();
+  entity.chainId = getChainId();
   entity.tokenId = tokenId;
 
   entity.mint = mint;
@@ -33,9 +30,11 @@ export function createOwnership(
 /** --------------------------------------------------------------------------------------------------------- */
 /** --------------------------------------------------------------------------------------------------------- */
 
-export function generateOwnershipId(ata: string, chainId: BigInt): string {
+export function generateOwnershipId(ata: string): string {
+  const chainCode = getChainCode();
+
   return ""
     .concat(ata)
     .concat("-")
-    .concat(chainId.toString());
+    .concat(chainCode);
 }

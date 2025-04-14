@@ -1,6 +1,6 @@
-import { BigInt, log } from "@graphprotocol/graph-ts";
+import { BigInt } from "@graphprotocol/graph-ts";
 import { Action } from "../../generated/schema";
-import { one, zero } from "../constants";
+import { getChainCode, one, zero } from "../constants";
 import { getOrCreateContract } from "./contract";
 import { getOrCreateWatcher } from "./watcher";
 
@@ -16,13 +16,14 @@ export function createAction(
   instruction: BigInt
 ): Action {
   let watcher = getOrCreateWatcher();
-  let id = generateActionId(hash, watcher.chainId, instruction);
+  let id = generateActionId(hash, instruction);
   let entity = new Action(id);
 
   entity.block = block;
   entity.hash = hash;
   entity.timestamp = timestamp;
 
+  entity.chainCode = watcher.chainCode;
   entity.chainId = watcher.chainId;
   entity.cluster = watcher.cluster;
 
@@ -44,15 +45,13 @@ export function createAction(
 /** --------------------------------------------------------------------------------------------------------- */
 /** --------------------------------------------------------------------------------------------------------- */
 
-export function generateActionId(
-  hash: string,
-  chainId: BigInt,
-  instruction: BigInt
-): string {
+export function generateActionId(hash: string, instruction: BigInt): string {
+  const chainCode = getChainCode();
+
   return ""
     .concat(hash)
     .concat("-")
     .concat(instruction.toString())
     .concat("-")
-    .concat(chainId.toString());
+    .concat(chainCode);
 }
