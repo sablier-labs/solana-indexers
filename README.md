@@ -54,6 +54,8 @@ Either manually add the token to your shell or follow the automated process with
    yarn substream-auth # or simply substreams auth
 ```
 
+Don't forget to run the `.substreams.env` file if you generate it, for export to apply its effects and make the key available in the terminal.
+
 #### 3. Register with buf.build to avoid rate limits
 
 The system uses buf.build to create/validate protobufs.
@@ -61,6 +63,15 @@ It [rate-limits](https://buf.build/docs/bsr/rate-limits/) after 10 queries / hou
 
 ```
 buf registry login
+```
+
+#### 4. Register or connect to thegraph.com/studio and run auth
+
+Create or look for the subgraph profile and look for the authenticate & deploy section on the right hand side. You need to run the command below and paste the auth string.
+
+```bash
+   cd ./subgraph
+   yarn subgraph-auth # or simply substreams auth
 ```
 
 ## Development 👨‍💻

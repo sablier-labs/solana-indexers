@@ -21,7 +21,7 @@ export function getContractsLinear(): string[][] {
   }
   return linear.map<string[]>((item) => [
     item[0].toString(),
-    item[1].toString().toLowerCase(),
+    item[1].toString().toUpperCase(),
     item.length >= 3 ? item[2].toString() : StreamVersion_V10,
   ]);
 }
