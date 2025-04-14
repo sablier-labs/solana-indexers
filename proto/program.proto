@@ -5,10 +5,10 @@ package substreams.v1.program;
 message Data {
     repeated Cancel cancel_list = 1;
     repeated CreateWithTimestamps create_with_timestamps_list = 2;
-    repeated Transfer transfer_list = 3;
-    repeated Renounce renounce_list = 4;
-    repeated Withdraw withdraw_list = 5;
-    repeated WithdrawMax withdraw_max_list = 6;
+    repeated Renounce renounce_list = 3;
+    repeated Withdraw withdraw_list = 4;
+    repeated WithdrawMax withdraw_max_list = 5;
+    repeated Transfer spl_transfer_list = 6;
     uint64 block_number = 7;
     int64 block_timestamp = 8;
 }
@@ -63,6 +63,7 @@ message CreateWithTimestamps {
     uint64 stream_id = 18;
     string nft_mint = 19;
     string nft_data = 20;
+    string nft_recipient_ata = 21;
 
 }
 
@@ -84,16 +85,13 @@ message Transfer {
     uint64 instruction_index = 2;
     string transaction_hash = 3;
 
-    string sender = 4;
-    string sender_ata = 5;
+    string from = 4;
+    string to = 5;
+    string from_owner = 6;
+    string to_owner = 7;
+    string nft_mint = 8;
 
-    string recipient = 6;
-    string recipient_ata = 7;
-
-    uint64 stream_id = 8;
-    string nft_mint = 9;
-    string nft_data = 10;
-
+    uint64 amount = 9;
 }
 
 message Withdraw {

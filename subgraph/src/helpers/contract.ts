@@ -9,6 +9,10 @@ export function getContractByAddress(
   return Contract.load(generateContractId(address, chainId));
 }
 
+export function getContractById(id: string): Contract | null {
+  return Contract.load(id);
+}
+
 export function getOrCreateContract(address: string): Contract {
   let chainId = getChainId();
   let cluster = getCluster();

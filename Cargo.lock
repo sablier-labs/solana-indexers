@@ -1084,6 +1084,7 @@ dependencies = [
  "anchor-lang",
  "anyhow",
  "base64 0.22.1",
+ "borsh 0.10.4",
  "getrandom 0.2.15",
  "hex-literal",
  "num-bigint",

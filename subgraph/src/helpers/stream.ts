@@ -1,5 +1,5 @@
 import { BigInt } from "@graphprotocol/graph-ts";
-import { Stream, Contract } from "../../generated/schema";
+import { Stream, Contract, Ownership } from "../../generated/schema";
 import { getChainId, one, zero } from "../constants";
 import { getOrCreateContract } from "./contract";
 import { getOrCreateWatcher } from "./watcher";
@@ -63,8 +63,6 @@ function createStream(
   watcher.streamIndex = watcher.streamIndex.plus(one);
   watcher.save();
 
-  /** --------------- */
-
   return entity;
 }
 
@@ -89,6 +87,7 @@ export function createLinearStream(
   entity.category = "LockupLinear";
   entity.sender = event.sender;
   entity.recipient = event.recipient;
+  entity.recipientNFTAta = event.nftRecipientAta;
 
   entity.senderAta = event.senderAta;
 
@@ -166,7 +165,14 @@ export function generateStreamAlias(
   return alias;
 }
 
-export function getStreamById(tokenId: BigInt, program: string): Stream | null {
+export function getStreamByTokenId(
+  tokenId: BigInt,
+  program: string
+): Stream | null {
   let id = generateStreamId(tokenId, program);
   return Stream.load(id);
+}
+
+export function getStreamById(streamId: string): Stream | null {
+  return Stream.load(streamId);
 }

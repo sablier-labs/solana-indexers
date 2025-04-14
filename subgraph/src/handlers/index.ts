@@ -4,6 +4,7 @@ import {
   EventCancel,
   EventCreateWithTimestamps,
   EventRenounce,
+  EventSPLTransfer,
   EventWithdraw,
   EventWithdrawMax,
   ProtoData,
@@ -13,8 +14,10 @@ import {
   createLinearStream,
   generateStreamId,
   getStreamById,
+  getStreamByTokenId,
 } from "../helpers/stream";
-import { zero } from "../constants";
+import { createOwnership, getOwnership } from "../helpers/ownership";
+import { getContractById } from "../helpers/contract";
 
 export function handleCreateStream(
   event: EventCreateWithTimestamps,
@@ -48,12 +51,24 @@ export function handleCreateStream(
   action.stream = stream.id;
   action.save();
 
+  /** --------------- */
+
+  let ownership = createOwnership(
+    event.nftMint,
+    BigInt.fromU64(event.streamId),
+    event.recipient,
+    event.nftRecipientAta
+  );
+
+  ownership.stream = stream.id;
+  ownership.save();
+
   return stream;
 }
 
 export function handleCancel(event: EventCancel, system: ProtoData): void {
   let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamById(tokenId, event.instructionProgram);
+  let stream = getStreamByTokenId(tokenId, event.instructionProgram);
 
   if (stream == null) {
     log.info(
@@ -86,7 +101,9 @@ export function handleCancel(event: EventCancel, system: ProtoData): void {
   stream.canceled = true;
   stream.canceledAction = action.id;
   stream.canceledTime = BigInt.fromI64(system.blockTimestamp);
-  stream.intactAmount = zero; // TODO: Figure out the only amount remaining in the stream is the non-withdrawn recipient amount (same as amountB)
+  stream.intactAmount = stream.depositAmount
+    .minus(BigInt.fromU64(event.refunded))
+    .minus(stream.withdrawnAmount);
 
   stream.save();
   action.stream = stream.id;
@@ -95,7 +112,7 @@ export function handleCancel(event: EventCancel, system: ProtoData): void {
 
 export function handleRenounce(event: EventRenounce, system: ProtoData): void {
   let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamById(tokenId, event.instructionProgram);
+  let stream = getStreamByTokenId(tokenId, event.instructionProgram);
 
   if (stream == null) {
     log.info(
@@ -126,50 +143,70 @@ export function handleRenounce(event: EventRenounce, system: ProtoData): void {
   action.save();
 }
 
-// TODO: implement transfer watcher on the NFT - also change to EventTransfer
-export function handleTransfer(event: EventCancel, system: ProtoData): void {
-  let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamById(tokenId, event.instructionProgram);
+export function handleSPLTransfer(
+  event: EventSPLTransfer,
+  system: ProtoData
+): void {
+  let fromRecipient = event.fromOwner;
+
+  let toRecipient = event.toOwner;
+  let toRecipientAta = event.to;
+
+  let ownership = getOwnership(event.nftMint);
+
+  if (ownership == null) {
+    return;
+  }
+
+  let stream = getStreamById(ownership.stream);
 
   if (stream == null) {
     log.info(
-      "[SABLIER] Stream hasn't been registered before this cancel event: {}",
-      [generateStreamId(tokenId, event.instructionProgram)]
+      "[SABLIER] Stream hasn't been registered before this transfer event: {}",
+      [event.nftMint]
     );
     log.error("[SABLIER]", []);
     return;
   }
 
+  let contract = getContractById(stream.contract);
+
+  if (contract == null) {
+    return;
+  }
+
   let action = createAction(
-    event.instructionProgram,
+    contract.address,
     event.transactionHash,
     BigInt.fromI64(system.blockTimestamp),
     BigInt.fromU64(system.blockNumber),
     BigInt.fromU64(event.instructionIndex)
   );
 
-  let receiver = stream.recipient; // TODO: extract new recipient
-
   action.category = "Transfer";
-
-  action.addressA = stream.recipient;
-  action.addressB = receiver;
+  action.addressA = fromRecipient;
+  action.addressB = toRecipient;
 
   /** --------------- */
 
-  stream.recipient = receiver;
-  // stream.recipientAta = ; // TODO
-  // let parties = [stream.sender, receiver];
-  // stream.parties = parties
+  stream.recipient = toRecipient;
+  stream.recipientNFTAta = toRecipientAta;
+
+  let parties = [stream.sender, toRecipient];
+  stream.parties = parties;
+
+  ownership.owner = toRecipient;
+  ownership.owner_ata = toRecipientAta;
 
   stream.save();
   action.stream = stream.id;
   action.save();
+  ownership.save();
 }
 
 export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
   let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamById(tokenId, event.instructionProgram);
+  let stream = getStreamByTokenId(tokenId, event.instructionProgram);
 
   if (stream == null) {
     log.info(
@@ -220,7 +257,7 @@ export function handleWithdrawMax(
   system: ProtoData
 ): void {
   let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamById(tokenId, event.instructionProgram);
+  let stream = getStreamByTokenId(tokenId, event.instructionProgram);
 
   if (stream == null) {
     log.info(
@@ -242,7 +279,7 @@ export function handleWithdrawMax(
   let amount = BigInt.fromU64(event.amount);
 
   action.category = "Withdraw";
-  action.addressB = stream.recipient; // TODO: check if we have withdraw-to
+  action.addressB = stream.recipient;
   action.amountB = amount;
 
   /** --------------- */
