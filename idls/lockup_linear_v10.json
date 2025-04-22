@@ -1,5 +1,5 @@
 {
-  "address": "7KaQU8kYWDPcr9tbuMZWnWiVPUxQLjrjZ6jUU8rY1wqn",
+  "address": "CCbf8DjzYCUgSTRGDiTiff6LkeMgt9q1XkbLMByMFtgc",
   "metadata": {
     "name": "sablier_lockup",
     "version": "0.1.0",
@@ -180,6 +180,336 @@
         {
           "name": "lamports_amount",
           "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "create_with_durations",
+      "discriminator": [135, 197, 56, 17, 29, 134, 20, 211],
+      "accounts": [
+        {
+          "name": "sender",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "asset_mint"
+        },
+        {
+          "name": "sender_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "sender"
+              },
+              {
+                "kind": "account",
+                "path": "asset_token_program"
+              },
+              {
+                "kind": "account",
+                "path": "asset_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
+                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
+                219, 233, 248, 89
+              ]
+            }
+          }
+        },
+        {
+          "name": "recipient"
+        },
+        {
+          "name": "treasury",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [116, 114, 101, 97, 115, 117, 114, 121]
+              }
+            ]
+          }
+        },
+        {
+          "name": "treasury_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "treasury"
+              },
+              {
+                "kind": "account",
+                "path": "asset_token_program"
+              },
+              {
+                "kind": "account",
+                "path": "asset_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
+                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
+                219, 233, 248, 89
+              ]
+            }
+          }
+        },
+        {
+          "name": "nft_collection_data",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  110, 102, 116, 95, 99, 111, 108, 108, 101, 99, 116, 105, 111,
+                  110, 95, 100, 97, 116, 97
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "nft_collection_mint",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  110, 102, 116, 95, 99, 111, 108, 108, 101, 99, 116, 105, 111,
+                  110, 95, 109, 105, 110, 116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "nft_collection_metadata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [109, 101, 116, 97, 100, 97, 116, 97]
+              },
+              {
+                "kind": "account",
+                "path": "token_metadata_program"
+              },
+              {
+                "kind": "account",
+                "path": "nft_collection_mint"
+              }
+            ],
+            "program": {
+              "kind": "account",
+              "path": "token_metadata_program"
+            }
+          }
+        },
+        {
+          "name": "nft_collection_master_edition",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [109, 101, 116, 97, 100, 97, 116, 97]
+              },
+              {
+                "kind": "account",
+                "path": "token_metadata_program"
+              },
+              {
+                "kind": "account",
+                "path": "nft_collection_mint"
+              },
+              {
+                "kind": "const",
+                "value": [101, 100, 105, 116, 105, 111, 110]
+              }
+            ],
+            "program": {
+              "kind": "account",
+              "path": "token_metadata_program"
+            }
+          }
+        },
+        {
+          "name": "stream_nft_mint",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115, 116, 114, 101, 97, 109, 95, 110, 102, 116, 95, 109, 105,
+                  110, 116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "nft_collection_data.total_supply",
+                "account": "NftCollectionData"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stream_data",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [76, 76, 95, 115, 116, 114, 101, 97, 109]
+              },
+              {
+                "kind": "account",
+                "path": "stream_nft_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "recipients_stream_nft_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "recipient"
+              },
+              {
+                "kind": "account",
+                "path": "nft_token_program"
+              },
+              {
+                "kind": "account",
+                "path": "stream_nft_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
+                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
+                219, 233, 248, 89
+              ]
+            }
+          }
+        },
+        {
+          "name": "stream_nft_metadata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [109, 101, 116, 97, 100, 97, 116, 97]
+              },
+              {
+                "kind": "account",
+                "path": "token_metadata_program"
+              },
+              {
+                "kind": "account",
+                "path": "stream_nft_mint"
+              }
+            ],
+            "program": {
+              "kind": "account",
+              "path": "token_metadata_program"
+            }
+          }
+        },
+        {
+          "name": "stream_nft_master_edition",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [109, 101, 116, 97, 100, 97, 116, 97]
+              },
+              {
+                "kind": "account",
+                "path": "token_metadata_program"
+              },
+              {
+                "kind": "account",
+                "path": "stream_nft_mint"
+              },
+              {
+                "kind": "const",
+                "value": [101, 100, 105, 116, 105, 111, 110]
+              }
+            ],
+            "program": {
+              "kind": "account",
+              "path": "token_metadata_program"
+            }
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "asset_token_program"
+        },
+        {
+          "name": "nft_token_program"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "token_metadata_program",
+          "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "cliff_duration",
+          "type": "i64"
+        },
+        {
+          "name": "total_duration",
+          "type": "i64"
+        },
+        {
+          "name": "deposited_amount",
+          "type": "u64"
+        },
+        {
+          "name": "start_unlock",
+          "type": "u64"
+        },
+        {
+          "name": "cliff_unlock",
+          "type": "u64"
+        },
+        {
+          "name": "is_cancelable",
+          "type": "bool"
         }
       ]
     },
@@ -518,71 +848,6 @@
       ]
     },
     {
-      "name": "init_treasury_ata",
-      "discriminator": [35, 44, 23, 151, 95, 14, 81, 48],
-      "accounts": [
-        {
-          "name": "sender",
-          "writable": true,
-          "signer": true
-        },
-        {
-          "name": "asset_mint"
-        },
-        {
-          "name": "treasury",
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [116, 114, 101, 97, 115, 117, 114, 121]
-              }
-            ]
-          }
-        },
-        {
-          "name": "treasury_ata",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "account",
-                "path": "treasury"
-              },
-              {
-                "kind": "account",
-                "path": "asset_token_program"
-              },
-              {
-                "kind": "account",
-                "path": "asset_mint"
-              }
-            ],
-            "program": {
-              "kind": "const",
-              "value": [
-                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
-                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
-                219, 233, 248, 89
-              ]
-            }
-          }
-        },
-        {
-          "name": "system_program",
-          "address": "11111111111111111111111111111111"
-        },
-        {
-          "name": "asset_token_program"
-        },
-        {
-          "name": "associated_token_program",
-          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
-        }
-      ],
-      "args": []
-    },
-    {
       "name": "initialize_phase_one",
       "discriminator": [71, 18, 189, 131, 218, 35, 123, 13],
       "accounts": [
@@ -790,6 +1055,48 @@
           "name": "sender",
           "writable": true,
           "signer": true
+        },
+        {
+          "name": "asset_mint"
+        },
+        {
+          "name": "treasury",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [116, 114, 101, 97, 115, 117, 114, 121]
+              }
+            ]
+          }
+        },
+        {
+          "name": "treasury_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "treasury"
+              },
+              {
+                "kind": "account",
+                "path": "asset_token_program"
+              },
+              {
+                "kind": "account",
+                "path": "asset_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
+                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
+                219, 233, 248, 89
+              ]
+            }
+          }
         },
         {
           "name": "nft_collection_data",
@@ -1266,11 +1573,6 @@
       "discriminator": [30, 195, 140, 141, 173, 123, 253, 60],
       "accounts": [
         {
-          "name": "signer",
-          "writable": true,
-          "signer": true
-        },
-        {
           "name": "stream_nft_mint",
           "pda": {
             "seeds": [
@@ -1290,7 +1592,6 @@
         },
         {
           "name": "stream_data",
-          "writable": true,
           "pda": {
             "seeds": [
               {
@@ -1550,6 +1851,10 @@
           {
             "name": "stream_id",
             "type": "u64"
+          },
+          {
+            "name": "asset_decimals",
+            "type": "u8"
           },
           {
             "name": "recipient",
