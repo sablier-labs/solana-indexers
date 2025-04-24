@@ -244,7 +244,7 @@ export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
   }
 
   if (stream.recipientAta == null) {
-    stream.recipient = event.recipientAta;
+    stream.recipientAta = event.recipientAta;
   }
 
   stream.save();
@@ -295,7 +295,7 @@ export function handleWithdrawMax(
   }
 
   if (stream.recipientAta == null) {
-    stream.recipient = event.recipientAta;
+    stream.recipientAta = event.recipientAta;
   }
 
   stream.save();
