@@ -2,7 +2,7 @@ import { BigInt } from "@graphprotocol/graph-ts";
 import { Asset } from "../../generated/schema";
 import { getChainId, getChainCode, getCluster } from "../constants";
 
-export function getOrCreateAsset(mint: string, program: string): Asset {
+export function getOrCreateAsset(mint: string, program: string, decimals: u32): Asset {
   let id = generateAssetId(mint);
 
   let entity = Asset.load(id);
@@ -16,6 +16,7 @@ export function getOrCreateAsset(mint: string, program: string): Asset {
     entity.address = mint;
     entity.mint = mint;
     entity.program = program;
+    entity.decimals = BigInt.fromU32(decimals);
 
     entity.save();
   }

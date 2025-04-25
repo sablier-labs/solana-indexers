@@ -71,6 +71,9 @@ type Asset @entity(immutable: true) {
   "token program (manager) address of the asset/token"
   program: String!
 
+  "decimals of the asset/token"
+  decimals: BigInt!
+
   "streams that rely on this asset/token"
   streams: [Stream!]! @derivedFrom(field: "asset")
 }

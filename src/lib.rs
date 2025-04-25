@@ -61,11 +61,13 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
         let logs = util::get_anchor_logs(instruction);
 
         let mut stream_id = 0;
+        let mut token_decimals = 0;
 
         for log in logs {
             if log[0..8] == lockup_linear_v10_events::StreamCreation::DISCRIMINATOR {
                 if let Ok(event) = lockup_linear_v10_events::StreamCreation::deserialize(&mut &log[8..]) {
                     stream_id = event.stream_id;
+                    token_decimals = event.asset_decimals;
                 }
             }
         }
@@ -84,6 +86,7 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
             cancelable: arguments.is_cancelable,
 
             stream_id,
+            token_decimals: token_decimals as u32,
 
             sender: accounts[0].to_string(),
             token_mint: accounts[1].to_string(),

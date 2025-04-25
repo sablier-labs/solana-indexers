@@ -129,7 +129,7 @@ export function createLinearStream(
   }
 
   /** --------------- */
-  let asset = getOrCreateAsset(event.tokenMint, event.tokenProgram);
+  let asset = getOrCreateAsset(event.tokenMint, event.tokenProgram, event.tokenDecimals);
   entity.asset = asset.id;
 
   return entity;
