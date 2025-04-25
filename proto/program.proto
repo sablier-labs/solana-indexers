@@ -29,7 +29,7 @@ message Cancel {
 
     string treasury = 9;
     string treasury_ata = 10;
- 
+
     uint64 stream_id = 11;
     string nft_mint = 12;
     string nft_data = 13;
@@ -39,7 +39,7 @@ message CreateWithTimestamps {
     string instruction_program = 1;
     uint64 instruction_index = 2;
     string transaction_hash = 3;
-   
+
     int64 start_time = 4;
     int64 cliff_time = 5;
     int64 end_time = 6;
@@ -53,7 +53,7 @@ message CreateWithTimestamps {
     string sender = 11;
     string sender_ata = 12;
     string recipient = 13;
-    
+
     string token_mint = 14;
     string token_program = 15;
 
@@ -65,6 +65,7 @@ message CreateWithTimestamps {
     string nft_data = 20;
     string nft_recipient_ata = 21;
 
+    uint32 token_decimals = 22;
 }
 
 message Renounce {
@@ -115,9 +116,8 @@ message Withdraw {
     string nft_data = 13;
 
     string signer = 14;
-
-
 }
+
 message WithdrawMax {
     string instruction_program = 1;
     uint64 instruction_index = 2;
@@ -140,4 +140,3 @@ message WithdrawMax {
 
     string signer = 14;
 }
-
