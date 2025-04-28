@@ -4,7 +4,7 @@ package substreams.v1.program;
 
 message Data {
     repeated Cancel cancel_list = 1;
-    repeated CreateWithTimestamps create_with_timestamps_list = 2;
+    repeated Create create_list = 2;
     repeated Renounce renounce_list = 3;
     repeated Withdraw withdraw_list = 4;
     repeated WithdrawMax withdraw_max_list = 5;
@@ -35,7 +35,9 @@ message Cancel {
     string nft_data = 13;
 
 }
-message CreateWithTimestamps {
+
+
+message Create {
     string instruction_program = 1;
     uint64 instruction_index = 2;
     string transaction_hash = 3;
@@ -44,28 +46,30 @@ message CreateWithTimestamps {
     int64 cliff_time = 5;
     int64 end_time = 6;
 
-    uint64 deposited_amount = 7;
-    uint64 initial_amount = 8;
-    uint64 cliff_amount = 9;
+    int64 total_duration = 7;
+    int64 cliff_duration = 8;
 
-    bool cancelable = 10;
+    uint64 deposited_amount = 9;
+    uint64 initial_amount = 10;
+    uint64 cliff_amount = 11;
 
-    string sender = 11;
-    string sender_ata = 12;
-    string recipient = 13;
+    bool cancelable = 12;
 
-    string token_mint = 14;
-    string token_program = 15;
+    string sender = 13;
+    string sender_ata = 14;
+    string recipient = 15;
 
-    string treasury = 16;
-    string treasury_ata = 17;
+    string token_mint = 16;
+    string token_program = 17;
+    uint32 token_decimals = 18;
 
-    uint64 stream_id = 18;
-    string nft_mint = 19;
-    string nft_data = 20;
-    string nft_recipient_ata = 21;
+    string treasury = 19;
+    string treasury_ata = 20;
 
-    uint32 token_decimals = 22;
+    uint64 stream_id = 21;
+    string nft_mint = 22;
+    string nft_data = 23;
+    string nft_recipient_ata = 24;
 }
 
 message Renounce {

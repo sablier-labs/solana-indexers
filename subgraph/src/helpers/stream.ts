@@ -4,7 +4,7 @@ import { getChainCode, one, zero } from "../constants";
 import { getOrCreateContract } from "./contract";
 import { getOrCreateWatcher } from "./watcher";
 import { getOrCreateAsset } from "./asset";
-import { EventCreateWithTimestamps, ProtoData } from "../adapters";
+import { EventCreate, ProtoData } from "../adapters";
 
 function createStream(
   tokenId: BigInt,
@@ -68,7 +68,7 @@ function createStream(
 }
 
 export function createLinearStream(
-  event: EventCreateWithTimestamps,
+  event: EventCreate,
   system: ProtoData
 ): Stream | null {
   let tokenId = BigInt.fromU64(event.streamId);
@@ -105,10 +105,7 @@ export function createLinearStream(
   entity.cancelable = !!event.cancelable;
 
   /** --------------- */
-  let duration = BigInt.fromU64(event.endTime).minus(
-    BigInt.fromU64(event.startTime)
-  );
-  entity.duration = duration;
+  entity.duration = BigInt.fromI64(event.totalDuration);
 
   /** --------------- */
   let cliffTime = BigInt.fromU64(event.cliffTime);
@@ -129,7 +126,11 @@ export function createLinearStream(
   }
 
   /** --------------- */
-  let asset = getOrCreateAsset(event.tokenMint, event.tokenProgram, event.tokenDecimals);
+  let asset = getOrCreateAsset(
+    event.tokenMint,
+    event.tokenProgram,
+    event.tokenDecimals
+  );
   entity.asset = asset.id;
 
   return entity;
