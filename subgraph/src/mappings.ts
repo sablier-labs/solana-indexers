@@ -15,12 +15,12 @@ export function handleTriggers(bytes: Uint8Array): void {
     ProtoData.decode
   ) as ProtoData;
 
-  for (let i = 0; i < input.createWithTimestampsList.length; i++) {
-    handleCreateStream(input.createWithTimestampsList[i], input);
-  }
-
   for (let i = 0; i < input.cancelList.length; i++) {
     handleCancel(input.cancelList[i], input);
+  }
+
+  for (let i = 0; i < input.createList.length; i++) {
+    handleCreateStream(input.createList[i], input);
   }
 
   for (let i = 0; i < input.renounceList.length; i++) {

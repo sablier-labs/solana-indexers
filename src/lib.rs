@@ -9,9 +9,7 @@ use anchor_lang::Discriminator;
 use substreams_solana::block_view::InstructionView;
 use substreams_solana::pb::sf::solana::r#type::v1::Block;
 
-use generated::substreams::v1::program::{
-    Cancel, CreateWithTimestamps, Data, Renounce, Transfer, Withdraw, WithdrawMax,
-};
+use generated::substreams::v1::program::{Cancel, Create, Data, Renounce, Transfer, Withdraw, WithdrawMax};
 use idl::idl::lockup_linear_v10::{client::args as lockup_linear_v10_methods, events as lockup_linear_v10_events};
 
 fn handle_cancel(index: usize, instruction: &InstructionView) -> Option<Cancel> {
@@ -53,7 +51,67 @@ fn handle_cancel(index: usize, instruction: &InstructionView) -> Option<Cancel> 
     }
 }
 
-fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) -> Option<CreateWithTimestamps> {
+fn handle_create_with_durations(index: usize, instruction: &InstructionView, timestamp: i64) -> Option<Create> {
+    let slice_u8: &[u8] = &instruction.data()[..];
+
+    if let Ok(arguments) = lockup_linear_v10_methods::CreateWithDurations::deserialize(&mut &slice_u8[8..]) {
+        let accounts = instruction.accounts();
+        let logs = util::get_anchor_logs(instruction);
+
+        let mut stream_id = 0;
+        let mut token_decimals = 0;
+
+        for log in logs {
+            if log[0..8] == lockup_linear_v10_events::StreamCreation::DISCRIMINATOR {
+                if let Ok(event) = lockup_linear_v10_events::StreamCreation::deserialize(&mut &log[8..]) {
+                    stream_id = event.stream_id;
+                    token_decimals = event.asset_decimals;
+                }
+            }
+        }
+
+        let start_time = timestamp;
+        let cliff_time = start_time + arguments.cliff_duration;
+        let end_time = start_time + arguments.total_duration;
+
+        Some(Create {
+            transaction_hash: instruction.transaction().id(),
+            instruction_program: instruction.program_id().to_string(),
+            instruction_index: index as u64,
+
+            start_time,
+            cliff_time,
+            end_time,
+
+            cliff_duration: arguments.cliff_duration,
+            total_duration: arguments.total_duration,
+
+            deposited_amount: arguments.deposited_amount,
+            initial_amount: arguments.start_unlock,
+            cliff_amount: arguments.cliff_unlock,
+            cancelable: arguments.is_cancelable,
+
+            stream_id,
+            token_decimals: token_decimals as u32,
+
+            sender: accounts[0].to_string(),
+            token_mint: accounts[1].to_string(),
+            sender_ata: accounts[2].to_string(),
+            recipient: accounts[3].to_string(),
+            treasury: accounts[4].to_string(),
+            treasury_ata: accounts[5].to_string(),
+
+            nft_mint: accounts[10].to_string(),
+            nft_data: accounts[11].to_string(),
+            nft_recipient_ata: accounts[12].to_string(),
+            token_program: accounts[16].to_string(),
+        })
+    } else {
+        None
+    }
+}
+
+fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) -> Option<Create> {
     let slice_u8: &[u8] = &instruction.data()[..];
 
     if let Ok(arguments) = lockup_linear_v10_methods::CreateWithTimestamps::deserialize(&mut &slice_u8[8..]) {
@@ -72,7 +130,10 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
             }
         }
 
-        Some(CreateWithTimestamps {
+        let cliff_duration = arguments.cliff_time - arguments.start_time;
+        let total_duration = arguments.end_time - arguments.start_time;
+
+        Some(Create {
             transaction_hash: instruction.transaction().id(),
             instruction_program: instruction.program_id().to_string(),
             instruction_index: index as u64,
@@ -80,6 +141,10 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
             start_time: arguments.start_time,
             cliff_time: arguments.cliff_time,
             end_time: arguments.end_time,
+
+            cliff_duration,
+            total_duration,
+
             deposited_amount: arguments.deposited_amount,
             initial_amount: arguments.start_unlock,
             cliff_amount: arguments.cliff_unlock,
@@ -250,7 +315,7 @@ fn map_program_data(block: Block) -> Data {
         .collect();
 
     let mut cancel_list: Vec<Cancel> = Vec::new();
-    let mut create_with_timestamps_list: Vec<CreateWithTimestamps> = Vec::new();
+    let mut create_list: Vec<Create> = Vec::new();
     let mut renounce_list: Vec<Renounce> = Vec::new();
     let mut withdraw_list: Vec<Withdraw> = Vec::new();
     let mut withdraw_max_list: Vec<WithdrawMax> = Vec::new();
@@ -279,10 +344,15 @@ fn map_program_data(block: Block) -> Data {
                         if let Some(_) = entry {
                             cancel_list.push(entry.unwrap());
                         }
-                    } else if slice_u8[0..8] == lockup_linear_v10_methods::CreateWithTimestamps::DISCRIMINATOR {
-                        let entry: Option<CreateWithTimestamps> = handle_create_with_timestamps(index, &instruction);
+                    } else if slice_u8[0..8] == lockup_linear_v10_methods::CreateWithDurations::DISCRIMINATOR {
+                        let entry: Option<Create> = handle_create_with_durations(index, &instruction, block_timestamp);
                         if let Some(_) = entry {
-                            create_with_timestamps_list.push(entry.unwrap());
+                            create_list.push(entry.unwrap());
+                        }
+                    } else if slice_u8[0..8] == lockup_linear_v10_methods::CreateWithTimestamps::DISCRIMINATOR {
+                        let entry: Option<Create> = handle_create_with_timestamps(index, &instruction);
+                        if let Some(_) = entry {
+                            create_list.push(entry.unwrap());
                         }
                     } else if slice_u8[0..8] == lockup_linear_v10_methods::Renounce::DISCRIMINATOR {
                         let entry: Option<Renounce> = handle_renounce(index, &instruction);
@@ -314,7 +384,7 @@ fn map_program_data(block: Block) -> Data {
 
     Data {
         cancel_list,
-        create_with_timestamps_list,
+        create_list,
         spl_transfer_list,
         renounce_list,
         withdraw_list,

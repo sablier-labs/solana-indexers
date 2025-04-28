@@ -2,7 +2,7 @@ import { BigInt, log } from "@graphprotocol/graph-ts";
 import { Stream } from "../../generated/schema";
 import {
   EventCancel,
-  EventCreateWithTimestamps,
+  EventCreate,
   EventRenounce,
   EventSPLTransfer,
   EventWithdraw,
@@ -20,7 +20,7 @@ import { createOwnership, getOwnership } from "../helpers/ownership";
 import { getContractById } from "../helpers/contract";
 
 export function handleCreateStream(
-  event: EventCreateWithTimestamps,
+  event: EventCreate,
   system: ProtoData
 ): Stream | null {
   let stream = createLinearStream(event, system);
