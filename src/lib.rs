@@ -22,9 +22,9 @@ fn handle_cancel(index: usize, instruction: &InstructionView) -> Option<Cancel> 
         let mut refunded = 0;
 
         for log in logs {
-            if log[0..8] == lockup_linear_v10_events::StreamCancelation::DISCRIMINATOR {
-                if let Ok(event) = lockup_linear_v10_events::StreamCancelation::deserialize(&mut &log[8..]) {
-                    refunded = event.refunded_amount;
+            if log[0..8] == lockup_linear_v10_events::CancelLockupStream::DISCRIMINATOR {
+                if let Ok(event) = lockup_linear_v10_events::CancelLockupStream::deserialize(&mut &log[8..]) {
+                    refunded = event.sender_amount;
                 }
             }
         }
@@ -62,10 +62,12 @@ fn handle_create_with_durations(index: usize, instruction: &InstructionView, tim
         let mut token_decimals = 0;
 
         for log in logs {
-            if log[0..8] == lockup_linear_v10_events::StreamCreation::DISCRIMINATOR {
-                if let Ok(event) = lockup_linear_v10_events::StreamCreation::deserialize(&mut &log[8..]) {
+            if log[0..8] == lockup_linear_v10_events::CreateLockupLinearStream::DISCRIMINATOR {
+                if let Ok(event) = lockup_linear_v10_events::CreateLockupLinearStream::deserialize(&mut &log[8..]) {
                     stream_id = event.stream_id;
-                    token_decimals = event.asset_decimals;
+                    // TODO: Uncomment for the new program version
+                    // token_decimals = event.asset_decimals;
+                    token_decimals = 9;
                 }
             }
         }
@@ -122,10 +124,12 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
         let mut token_decimals = 0;
 
         for log in logs {
-            if log[0..8] == lockup_linear_v10_events::StreamCreation::DISCRIMINATOR {
-                if let Ok(event) = lockup_linear_v10_events::StreamCreation::deserialize(&mut &log[8..]) {
+            if log[0..8] == lockup_linear_v10_events::CreateLockupLinearStream::DISCRIMINATOR {
+                if let Ok(event) = lockup_linear_v10_events::CreateLockupLinearStream::deserialize(&mut &log[8..]) {
                     stream_id = event.stream_id;
-                    token_decimals = event.asset_decimals;
+                    // TODO: Uncomment for the new program version
+                    // token_decimals = event.asset_decimals;
+                    token_decimals = 9;
                 }
             }
         }
@@ -274,8 +278,8 @@ fn handle_withdraw_max(index: usize, instruction: &InstructionView) -> Option<Wi
         let mut amount = 0;
 
         for log in logs {
-            if log[0..8] == lockup_linear_v10_events::StreamWithdrawal::DISCRIMINATOR {
-                if let Ok(event) = lockup_linear_v10_events::StreamWithdrawal::deserialize(&mut &log[8..]) {
+            if log[0..8] == lockup_linear_v10_events::WithdrawFromLockupStream::DISCRIMINATOR {
+                if let Ok(event) = lockup_linear_v10_events::WithdrawFromLockupStream::deserialize(&mut &log[8..]) {
                     amount = event.withdrawn_amount;
                 }
             }

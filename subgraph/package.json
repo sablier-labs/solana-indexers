@@ -34,7 +34,7 @@
     "_codegen-proto-rs": "cd ../ && substreams protogen ./substreams.yaml",
     "_codegen-yaml": "mustache ../constants/$CLUSTER.json ../templates/substreams.mustache > ../substreams.yaml",
     "_subgraph-deploy": "graph deploy --studio $NAME",
-    "deploy:devnet": "CLUSTER=devnet NAME=sablier-solana-lockup-experimental-2 yarn _subgraph-deploy",
+    "deploy:devnet": "CLUSTER=devnet NAME=sablier-solana-lockup-experimental-1-0-1 yarn _subgraph-deploy",
     "setup:devnet": "CLUSTER=devnet yarn _codegen",
     "subgraph-auth": "graph auth --studio",
     "subgraph-build": "graph build",
