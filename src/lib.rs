@@ -15,7 +15,7 @@ use idl::idl::lockup_linear_v10::{client::args as lockup_linear_v10_methods, eve
 fn handle_cancel(index: usize, instruction: &InstructionView) -> Option<Cancel> {
     let slice_u8: &[u8] = &instruction.data()[..];
 
-    if let Ok(arguments) = lockup_linear_v10_methods::Cancel::deserialize(&mut &slice_u8[8..]) {
+    if let Ok(_arguments) = lockup_linear_v10_methods::Cancel::deserialize(&mut &slice_u8[8..]) {
         let accounts = instruction.accounts();
 
         let logs = util::get_anchor_logs(instruction);
@@ -35,16 +35,15 @@ fn handle_cancel(index: usize, instruction: &InstructionView) -> Option<Cancel> 
             transaction_hash: instruction.transaction().id(),
 
             refunded,
-            stream_id: arguments._stream_id,
 
             sender: accounts[0].to_string(),
-            token_mint: accounts[1].to_string(),
+            deposit_token_mint: accounts[1].to_string(),
             nft_mint: accounts[2].to_string(),
             nft_data: accounts[3].to_string(),
             sender_ata: accounts[4].to_string(),
             treasury: accounts[5].to_string(),
             treasury_ata: accounts[6].to_string(),
-            token_program: accounts[7].to_string(),
+            deposit_token_program: accounts[7].to_string(),
         })
     } else {
         None
@@ -58,16 +57,14 @@ fn handle_create_with_durations(index: usize, instruction: &InstructionView, tim
         let accounts = instruction.accounts();
         let logs = util::get_anchor_logs(instruction);
 
-        let mut stream_id = 0;
+        let mut nft_id: u64 = 0;
         let mut token_decimals = 0;
 
         for log in logs {
             if log[0..8] == lockup_linear_v10_events::CreateLockupLinearStream::DISCRIMINATOR {
                 if let Ok(event) = lockup_linear_v10_events::CreateLockupLinearStream::deserialize(&mut &log[8..]) {
-                    stream_id = event.stream_id;
-                    // TODO: Uncomment for the new program version
-                    // token_decimals = event.asset_decimals;
-                    token_decimals = 9;
+                    nft_id = event.nft_id;
+                    token_decimals = event.asset_decimals;
                 }
             }
         }
@@ -93,11 +90,11 @@ fn handle_create_with_durations(index: usize, instruction: &InstructionView, tim
             cliff_amount: arguments.cliff_unlock,
             cancelable: arguments.is_cancelable,
 
-            stream_id,
-            token_decimals: token_decimals as u32,
+            nft_id,
+            deposit_token_decimals: token_decimals as u32,
 
             sender: accounts[0].to_string(),
-            token_mint: accounts[1].to_string(),
+            deposit_token_mint: accounts[1].to_string(),
             sender_ata: accounts[2].to_string(),
             recipient: accounts[3].to_string(),
             treasury: accounts[4].to_string(),
@@ -106,7 +103,8 @@ fn handle_create_with_durations(index: usize, instruction: &InstructionView, tim
             nft_mint: accounts[10].to_string(),
             nft_data: accounts[11].to_string(),
             nft_recipient_ata: accounts[12].to_string(),
-            token_program: accounts[16].to_string(),
+            deposit_token_program: accounts[16].to_string(),
+            nft_token_program: accounts[17].to_string(),
         })
     } else {
         None
@@ -120,16 +118,14 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
         let accounts = instruction.accounts();
         let logs = util::get_anchor_logs(instruction);
 
-        let mut stream_id = 0;
+        let mut nft_id = 0;
         let mut token_decimals = 0;
 
         for log in logs {
             if log[0..8] == lockup_linear_v10_events::CreateLockupLinearStream::DISCRIMINATOR {
                 if let Ok(event) = lockup_linear_v10_events::CreateLockupLinearStream::deserialize(&mut &log[8..]) {
-                    stream_id = event.stream_id;
-                    // TODO: Uncomment for the new program version
-                    // token_decimals = event.asset_decimals;
-                    token_decimals = 9;
+                    nft_id = event.nft_id;
+                    token_decimals = event.asset_decimals;
                 }
             }
         }
@@ -154,11 +150,11 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
             cliff_amount: arguments.cliff_unlock,
             cancelable: arguments.is_cancelable,
 
-            stream_id,
-            token_decimals: token_decimals as u32,
+            nft_id,
+            deposit_token_decimals: token_decimals as u32,
 
             sender: accounts[0].to_string(),
-            token_mint: accounts[1].to_string(),
+            deposit_token_mint: accounts[1].to_string(),
             sender_ata: accounts[2].to_string(),
             recipient: accounts[3].to_string(),
             treasury: accounts[4].to_string(),
@@ -167,7 +163,8 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
             nft_mint: accounts[10].to_string(),
             nft_data: accounts[11].to_string(),
             nft_recipient_ata: accounts[12].to_string(),
-            token_program: accounts[16].to_string(),
+            deposit_token_program: accounts[16].to_string(),
+            nft_token_program: accounts[17].to_string(),
         })
     } else {
         None
@@ -177,15 +174,13 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
 fn handle_renounce(index: usize, instruction: &InstructionView) -> Option<Renounce> {
     let slice_u8: &[u8] = &instruction.data()[..];
 
-    if let Ok(arguments) = lockup_linear_v10_methods::Renounce::deserialize(&mut &slice_u8[8..]) {
+    if let Ok(_arguments) = lockup_linear_v10_methods::Renounce::deserialize(&mut &slice_u8[8..]) {
         let accounts = instruction.accounts();
 
         Some(Renounce {
             transaction_hash: instruction.transaction().id(),
             instruction_program: instruction.program_id().to_string(),
             instruction_index: index as u64,
-
-            stream_id: arguments._stream_id,
 
             sender: accounts[0].to_string(),
             nft_mint: accounts[1].to_string(),
@@ -249,19 +244,19 @@ fn handle_withdraw(index: usize, instruction: &InstructionView) -> Option<Withdr
             instruction_index: index as u64,
 
             amount: arguments.amount,
-            stream_id: arguments._stream_id,
 
             signer: accounts[0].to_string(),
-            token_mint: accounts[1].to_string(),
+            deposit_token_mint: accounts[1].to_string(),
             recipient: accounts[2].to_string(),
             recipient_ata: accounts[6].to_string(),
 
             treasury: accounts[7].to_string(),
             treasury_ata: accounts[8].to_string(),
-            token_program: accounts[10].to_string(),
+            deposit_token_program: accounts[10].to_string(),
 
             nft_mint: accounts[3].to_string(),
             nft_data: accounts[4].to_string(),
+            nft_token_program: accounts[12].to_string(),
         })
     } else {
         None
@@ -271,7 +266,7 @@ fn handle_withdraw(index: usize, instruction: &InstructionView) -> Option<Withdr
 fn handle_withdraw_max(index: usize, instruction: &InstructionView) -> Option<WithdrawMax> {
     let slice_u8: &[u8] = &instruction.data()[..];
 
-    if let Ok(arguments) = lockup_linear_v10_methods::WithdrawMax::deserialize(&mut &slice_u8[8..]) {
+    if let Ok(_arguments) = lockup_linear_v10_methods::WithdrawMax::deserialize(&mut &slice_u8[8..]) {
         let accounts = instruction.accounts();
         let logs = util::get_anchor_logs(instruction);
 
@@ -291,19 +286,20 @@ fn handle_withdraw_max(index: usize, instruction: &InstructionView) -> Option<Wi
             instruction_index: index as u64,
 
             amount,
-            stream_id: arguments._stream_id,
 
             signer: accounts[0].to_string(),
-            token_mint: accounts[1].to_string(),
+            deposit_token_mint: accounts[1].to_string(),
             recipient: accounts[2].to_string(),
             recipient_ata: accounts[6].to_string(),
 
             treasury: accounts[7].to_string(),
             treasury_ata: accounts[8].to_string(),
-            token_program: accounts[10].to_string(),
+            deposit_token_program: accounts[10].to_string(),
 
             nft_mint: accounts[3].to_string(),
             nft_data: accounts[4].to_string(),
+
+            nft_token_program: accounts[12].to_string(),
         })
     } else {
         None

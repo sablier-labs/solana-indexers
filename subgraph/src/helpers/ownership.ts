@@ -2,26 +2,24 @@ import { BigInt } from "@graphprotocol/graph-ts";
 import { Ownership } from "../../generated/schema";
 import { getChainCode, getChainId } from "../constants";
 
-export function getOwnership(mint: string): Ownership | null {
-  return Ownership.load(generateOwnershipId(mint));
+export function getOwnership(nftMint: string): Ownership | null {
+  return Ownership.load(generateOwnershipId(nftMint));
 }
 
 export function createOwnership(
-  mint: string,
-  tokenId: BigInt,
+  nftMint: string,
   owner: string,
-  owner_ata: string
+  ownerAta: string
 ): Ownership {
-  let id = generateOwnershipId(mint);
+  let id = generateOwnershipId(nftMint);
   let entity = new Ownership(id);
 
   entity.chainCode = getChainCode();
   entity.chainId = getChainId();
-  entity.tokenId = tokenId;
 
-  entity.mint = mint;
+  entity.nftMint = nftMint;
   entity.owner = owner;
-  entity.owner_ata = owner_ata;
+  entity.ownerAta = ownerAta;
 
   return entity;
 }
@@ -30,11 +28,11 @@ export function createOwnership(
 /** --------------------------------------------------------------------------------------------------------- */
 /** --------------------------------------------------------------------------------------------------------- */
 
-export function generateOwnershipId(ata: string): string {
+export function generateOwnershipId(nftMint: string): string {
   const chainCode = getChainCode();
 
   return ""
-    .concat(ata)
+    .concat(nftMint)
     .concat("-")
     .concat(chainCode);
 }

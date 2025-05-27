@@ -7,7 +7,7 @@ import { getOrCreateAsset } from "./asset";
 import { EventCreate, ProtoData } from "../adapters";
 
 function createStream(
-  tokenId: BigInt,
+  nftMint: string,
   program: string,
   instruction: BigInt,
   hash: string,
@@ -19,12 +19,12 @@ function createStream(
   let contract = getOrCreateContract(program);
 
   /** --------------- */
-  let id = generateStreamId(tokenId, program);
+  let id = generateStreamId(nftMint, program);
   if (id == null) {
     return null;
   }
 
-  let alias = generateStreamAlias(tokenId, contract);
+  let alias = generateStreamAlias(nftMint, contract);
 
   /** --------------- */
   let entity = new Stream(id);
@@ -39,7 +39,6 @@ function createStream(
   entity.chainId = watcher.chainId;
   entity.cluster = watcher.cluster;
 
-  entity.tokenId = tokenId;
   entity.alias = alias;
   entity.contract = contract.id;
   entity.version = contract.version;
@@ -71,9 +70,8 @@ export function createLinearStream(
   event: EventCreate,
   system: ProtoData
 ): Stream | null {
-  let tokenId = BigInt.fromU64(event.streamId);
   let entity = createStream(
-    tokenId,
+    event.nftMint,
     event.instructionProgram,
     BigInt.fromU64(event.instructionIndex),
     event.transactionHash,
@@ -127,9 +125,9 @@ export function createLinearStream(
 
   /** --------------- */
   let asset = getOrCreateAsset(
-    event.tokenMint,
-    event.tokenProgram,
-    event.tokenDecimals
+    event.depositTokenMint,
+    event.depositTokenProgram,
+    event.depositTokenDecimals
   );
   entity.asset = asset.id;
 
@@ -140,7 +138,7 @@ export function createLinearStream(
 /** --------------------------------------------------------------------------------------------------------- */
 /** --------------------------------------------------------------------------------------------------------- */
 
-export function generateStreamId(tokenId: BigInt, program: string): string {
+export function generateStreamId(nftMint: string, program: string): string {
   const chainCode = getChainCode();
 
   let id = ""
@@ -148,13 +146,13 @@ export function generateStreamId(tokenId: BigInt, program: string): string {
     .concat("-")
     .concat(chainCode)
     .concat("-")
-    .concat(tokenId.toString());
+    .concat(nftMint);
 
   return id;
 }
 
 export function generateStreamAlias(
-  tokenId: BigInt,
+  nftMint: string,
   contract: Contract
 ): string {
   let alias = ""
@@ -162,16 +160,16 @@ export function generateStreamAlias(
     .concat("-")
     .concat(contract.chainCode)
     .concat("-")
-    .concat(tokenId.toString());
+    .concat(nftMint);
 
   return alias;
 }
 
-export function getStreamByTokenId(
-  tokenId: BigInt,
+export function getStreamByNftMint(
+  nftMint: string,
   program: string
 ): Stream | null {
-  let id = generateStreamId(tokenId, program);
+  let id = generateStreamId(nftMint, program);
   return Stream.load(id);
 }
 
