@@ -53,11 +53,10 @@ function createStream(
   entity.initialAmount = null;
   entity.cliffAmount = null;
   entity.cliffTime = null;
-  entity.transferable = true; // All streams are transferable by default
+  entity.transferable = true; /**  All streams are transferable by default */
   entity.withdrawnAmount = zero;
 
-  entity.senderAta = null;
-  entity.recipientAta = null;
+  entity.senderAta = null; /** We don't initialize a recipientAta since it may (1) be unavailable at create and (2) change with transfers or withdraw-to */
 
   /** --------------- */
   watcher.streamIndex = watcher.streamIndex.plus(one);
@@ -83,6 +82,7 @@ export function createLinearStream(
   }
 
   /** --------------- */
+  entity.salt = event.salt;
   entity.category = "LockupLinear";
   entity.sender = event.sender;
   entity.recipient = event.recipient;

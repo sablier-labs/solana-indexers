@@ -1,5 +1,5 @@
 {
-  "address": "Cm9PddjQKbWdtBBh9SGejbuLHqNjcYFN6BU3WHr26nMV",
+  "address": "D3r1tE8k6Ea7GpSP9gQba12VWMzq9xkyNcgfZcCh9U2z",
   "metadata": {
     "name": "sablier_lockup",
     "version": "0.1.0",
@@ -20,26 +20,7 @@
           "name": "asset_mint"
         },
         {
-          "name": "stream_nft_mint",
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115, 116, 114, 101, 97, 109, 95, 110, 102, 116, 95, 109, 105,
-                  110, 116
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "sender"
-              },
-              {
-                "kind": "arg",
-                "path": "salt"
-              }
-            ]
-          }
+          "name": "stream_nft_mint"
         },
         {
           "name": "stream_data",
@@ -55,6 +36,34 @@
                 "path": "stream_nft_mint"
               }
             ]
+          }
+        },
+        {
+          "name": "stream_data_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "stream_data"
+              },
+              {
+                "kind": "account",
+                "path": "deposit_token_program"
+              },
+              {
+                "kind": "account",
+                "path": "asset_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
+                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
+                219, 233, 248, 89
+              ]
+            }
           }
         },
         {
@@ -86,46 +95,6 @@
           }
         },
         {
-          "name": "treasury",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [116, 114, 101, 97, 115, 117, 114, 121]
-              }
-            ]
-          }
-        },
-        {
-          "name": "treasury_ata",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "account",
-                "path": "treasury"
-              },
-              {
-                "kind": "account",
-                "path": "deposit_token_program"
-              },
-              {
-                "kind": "account",
-                "path": "asset_mint"
-              }
-            ],
-            "program": {
-              "kind": "const",
-              "value": [
-                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
-                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
-                219, 233, 248, 89
-              ]
-            }
-          }
-        },
-        {
           "name": "deposit_token_program"
         },
         {
@@ -133,12 +102,7 @@
           "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
         }
       ],
-      "args": [
-        {
-          "name": "salt",
-          "type": "u64"
-        }
-      ]
+      "args": []
     },
     {
       "name": "collect_fees",
@@ -212,45 +176,6 @@
           "name": "recipient"
         },
         {
-          "name": "treasury",
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [116, 114, 101, 97, 115, 117, 114, 121]
-              }
-            ]
-          }
-        },
-        {
-          "name": "treasury_ata",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "account",
-                "path": "treasury"
-              },
-              {
-                "kind": "account",
-                "path": "deposit_token_program"
-              },
-              {
-                "kind": "account",
-                "path": "asset_mint"
-              }
-            ],
-            "program": {
-              "kind": "const",
-              "value": [
-                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
-                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
-                219, 233, 248, 89
-              ]
-            }
-          }
-        },
-        {
           "name": "nft_collection_data",
           "writable": true,
           "pda": {
@@ -372,6 +297,34 @@
           }
         },
         {
+          "name": "stream_data_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "stream_data"
+              },
+              {
+                "kind": "account",
+                "path": "deposit_token_program"
+              },
+              {
+                "kind": "account",
+                "path": "asset_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
+                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
+                219, 233, 248, 89
+              ]
+            }
+          }
+        },
+        {
           "name": "recipient_stream_nft_ata",
           "writable": true,
           "pda": {
@@ -477,7 +430,7 @@
       "args": [
         {
           "name": "salt",
-          "type": "u64"
+          "type": "u128"
         },
         {
           "name": "deposited_amount",
@@ -549,45 +502,6 @@
           "name": "recipient"
         },
         {
-          "name": "treasury",
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [116, 114, 101, 97, 115, 117, 114, 121]
-              }
-            ]
-          }
-        },
-        {
-          "name": "treasury_ata",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "account",
-                "path": "treasury"
-              },
-              {
-                "kind": "account",
-                "path": "deposit_token_program"
-              },
-              {
-                "kind": "account",
-                "path": "asset_mint"
-              }
-            ],
-            "program": {
-              "kind": "const",
-              "value": [
-                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
-                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
-                219, 233, 248, 89
-              ]
-            }
-          }
-        },
-        {
           "name": "nft_collection_data",
           "writable": true,
           "pda": {
@@ -709,6 +623,34 @@
           }
         },
         {
+          "name": "stream_data_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "stream_data"
+              },
+              {
+                "kind": "account",
+                "path": "deposit_token_program"
+              },
+              {
+                "kind": "account",
+                "path": "asset_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
+                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
+                219, 233, 248, 89
+              ]
+            }
+          }
+        },
+        {
           "name": "recipient_stream_nft_ata",
           "writable": true,
           "pda": {
@@ -814,7 +756,7 @@
       "args": [
         {
           "name": "salt",
-          "type": "u64"
+          "type": "u128"
         },
         {
           "name": "deposited_amount",
@@ -1009,27 +951,7 @@
       "discriminator": [160, 136, 114, 120, 234, 178, 146, 58],
       "accounts": [
         {
-          "name": "stream_nft_mint",
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115, 116, 114, 101, 97, 109, 95, 110, 102, 116, 95, 109, 105,
-                  110, 116
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "stream_data.sender",
-                "account": "StreamData"
-              },
-              {
-                "kind": "arg",
-                "path": "_salt"
-              }
-            ]
-          }
+          "name": "stream_nft_mint"
         },
         {
           "name": "stream_data",
@@ -1047,12 +969,7 @@
           }
         }
       ],
-      "args": [
-        {
-          "name": "_salt",
-          "type": "u64"
-        }
-      ],
+      "args": [],
       "returns": "u64"
     },
     {
@@ -1065,26 +982,7 @@
           "signer": true
         },
         {
-          "name": "stream_nft_mint",
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115, 116, 114, 101, 97, 109, 95, 110, 102, 116, 95, 109, 105,
-                  110, 116
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "sender"
-              },
-              {
-                "kind": "arg",
-                "path": "salt"
-              }
-            ]
-          }
+          "name": "stream_nft_mint"
         },
         {
           "name": "stream_data",
@@ -1103,39 +1001,14 @@
           }
         }
       ],
-      "args": [
-        {
-          "name": "salt",
-          "type": "u64"
-        }
-      ]
+      "args": []
     },
     {
       "name": "status_of",
       "discriminator": [90, 214, 253, 237, 126, 236, 132, 237],
       "accounts": [
         {
-          "name": "stream_nft_mint",
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115, 116, 114, 101, 97, 109, 95, 110, 102, 116, 95, 109, 105,
-                  110, 116
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "stream_data.sender",
-                "account": "StreamData"
-              },
-              {
-                "kind": "arg",
-                "path": "_salt"
-              }
-            ]
-          }
+          "name": "stream_nft_mint"
         },
         {
           "name": "stream_data",
@@ -1153,12 +1026,7 @@
           }
         }
       ],
-      "args": [
-        {
-          "name": "_salt",
-          "type": "u64"
-        }
-      ],
+      "args": [],
       "returns": {
         "defined": {
           "name": "StreamStatus"
@@ -1170,27 +1038,7 @@
       "discriminator": [91, 69, 219, 48, 189, 26, 13, 33],
       "accounts": [
         {
-          "name": "stream_nft_mint",
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115, 116, 114, 101, 97, 109, 95, 110, 102, 116, 95, 109, 105,
-                  110, 116
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "stream_data.sender",
-                "account": "StreamData"
-              },
-              {
-                "kind": "arg",
-                "path": "_salt"
-              }
-            ]
-          }
+          "name": "stream_nft_mint"
         },
         {
           "name": "stream_data",
@@ -1208,12 +1056,7 @@
           }
         }
       ],
-      "args": [
-        {
-          "name": "_salt",
-          "type": "u64"
-        }
-      ],
+      "args": [],
       "returns": "u64"
     },
     {
@@ -1232,27 +1075,7 @@
           "name": "stream_recipient"
         },
         {
-          "name": "stream_nft_mint",
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115, 116, 114, 101, 97, 109, 95, 110, 102, 116, 95, 109, 105,
-                  110, 116
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "stream_data.sender",
-                "account": "StreamData"
-              },
-              {
-                "kind": "arg",
-                "path": "salt"
-              }
-            ]
-          }
+          "name": "stream_nft_mint"
         },
         {
           "name": "stream_data",
@@ -1268,6 +1091,34 @@
                 "path": "stream_nft_mint"
               }
             ]
+          }
+        },
+        {
+          "name": "stream_data_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "stream_data"
+              },
+              {
+                "kind": "account",
+                "path": "deposit_token_program"
+              },
+              {
+                "kind": "account",
+                "path": "asset_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
+                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
+                219, 233, 248, 89
+              ]
+            }
           }
         },
         {
@@ -1343,34 +1194,6 @@
           }
         },
         {
-          "name": "treasury_ata",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "account",
-                "path": "treasury"
-              },
-              {
-                "kind": "account",
-                "path": "deposit_token_program"
-              },
-              {
-                "kind": "account",
-                "path": "asset_mint"
-              }
-            ],
-            "program": {
-              "kind": "const",
-              "value": [
-                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
-                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
-                219, 233, 248, 89
-              ]
-            }
-          }
-        },
-        {
           "name": "system_program",
           "address": "11111111111111111111111111111111"
         },
@@ -1386,10 +1209,6 @@
         }
       ],
       "args": [
-        {
-          "name": "salt",
-          "type": "u64"
-        },
         {
           "name": "amount",
           "type": "u64"
@@ -1412,27 +1231,7 @@
           "name": "stream_recipient"
         },
         {
-          "name": "stream_nft_mint",
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115, 116, 114, 101, 97, 109, 95, 110, 102, 116, 95, 109, 105,
-                  110, 116
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "stream_data.sender",
-                "account": "StreamData"
-              },
-              {
-                "kind": "arg",
-                "path": "salt"
-              }
-            ]
-          }
+          "name": "stream_nft_mint"
         },
         {
           "name": "stream_data",
@@ -1448,6 +1247,34 @@
                 "path": "stream_nft_mint"
               }
             ]
+          }
+        },
+        {
+          "name": "stream_data_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "stream_data"
+              },
+              {
+                "kind": "account",
+                "path": "deposit_token_program"
+              },
+              {
+                "kind": "account",
+                "path": "asset_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
+                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
+                219, 233, 248, 89
+              ]
+            }
           }
         },
         {
@@ -1523,34 +1350,6 @@
           }
         },
         {
-          "name": "treasury_ata",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "account",
-                "path": "treasury"
-              },
-              {
-                "kind": "account",
-                "path": "deposit_token_program"
-              },
-              {
-                "kind": "account",
-                "path": "asset_mint"
-              }
-            ],
-            "program": {
-              "kind": "const",
-              "value": [
-                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
-                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
-                219, 233, 248, 89
-              ]
-            }
-          }
-        },
-        {
           "name": "system_program",
           "address": "11111111111111111111111111111111"
         },
@@ -1565,39 +1364,14 @@
           "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
         }
       ],
-      "args": [
-        {
-          "name": "salt",
-          "type": "u64"
-        }
-      ]
+      "args": []
     },
     {
       "name": "withdrawable_amount_of",
       "discriminator": [30, 195, 140, 141, 173, 123, 253, 60],
       "accounts": [
         {
-          "name": "stream_nft_mint",
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  115, 116, 114, 101, 97, 109, 95, 110, 102, 116, 95, 109, 105,
-                  110, 116
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "stream_data.sender",
-                "account": "StreamData"
-              },
-              {
-                "kind": "arg",
-                "path": "_salt"
-              }
-            ]
-          }
+          "name": "stream_nft_mint"
         },
         {
           "name": "stream_data",
@@ -1615,12 +1389,7 @@
           }
         }
       ],
-      "args": [
-        {
-          "name": "_salt",
-          "type": "u64"
-        }
-      ],
+      "args": [],
       "returns": "u64"
     }
   ],
@@ -1698,7 +1467,7 @@
     },
     {
       "code": 6007,
-      "name": "StartTimeZero",
+      "name": "StartTimeNotPositive",
       "msg": "Start time can't be zero!"
     },
     {
@@ -1772,10 +1541,6 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "salt",
-            "type": "u64"
-          },
-          {
             "name": "asset_mint",
             "type": "pubkey"
           },
@@ -1797,11 +1562,7 @@
         "fields": [
           {
             "name": "salt",
-            "type": "u64"
-          },
-          {
-            "name": "nft_id",
-            "type": "u64"
+            "type": "u128"
           },
           {
             "name": "asset_decimals",
@@ -1854,12 +1615,7 @@
       "name": "RenounceLockupStream",
       "type": {
         "kind": "struct",
-        "fields": [
-          {
-            "name": "salt",
-            "type": "u64"
-          }
-        ]
+        "fields": []
       }
     },
     {
@@ -1885,11 +1641,7 @@
           },
           {
             "name": "salt",
-            "type": "u64"
-          },
-          {
-            "name": "nft_id",
-            "type": "u64"
+            "type": "u128"
           },
           {
             "name": "is_cancelable",
@@ -1947,15 +1699,15 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "cliff_time",
+            "name": "cliff",
             "type": "i64"
           },
           {
-            "name": "end_time",
+            "name": "end",
             "type": "i64"
           },
           {
-            "name": "start_time",
+            "name": "start",
             "type": "i64"
           }
         ]
@@ -1982,10 +1734,6 @@
       "type": {
         "kind": "struct",
         "fields": [
-          {
-            "name": "salt",
-            "type": "u64"
-          },
           {
             "name": "withdrawn_amount",
             "type": "u64"

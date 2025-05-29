@@ -224,7 +224,7 @@ export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
   let amount = BigInt.fromU64(event.amount);
 
   action.category = "Withdraw";
-  action.addressB = stream.recipient;
+  action.addressB = event.toRecipient;
   action.amountB = amount;
 
   /** --------------- */
@@ -237,10 +237,6 @@ export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
     stream.intactAmount = stream.intactAmount.minus(amount);
   } else {
     stream.intactAmount = stream.depositAmount.minus(withdrawn);
-  }
-
-  if (stream.recipientAta == null) {
-    stream.recipientAta = event.recipientAta;
   }
 
   stream.save();
@@ -274,7 +270,7 @@ export function handleWithdrawMax(
   let amount = BigInt.fromU64(event.amount);
 
   action.category = "Withdraw";
-  action.addressB = stream.recipient;
+  action.addressB = event.toRecipient;
   action.amountB = amount;
 
   /** --------------- */
@@ -287,10 +283,6 @@ export function handleWithdrawMax(
     stream.intactAmount = stream.intactAmount.minus(amount);
   } else {
     stream.intactAmount = stream.depositAmount.minus(withdrawn);
-  }
-
-  if (stream.recipientAta == null) {
-    stream.recipientAta = event.recipientAta;
   }
 
   stream.save();

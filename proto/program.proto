@@ -27,11 +27,8 @@ message Cancel {
     string deposit_token_mint = 7;
     string deposit_token_program = 8;
 
-    string treasury = 9;
-    string treasury_ata = 10;
-
-    string nft_mint = 11;
-    string nft_data = 12;
+    string nft_mint = 9;
+    string nft_data = 10;
 
 }
 
@@ -62,14 +59,12 @@ message Create {
     string deposit_token_program = 17;
     uint32 deposit_token_decimals = 18;
 
-    string treasury = 19;
-    string treasury_ata = 20;
+    string nft_mint = 19;
+    string nft_data = 20;
+    string nft_recipient_ata = 21;
+    string nft_token_program = 22;
 
-    uint64 nft_id = 21;
-    string nft_mint = 22;
-    string nft_data = 23;
-    string nft_recipient_ata = 25;
-    string nft_token_program = 26;
+    string salt = 23;
 }
 
 message Renounce {
@@ -106,20 +101,18 @@ message Withdraw {
 
     uint64 amount = 4;
 
-    string recipient = 5;
-    string recipient_ata = 6;
+    string to_recipient = 5;
+    string to_recipient_ata = 6;
 
     string deposit_token_mint = 7;
     string deposit_token_program = 8;
 
-    string treasury = 9;
-    string treasury_ata = 10;
+    string nft_mint = 9;
+    string nft_data = 10;
+    string nft_recipient_ata = 11;
+    string nft_token_program = 12;
 
-    string nft_mint = 11;
-    string nft_data = 12;
-    string nft_token_program = 13;
-
-    string signer = 14;
+    string signer = 13;
 }
 
 message WithdrawMax {
@@ -129,18 +122,16 @@ message WithdrawMax {
 
     uint64 amount = 4;
 
-    string recipient = 5;
-    string recipient_ata = 6;
+    string to_recipient = 5;
+    string to_recipient_ata = 6;
 
     string deposit_token_mint = 7;
     string deposit_token_program = 8;
 
-    string treasury = 9;
-    string treasury_ata = 10;
-
-    string nft_mint = 11;
-    string nft_data = 12;
-    string nft_token_program = 13;
+    string nft_mint = 9;
+    string nft_data = 10;
+    string nft_recipient_ata = 11;
+    string nft_token_program = 12;
 
     string signer = 14;
 }

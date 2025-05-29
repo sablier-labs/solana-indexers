@@ -40,10 +40,8 @@ fn handle_cancel(index: usize, instruction: &InstructionView) -> Option<Cancel> 
             deposit_token_mint: accounts[1].to_string(),
             nft_mint: accounts[2].to_string(),
             nft_data: accounts[3].to_string(),
-            sender_ata: accounts[4].to_string(),
-            treasury: accounts[5].to_string(),
-            treasury_ata: accounts[6].to_string(),
-            deposit_token_program: accounts[7].to_string(),
+            sender_ata: accounts[5].to_string(),
+            deposit_token_program: accounts[6].to_string(),
         })
     } else {
         None
@@ -57,14 +55,14 @@ fn handle_create_with_durations(index: usize, instruction: &InstructionView, tim
         let accounts = instruction.accounts();
         let logs = util::get_anchor_logs(instruction);
 
-        let mut nft_id: u64 = 0;
+        let mut salt: String = String::new();
         let mut token_decimals = 0;
 
         for log in logs {
             if log[0..8] == lockup_linear_v10_events::CreateLockupLinearStream::DISCRIMINATOR {
                 if let Ok(event) = lockup_linear_v10_events::CreateLockupLinearStream::deserialize(&mut &log[8..]) {
-                    nft_id = event.nft_id;
                     token_decimals = event.asset_decimals;
+                    salt = event.salt.to_string();
                 }
             }
         }
@@ -90,21 +88,20 @@ fn handle_create_with_durations(index: usize, instruction: &InstructionView, tim
             cliff_amount: arguments.cliff_unlock,
             cancelable: arguments.is_cancelable,
 
-            nft_id,
+            salt,
             deposit_token_decimals: token_decimals as u32,
 
             sender: accounts[0].to_string(),
             deposit_token_mint: accounts[1].to_string(),
             sender_ata: accounts[2].to_string(),
             recipient: accounts[3].to_string(),
-            treasury: accounts[4].to_string(),
-            treasury_ata: accounts[5].to_string(),
 
-            nft_mint: accounts[10].to_string(),
-            nft_data: accounts[11].to_string(),
-            nft_recipient_ata: accounts[12].to_string(),
-            deposit_token_program: accounts[16].to_string(),
-            nft_token_program: accounts[17].to_string(),
+            nft_mint: accounts[8].to_string(),
+            nft_data: accounts[9].to_string(),
+
+            nft_recipient_ata: accounts[11].to_string(),
+            deposit_token_program: accounts[15].to_string(),
+            nft_token_program: accounts[16].to_string(),
         })
     } else {
         None
@@ -118,13 +115,13 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
         let accounts = instruction.accounts();
         let logs = util::get_anchor_logs(instruction);
 
-        let mut nft_id = 0;
+        let mut salt: String = String::new();
         let mut token_decimals = 0;
 
         for log in logs {
             if log[0..8] == lockup_linear_v10_events::CreateLockupLinearStream::DISCRIMINATOR {
                 if let Ok(event) = lockup_linear_v10_events::CreateLockupLinearStream::deserialize(&mut &log[8..]) {
-                    nft_id = event.nft_id;
+                    salt = event.salt.to_string();
                     token_decimals = event.asset_decimals;
                 }
             }
@@ -150,21 +147,20 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
             cliff_amount: arguments.cliff_unlock,
             cancelable: arguments.is_cancelable,
 
-            nft_id,
+            salt,
             deposit_token_decimals: token_decimals as u32,
 
             sender: accounts[0].to_string(),
             deposit_token_mint: accounts[1].to_string(),
             sender_ata: accounts[2].to_string(),
             recipient: accounts[3].to_string(),
-            treasury: accounts[4].to_string(),
-            treasury_ata: accounts[5].to_string(),
 
-            nft_mint: accounts[10].to_string(),
-            nft_data: accounts[11].to_string(),
-            nft_recipient_ata: accounts[12].to_string(),
-            deposit_token_program: accounts[16].to_string(),
-            nft_token_program: accounts[17].to_string(),
+            nft_mint: accounts[8].to_string(),
+            nft_data: accounts[9].to_string(),
+
+            nft_recipient_ata: accounts[11].to_string(),
+            deposit_token_program: accounts[15].to_string(),
+            nft_token_program: accounts[16].to_string(),
         })
     } else {
         None
@@ -247,15 +243,16 @@ fn handle_withdraw(index: usize, instruction: &InstructionView) -> Option<Withdr
 
             signer: accounts[0].to_string(),
             deposit_token_mint: accounts[1].to_string(),
-            recipient: accounts[2].to_string(),
-            recipient_ata: accounts[6].to_string(),
-
-            treasury: accounts[7].to_string(),
-            treasury_ata: accounts[8].to_string(),
-            deposit_token_program: accounts[10].to_string(),
 
             nft_mint: accounts[3].to_string(),
             nft_data: accounts[4].to_string(),
+
+            nft_recipient_ata: accounts[6].to_string(),
+
+            to_recipient: accounts[7].to_string(),
+            to_recipient_ata: accounts[8].to_string(),
+
+            deposit_token_program: accounts[11].to_string(),
             nft_token_program: accounts[12].to_string(),
         })
     } else {
@@ -289,16 +286,16 @@ fn handle_withdraw_max(index: usize, instruction: &InstructionView) -> Option<Wi
 
             signer: accounts[0].to_string(),
             deposit_token_mint: accounts[1].to_string(),
-            recipient: accounts[2].to_string(),
-            recipient_ata: accounts[6].to_string(),
-
-            treasury: accounts[7].to_string(),
-            treasury_ata: accounts[8].to_string(),
-            deposit_token_program: accounts[10].to_string(),
 
             nft_mint: accounts[3].to_string(),
             nft_data: accounts[4].to_string(),
 
+            nft_recipient_ata: accounts[6].to_string(),
+
+            to_recipient: accounts[7].to_string(),
+            to_recipient_ata: accounts[8].to_string(),
+
+            deposit_token_program: accounts[11].to_string(),
             nft_token_program: accounts[12].to_string(),
         })
     } else {

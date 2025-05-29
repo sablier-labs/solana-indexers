@@ -130,6 +130,9 @@ type Stream @entity {
   "timestamp of the stream creation (for sorting reasons)"
   timestamp: BigInt!
 
+  "unique salt used to create the stream - necessary to ensure parallel execution"
+  salt: String!
+
   "current recipient of the stream, can withdraw the funds (the recipient can change on stream/nft transfer)"
   recipient: String!
   "manager of the stream, defined at creation by the funder (usually the same as the funder)"
@@ -137,8 +140,6 @@ type Stream @entity {
   "list of relevant stream parties (for filtering) - sender, recipient, possibly sender's"
   parties: [String!]!
 
-  "associated token account for recipient and asset, may be missing on create only to be initialized after the first withdraw"
-  recipientAta: String
   "associated token account for sender and asset"
   senderAta: String
 
