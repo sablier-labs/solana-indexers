@@ -14,7 +14,7 @@ import {
   createLinearStream,
   generateStreamId,
   getStreamById,
-  getStreamByTokenId,
+  getStreamByNftMint,
 } from "../helpers/stream";
 import { createOwnership, getOwnership } from "../helpers/ownership";
 import { getContractById } from "../helpers/contract";
@@ -55,7 +55,6 @@ export function handleCreateStream(
 
   let ownership = createOwnership(
     event.nftMint,
-    BigInt.fromU64(event.streamId),
     event.recipient,
     event.nftRecipientAta
   );
@@ -67,13 +66,12 @@ export function handleCreateStream(
 }
 
 export function handleCancel(event: EventCancel, system: ProtoData): void {
-  let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamByTokenId(tokenId, event.instructionProgram);
+  let stream = getStreamByNftMint(event.nftData, event.instructionProgram);
 
   if (stream == null) {
     log.info(
       "[SABLIER] Stream hasn't been registered before this cancel event: {}",
-      [generateStreamId(tokenId, event.instructionProgram)]
+      [generateStreamId(event.nftData, event.instructionProgram)]
     );
     log.error("[SABLIER]", []);
     return;
@@ -111,13 +109,12 @@ export function handleCancel(event: EventCancel, system: ProtoData): void {
 }
 
 export function handleRenounce(event: EventRenounce, system: ProtoData): void {
-  let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamByTokenId(tokenId, event.instructionProgram);
+  let stream = getStreamByNftMint(event.nftData, event.instructionProgram);
 
   if (stream == null) {
     log.info(
       "[SABLIER] Stream hasn't been registered before this cancel event: {}",
-      [generateStreamId(tokenId, event.instructionProgram)]
+      [generateStreamId(event.nftData, event.instructionProgram)]
     );
     log.error("[SABLIER]", []);
     return;
@@ -196,7 +193,7 @@ export function handleSPLTransfer(
   stream.parties = parties;
 
   ownership.owner = toRecipient;
-  ownership.owner_ata = toRecipientAta;
+  ownership.ownerAta = toRecipientAta;
 
   stream.save();
   action.stream = stream.id;
@@ -205,13 +202,12 @@ export function handleSPLTransfer(
 }
 
 export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
-  let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamByTokenId(tokenId, event.instructionProgram);
+  let stream = getStreamByNftMint(event.nftData, event.instructionProgram);
 
   if (stream == null) {
     log.info(
       "[SABLIER] Stream hasn't been registered before this cancel event: {}",
-      [generateStreamId(tokenId, event.instructionProgram)]
+      [generateStreamId(event.nftData, event.instructionProgram)]
     );
     log.error("[SABLIER]", []);
     return;
@@ -228,7 +224,7 @@ export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
   let amount = BigInt.fromU64(event.amount);
 
   action.category = "Withdraw";
-  action.addressB = stream.recipient;
+  action.addressB = event.toRecipient;
   action.amountB = amount;
 
   /** --------------- */
@@ -241,10 +237,6 @@ export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
     stream.intactAmount = stream.intactAmount.minus(amount);
   } else {
     stream.intactAmount = stream.depositAmount.minus(withdrawn);
-  }
-
-  if (stream.recipientAta == null) {
-    stream.recipientAta = event.recipientAta;
   }
 
   stream.save();
@@ -256,13 +248,12 @@ export function handleWithdrawMax(
   event: EventWithdrawMax,
   system: ProtoData
 ): void {
-  let tokenId = BigInt.fromU64(event.streamId);
-  let stream = getStreamByTokenId(tokenId, event.instructionProgram);
+  let stream = getStreamByNftMint(event.nftMint, event.instructionProgram);
 
   if (stream == null) {
     log.info(
       "[SABLIER] Stream hasn't been registered before this cancel event: {}",
-      [generateStreamId(tokenId, event.instructionProgram)]
+      [generateStreamId(event.nftMint, event.instructionProgram)]
     );
     log.error("[SABLIER]", []);
     return;
@@ -279,7 +270,7 @@ export function handleWithdrawMax(
   let amount = BigInt.fromU64(event.amount);
 
   action.category = "Withdraw";
-  action.addressB = stream.recipient;
+  action.addressB = event.toRecipient;
   action.amountB = amount;
 
   /** --------------- */
@@ -292,10 +283,6 @@ export function handleWithdrawMax(
     stream.intactAmount = stream.intactAmount.minus(amount);
   } else {
     stream.intactAmount = stream.depositAmount.minus(withdrawn);
-  }
-
-  if (stream.recipientAta == null) {
-    stream.recipientAta = event.recipientAta;
   }
 
   stream.save();

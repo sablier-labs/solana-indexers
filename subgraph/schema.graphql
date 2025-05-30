@@ -103,15 +103,13 @@ type Contract @entity {
 }
 
 type Stream @entity {
-  "unique identifier for the stream, resolving to the origin contract address concatenated with the chainCode and the tokenId"
+  "unique identifier for the stream, resolving to the origin contract address concatenated with the chainCode and the nftMint"
   id: String!
 
   "hardcoded alias, resolved by replacing the contract address from the id with the contract alias"
   alias: String!
   "unique global id tracked by the subgraph watcher - 🚨 these may change if new contracts are added and the chronological order of streams changes"
   subgraphId: BigInt!
-  "unique identifier for the stream released by the origin contract - same as the tokenId or streamId values given by the contract"
-  tokenId: BigInt!
   "extended version of the lockup contracts (e.g. V10)"
   version: String!
 
@@ -132,6 +130,9 @@ type Stream @entity {
   "timestamp of the stream creation (for sorting reasons)"
   timestamp: BigInt!
 
+  "unique salt used to create the stream - necessary to ensure parallel execution"
+  salt: String!
+
   "current recipient of the stream, can withdraw the funds (the recipient can change on stream/nft transfer)"
   recipient: String!
   "manager of the stream, defined at creation by the funder (usually the same as the funder)"
@@ -139,8 +140,6 @@ type Stream @entity {
   "list of relevant stream parties (for filtering) - sender, recipient, possibly sender's"
   parties: [String!]!
 
-  "associated token account for recipient and asset, may be missing on create only to be initialized after the first withdraw"
-  recipientAta: String
   "associated token account for sender and asset"
   senderAta: String
 
@@ -208,21 +207,18 @@ type Ownership @entity {
   id: String!
 
   "nft mint"
-  mint: String!
+  nftMint: String!
 
   "owner account a.k.a stream recipient"
   owner: String!
 
   "associated token account between recipient and nft"
-  owner_ata: String!
+  ownerAta: String!
 
   "hardcoded chain code, to be included in aliases and cross-chain filtering"
   chainCode: String!
   "hardcoded chain id, made up chain id to make chain definitions compatible with those on the EVM"
   chainId: BigInt!
-
-  "id of the stream token this ownership is referring to"
-  tokenId: BigInt!
 
   "stream entity this ownership is referring to"
   stream: Stream!

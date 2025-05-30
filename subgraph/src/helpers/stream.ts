@@ -7,7 +7,7 @@ import { getOrCreateAsset } from "./asset";
 import { EventCreate, ProtoData } from "../adapters";
 
 function createStream(
-  tokenId: BigInt,
+  nftMint: string,
   program: string,
   instruction: BigInt,
   hash: string,
@@ -19,12 +19,12 @@ function createStream(
   let contract = getOrCreateContract(program);
 
   /** --------------- */
-  let id = generateStreamId(tokenId, program);
+  let id = generateStreamId(nftMint, program);
   if (id == null) {
     return null;
   }
 
-  let alias = generateStreamAlias(tokenId, contract);
+  let alias = generateStreamAlias(nftMint, contract);
 
   /** --------------- */
   let entity = new Stream(id);
@@ -39,7 +39,6 @@ function createStream(
   entity.chainId = watcher.chainId;
   entity.cluster = watcher.cluster;
 
-  entity.tokenId = tokenId;
   entity.alias = alias;
   entity.contract = contract.id;
   entity.version = contract.version;
@@ -54,11 +53,10 @@ function createStream(
   entity.initialAmount = null;
   entity.cliffAmount = null;
   entity.cliffTime = null;
-  entity.transferable = true; // All streams are transferable by default
+  entity.transferable = true; /**  All streams are transferable by default */
   entity.withdrawnAmount = zero;
 
-  entity.senderAta = null;
-  entity.recipientAta = null;
+  entity.senderAta = null; /** We don't initialize a recipientAta since it may (1) be unavailable at create and (2) change with transfers or withdraw-to */
 
   /** --------------- */
   watcher.streamIndex = watcher.streamIndex.plus(one);
@@ -71,9 +69,8 @@ export function createLinearStream(
   event: EventCreate,
   system: ProtoData
 ): Stream | null {
-  let tokenId = BigInt.fromU64(event.streamId);
   let entity = createStream(
-    tokenId,
+    event.nftMint,
     event.instructionProgram,
     BigInt.fromU64(event.instructionIndex),
     event.transactionHash,
@@ -85,6 +82,7 @@ export function createLinearStream(
   }
 
   /** --------------- */
+  entity.salt = event.salt;
   entity.category = "LockupLinear";
   entity.sender = event.sender;
   entity.recipient = event.recipient;
@@ -127,9 +125,9 @@ export function createLinearStream(
 
   /** --------------- */
   let asset = getOrCreateAsset(
-    event.tokenMint,
-    event.tokenProgram,
-    event.tokenDecimals
+    event.depositTokenMint,
+    event.depositTokenProgram,
+    event.depositTokenDecimals
   );
   entity.asset = asset.id;
 
@@ -140,7 +138,7 @@ export function createLinearStream(
 /** --------------------------------------------------------------------------------------------------------- */
 /** --------------------------------------------------------------------------------------------------------- */
 
-export function generateStreamId(tokenId: BigInt, program: string): string {
+export function generateStreamId(nftMint: string, program: string): string {
   const chainCode = getChainCode();
 
   let id = ""
@@ -148,13 +146,13 @@ export function generateStreamId(tokenId: BigInt, program: string): string {
     .concat("-")
     .concat(chainCode)
     .concat("-")
-    .concat(tokenId.toString());
+    .concat(nftMint);
 
   return id;
 }
 
 export function generateStreamAlias(
-  tokenId: BigInt,
+  nftMint: string,
   contract: Contract
 ): string {
   let alias = ""
@@ -162,16 +160,16 @@ export function generateStreamAlias(
     .concat("-")
     .concat(contract.chainCode)
     .concat("-")
-    .concat(tokenId.toString());
+    .concat(nftMint);
 
   return alias;
 }
 
-export function getStreamByTokenId(
-  tokenId: BigInt,
+export function getStreamByNftMint(
+  nftMint: string,
   program: string
 ): Stream | null {
-  let id = generateStreamId(tokenId, program);
+  let id = generateStreamId(nftMint, program);
   return Stream.load(id);
 }
 
