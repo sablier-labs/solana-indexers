@@ -1,5 +1,5 @@
 {
-  "address": "D3r1tE8k6Ea7GpSP9gQba12VWMzq9xkyNcgfZcCh9U2z",
+  "address": "DczGzCFQ5kHRBGVkH22HDdtduE4qaqopdc5HGLrAzfQD",
   "metadata": {
     "name": "sablier_lockup",
     "version": "0.1.0",
@@ -1545,12 +1545,20 @@
             "type": "pubkey"
           },
           {
+            "name": "recipient_amount",
+            "type": "u64"
+          },
+          {
             "name": "sender_amount",
             "type": "u64"
           },
           {
-            "name": "recipient_amount",
-            "type": "u64"
+            "name": "stream_data",
+            "type": "pubkey"
+          },
+          {
+            "name": "stream_nft_mint",
+            "type": "pubkey"
           }
         ]
       }
@@ -1561,15 +1569,27 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "salt",
-            "type": "u128"
-          },
-          {
             "name": "asset_decimals",
             "type": "u8"
           },
           {
+            "name": "asset_mint",
+            "type": "pubkey"
+          },
+          {
             "name": "recipient",
+            "type": "pubkey"
+          },
+          {
+            "name": "salt",
+            "type": "u128"
+          },
+          {
+            "name": "stream_data",
+            "type": "pubkey"
+          },
+          {
+            "name": "stream_nft_mint",
             "type": "pubkey"
           }
         ]
@@ -1581,16 +1601,16 @@
         "kind": "struct",
         "fields": [
           {
+            "name": "fee_amount",
+            "type": "u64"
+          },
+          {
             "name": "fee_collector",
             "type": "pubkey"
           },
           {
             "name": "fee_recipient",
             "type": "pubkey"
-          },
-          {
-            "name": "fee_amount",
-            "type": "u64"
           }
         ]
       }
@@ -1615,7 +1635,20 @@
       "name": "RenounceLockupStream",
       "type": {
         "kind": "struct",
-        "fields": []
+        "fields": [
+          {
+            "name": "asset_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "stream_data",
+            "type": "pubkey"
+          },
+          {
+            "name": "stream_nft_mint",
+            "type": "pubkey"
+          }
+        ]
       }
     },
     {
@@ -1734,6 +1767,18 @@
       "type": {
         "kind": "struct",
         "fields": [
+          {
+            "name": "asset_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "stream_data",
+            "type": "pubkey"
+          },
+          {
+            "name": "stream_nft_mint",
+            "type": "pubkey"
+          },
           {
             "name": "withdrawn_amount",
             "type": "u64"
