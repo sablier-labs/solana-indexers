@@ -68,8 +68,8 @@ fn handle_create_with_durations(index: usize, instruction: &InstructionView, tim
         }
 
         let start_time = timestamp;
-        let cliff_time = start_time + arguments.cliff_duration;
         let end_time = start_time + arguments.total_duration;
+        let cliff_time = if arguments.cliff_duration == 0 { 0 } else { start_time + arguments.cliff_duration };
 
         Some(Create {
             transaction_hash: instruction.transaction().id(),
@@ -127,7 +127,7 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
             }
         }
 
-        let cliff_duration = arguments.cliff_time - arguments.start_time;
+        let cliff_duration = if arguments.cliff_time == 0 { 0 } else { arguments.cliff_time - arguments.start_time };
         let total_duration = arguments.end_time - arguments.start_time;
 
         Some(Create {
