@@ -17,7 +17,9 @@ replay.log
 
 
 # Generated protobuf rs typings based on proto/*
-apps/*/src/generated
+
+apps/*/src/generated/
+
 
 # ------- SUBGRAPHS -------- #
 
@@ -25,4 +27,14 @@ apps/*/src/generated
 node_modules/
 
 apps/*/subgraph/build
-apps/*/subgraph/generated
+apps/*/subgraph/generated/
+
+# ------- YARN -------- #
+
+.yarn/*
+
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions

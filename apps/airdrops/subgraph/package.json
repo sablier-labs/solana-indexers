@@ -23,9 +23,9 @@
   "scripts": {
     "_codegen": "yarn _codegen-yaml && yarn _codegen-constants-rs && yarn _codegen-constants-assembly && yarn _codegen-proto-rs && yarn substream-build && yarn _codegen-proto-assembly && yarn _codegen-assembly",
     "_codegen-assembly": "graph codegen",
-    "_codegen-constants-assembly": "mustache ../../../packages/constants/$CLUSTER.json ../../../packages/templates/constants.ts.mustache > ../subgraph/generated/env.ts",
+    "_codegen-constants-assembly": "mkdir -p ../subgraph/generated && mustache ../../../packages/constants/$CLUSTER.json ../../../packages/templates/constants.ts.mustache > ../subgraph/generated/env.ts",
     "_codegen-constants-rs": "mkdir -p ../src/generated && mustache ../../../packages/constants/$CLUSTER.json ../../../packages/templates/constants.rs.mustache > ../src/generated/constants.rs",
-    "_codegen-proto-assembly": "buf generate --type=\"substreams.v1.program.Data\" ../airdrops-v1.0.0.spkg#format=bin > /dev/null 2>&1; echo ''; echo '^^^ $ buf generate output silenced'; echo ''",
+    "_codegen-proto-assembly": "sh -c '{ buf generate --type=\"substreams.v1.program.Data\" ../airdrops-v1.0.0.spkg#format=bin; } > /dev/null 2>&1; echo \"^^^ $ buf generate output silenced\"; echo \"\"'",
     "_codegen-proto-rs": "cd ../ && substreams protogen ./substreams.yaml",
     "_codegen-yaml": "mustache ../../../packages/constants/$CLUSTER.json ../../../packages/templates/airdrops/substreams.mustache > ../substreams.yaml",
     "_subgraph-deploy-aws": "dotenv -e ./../.env -- yarn _subgraph-deploy-aws-command",
