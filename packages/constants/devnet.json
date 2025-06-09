@@ -4,9 +4,13 @@
   "cluster": "devnet",
   "substream": "solana-devnet",
   "startBlock": {
-    "lockup": 384182200
+    "lockup": 384182200,
+    "airdrops": 384974690
   },
   "linear": {
     "V10": [["DczGzCFQ5kHRBGVkH22HDdtduE4qaqopdc5HGLrAzfQD", "LL", "V10"]]
+  },
+  "instant": {
+    "V10": [["9PgrjgDeajKz6268jbawtnXxfPrNHSoyAqtgQYW3Dp3h", "MI", "V10"]]
   }
 }

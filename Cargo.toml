@@ -1,8 +1,5 @@
 [workspace]
-members = [
-    "apps/lockup",
-    "packages/substream"
-]
+members = ["apps/lockup", "apps/airdrops", "packages/substream"]
 
 [workspace.dependencies]
 hex-literal = "0.3.4"
