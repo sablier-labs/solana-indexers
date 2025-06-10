@@ -9,8 +9,6 @@ use sablier_packages_substream as util;
 use substreams_solana::block_view::InstructionView;
 use substreams_solana::pb::sf::solana::r#type::v1::Block;
 
-use base64::engine::general_purpose::STANDARD;
-use base64::Engine;
 use generated::substreams::v1::program::{Claim, Clawback, Create, Data};
 use idl::idl::merkle_instant_v10::{client::args as merkle_instant_v10_methods, events as merkle_instant_v10_events};
 
@@ -45,7 +43,11 @@ fn handle_claim(index: usize, instruction: &InstructionView) -> Option<Claim> {
 
             index: leaf_index,
             amount: leaf_amount,
-            merkle_proof: arguments.merkle_proof.iter().map(|x| STANDARD.encode(x)).collect(),
+            merkle_proof: arguments
+                .merkle_proof
+                .iter()
+                .map(|proof| proof.iter().map(|b| format!("{:02x}", b)).collect::<String>())
+                .collect(),
 
             claimer: accounts[0].to_string(),
             campaign: accounts[1].to_string(),
@@ -112,7 +114,7 @@ fn handle_create(index: usize, instruction: &InstructionView) -> Option<Create> 
             instruction_index: index as u64,
             transaction_hash: instruction.transaction().id(),
 
-            merkle_root: vec![STANDARD.encode(arguments.merkle_root)],
+            merkle_root: arguments.merkle_root.iter().map(|b| format!("{:02x}", b)).collect::<String>(),
             expiration: arguments.expiration_time as u64,
             ipfs_cid: arguments.ipfs_id,
             name: arguments.name,

@@ -7,10 +7,10 @@
     "lockup": 384182200,
     "airdrops": 384974690
   },
-  "linear": {
+  "lockupLinear": {
     "V10": [["DczGzCFQ5kHRBGVkH22HDdtduE4qaqopdc5HGLrAzfQD", "LL", "V10"]]
   },
-  "instant": {
+  "merkleInstant": {
     "V10": [["9PgrjgDeajKz6268jbawtnXxfPrNHSoyAqtgQYW3Dp3h", "MI", "V10"]]
   }
 }

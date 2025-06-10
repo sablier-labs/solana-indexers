@@ -55,7 +55,7 @@ message Create {
     uint64 instruction_index = 2;
     string transaction_hash = 3;
 
-    repeated string merkle_root = 4;
+    string merkle_root = 4;
     uint64 expiration = 5;
     string ipfs_cid = 6;
     string name = 7;

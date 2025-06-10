@@ -1,50 +1,48 @@
-import { BigInt } from "@graphprotocol/graph-ts";
-import { Contract } from "../../generated/schema";
+import { Factory } from "../../generated/schema";
 import {
   getChainCode,
   getChainId,
   getCluster,
-  getContractsLockupLinear
+  getContractsMerkleInstant
 } from "../constants";
 
-export function getContractByAddress(address: string): Contract | null {
-  return Contract.load(generateContractId(address));
+export function getFactoryByAddress(address: string): Factory | null {
+  return Factory.load(generateFactoryId(address));
 }
 
-export function getContractById(id: string): Contract | null {
-  return Contract.load(id);
+export function getFactoryById(id: string): Factory | null {
+  return Factory.load(id);
 }
 
-export function getOrCreateContract(address: string): Contract {
-  let id = generateContractId(address);
-  let entity = getContractByAddress(address);
+export function getOrCreateFactory(address: string): Factory {
+  let id = generateFactoryId(address);
+  let entity = getFactoryByAddress(address);
 
   if (entity == null) {
-    entity = new Contract(id);
+    entity = new Factory(id);
   } else {
     return entity;
   }
 
-  /** Check if the contract is a Lockup Linear */
+  /** Check if the contract is a Merkle Instant */
 
-  let linear = getContractsLockupLinear();
-  let index = _findContractIndex(linear, address);
+  let contracts = getContractsMerkleInstant();
+  let index = _findFactoryIndex(contracts, address);
   if (index == -1) {
     throw new Error(
-      `Missing contract ${address} from configuration ${linear
+      `Missing contract ${address} from configuration ${contracts
         .map<string>(item => item[0])
         .join(",")}`
     );
   }
 
-  const definition = linear[index];
+  const definition = contracts[index];
 
   entity.alias = definition[1];
   entity.address = address;
   entity.chainCode = getChainCode();
   entity.chainId = getChainId();
   entity.cluster = getCluster();
-  entity.category = "LockupLinear";
   entity.version = definition[2];
 
   entity.save();
@@ -55,7 +53,7 @@ export function getOrCreateContract(address: string): Contract {
 /** --------------------------------------------------------------------------------------------------------- */
 /** --------------------------------------------------------------------------------------------------------- */
 
-export function generateContractId(address: string): string {
+export function generateFactoryId(address: string): string {
   const chainCode = getChainCode();
 
   return ""
@@ -64,7 +62,7 @@ export function generateContractId(address: string): string {
     .concat(chainCode);
 }
 
-function _findContractIndex(haystack: string[][], needle: string): i32 {
+function _findFactoryIndex(haystack: string[][], needle: string): i32 {
   let index: i32 = -1;
   for (let i = 0; i < haystack.length; i++) {
     if (haystack[i][0] == needle) {

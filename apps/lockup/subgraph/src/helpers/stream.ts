@@ -40,7 +40,6 @@ function createStream(
   entity.cluster = watcher.cluster;
 
   entity.alias = alias;
-  entity.contract = contract.id;
   entity.version = contract.version;
   entity.subgraphId = watcher.streamIndex;
 
