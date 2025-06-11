@@ -23,14 +23,15 @@ message Claim {
 
     string claimer = 7;
     string campaign = 8;
+    string campaign_ata = 9;
 
-    string recipient = 9;
-    string recipient_ata = 10;
-    string receipt = 11;
+    string recipient = 10;
+    string recipient_ata = 11;
+    string receipt = 12;
 
-    string airdrop_token_mint = 12;
-    string airdrop_token_program = 13;
-    uint32 airdrop_token_decimals = 14;
+    string airdrop_token_mint = 13;
+    string airdrop_token_program = 14;
+    uint32 airdrop_token_decimals = 15;
 }
 
 message Clawback {

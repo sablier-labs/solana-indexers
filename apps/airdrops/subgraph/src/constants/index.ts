@@ -1,4 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts";
+import { BigInt, log } from "@graphprotocol/graph-ts";
 
 import {
   chainCode,
@@ -53,4 +53,12 @@ export function getCluster(): string {
 
 export function getSubstreamCluster(): string {
   return substream;
+}
+
+export function log_exit(message: string, dependencies: string[] = []): void {
+  log.error(`Sablier Logger: ${message}`, dependencies);
+}
+
+export function log_debug(message: string, dependencies: string[] = []): void {
+  log.debug(`Sablier Logger: ${message}`, dependencies);
 }

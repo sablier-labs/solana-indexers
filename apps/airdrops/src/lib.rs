@@ -46,11 +46,12 @@ fn handle_claim(index: usize, instruction: &InstructionView) -> Option<Claim> {
             merkle_proof: arguments
                 .merkle_proof
                 .iter()
-                .map(|proof| proof.iter().map(|b| format!("{:02x}", b)).collect::<String>())
+                .map(|proof| format!("0x{}", proof.iter().map(|b| format!("{:02x}", b)).collect::<String>()))
                 .collect(),
 
             claimer: accounts[0].to_string(),
             campaign: accounts[1].to_string(),
+            campaign_ata: accounts[4].to_string(),
 
             recipient: accounts[5].to_string(),
             recipient_ata: accounts[6].to_string(),
@@ -114,7 +115,10 @@ fn handle_create(index: usize, instruction: &InstructionView) -> Option<Create> 
             instruction_index: index as u64,
             transaction_hash: instruction.transaction().id(),
 
-            merkle_root: arguments.merkle_root.iter().map(|b| format!("{:02x}", b)).collect::<String>(),
+            merkle_root: format!(
+                "0x{}",
+                arguments.merkle_root.iter().map(|b| format!("{:02x}", b)).collect::<String>()
+            ),
             expiration: arguments.expiration_time as u64,
             ipfs_cid: arguments.ipfs_id,
             name: arguments.name,

@@ -29,6 +29,9 @@ node_modules/
 apps/*/subgraph/build
 apps/*/subgraph/generated/
 
+apps/*/substream.yaml
+apps/*/subgraph/subgraph.yaml
+
 # ------- YARN -------- #
 
 .yarn/*

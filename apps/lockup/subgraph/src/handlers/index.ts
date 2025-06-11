@@ -7,17 +7,18 @@ import {
   EventSPLTransfer,
   EventWithdraw,
   EventWithdrawMax,
-  ProtoData,
+  ProtoData
 } from "../adapters";
 import { createAction } from "../helpers/action";
 import {
   createLinearStream,
   generateStreamId,
   getStreamById,
-  getStreamByNftMint,
+  getStreamByNftMint
 } from "../helpers/stream";
 import { createOwnership, getOwnership } from "../helpers/ownership";
 import { getContractById } from "../helpers/contract";
+import { log_exit } from "../constants";
 
 export function handleCreateStream(
   event: EventCreate,
@@ -69,11 +70,10 @@ export function handleCancel(event: EventCancel, system: ProtoData): void {
   let stream = getStreamByNftMint(event.nftData, event.instructionProgram);
 
   if (stream == null) {
-    log.info(
-      "[SABLIER] Stream hasn't been registered before this cancel event: {}",
-      [generateStreamId(event.nftData, event.instructionProgram)]
-    );
-    log.error("[SABLIER]", []);
+    log_exit("Stream hasn't been registered before this cancel event: {}", [
+      generateStreamId(event.nftData, event.instructionProgram)
+    ]);
+
     return;
   }
 
@@ -112,11 +112,9 @@ export function handleRenounce(event: EventRenounce, system: ProtoData): void {
   let stream = getStreamByNftMint(event.nftData, event.instructionProgram);
 
   if (stream == null) {
-    log.info(
-      "[SABLIER] Stream hasn't been registered before this cancel event: {}",
-      [generateStreamId(event.nftData, event.instructionProgram)]
-    );
-    log.error("[SABLIER]", []);
+    log_exit("Stream hasn't been registered before this cancel event: {}", [
+      generateStreamId(event.nftData, event.instructionProgram)
+    ]);
     return;
   }
 
@@ -158,11 +156,9 @@ export function handleSPLTransfer(
   let stream = getStreamById(ownership.stream);
 
   if (stream == null) {
-    log.info(
-      "[SABLIER] Stream hasn't been registered before this transfer event: {}",
-      [event.nftMint]
-    );
-    log.error("[SABLIER]", []);
+    log_exit("Stream hasn't been registered before this transfer event: {}", [
+      event.nftMint
+    ]);
     return;
   }
 
@@ -205,11 +201,9 @@ export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
   let stream = getStreamByNftMint(event.nftData, event.instructionProgram);
 
   if (stream == null) {
-    log.info(
-      "[SABLIER] Stream hasn't been registered before this cancel event: {}",
-      [generateStreamId(event.nftData, event.instructionProgram)]
-    );
-    log.error("[SABLIER]", []);
+    log_exit("Stream hasn't been registered before this cancel event: {}", [
+      generateStreamId(event.nftData, event.instructionProgram)
+    ]);
     return;
   }
 
@@ -251,11 +245,9 @@ export function handleWithdrawMax(
   let stream = getStreamByNftMint(event.nftMint, event.instructionProgram);
 
   if (stream == null) {
-    log.info(
-      "[SABLIER] Stream hasn't been registered before this cancel event: {}",
-      [generateStreamId(event.nftMint, event.instructionProgram)]
-    );
-    log.error("[SABLIER]", []);
+    log_exit("Stream hasn't been registered before this cancel event: {}", [
+      generateStreamId(event.nftMint, event.instructionProgram)
+    ]);
     return;
   }
 

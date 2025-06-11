@@ -38,6 +38,8 @@ type Action @entity {
   claimIndex: BigInt
   "claim action data: recipient index"
   claimRecipient: String
+  "claim action data: receipt account"
+  claimReceipt: String
 
   "clawback action data: amount"
   clawbackAmount: BigInt
@@ -93,12 +95,14 @@ type Asset @entity(immutable: true) {
 }
 
 type Campaign @entity {
-  "unique identifier for the campaign, resolving to the campaign ATA address concatenated with the chainCode"
+  "unique identifier for the campaign, resolving to the campaign account concatenated with the chainCode"
   id: String!
   "unique global id tracked by the subgraph watcher - 🚨 these may change if new contracts are added and the chronological order of streams changes"
   subgraphId: BigInt!
-  "address of the campaign ATA"
+  "address of the campaign account"
   address: String!
+  "address of the campaign ATA"
+  ata: String!
 
   "underlying asset"
   asset: Asset!

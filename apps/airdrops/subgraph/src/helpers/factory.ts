@@ -3,7 +3,8 @@ import {
   getChainCode,
   getChainId,
   getCluster,
-  getContractsMerkleInstant
+  getContractsMerkleInstant,
+  zero
 } from "../constants";
 
 export function getFactoryByAddress(address: string): Factory | null {
@@ -44,6 +45,8 @@ export function getOrCreateFactory(address: string): Factory {
   entity.chainId = getChainId();
   entity.cluster = getCluster();
   entity.version = definition[2];
+
+  entity.campaignIndex = zero;
 
   entity.save();
   return entity;
