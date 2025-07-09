@@ -31,7 +31,6 @@ message Claim {
 
     string airdrop_token_mint = 13;
     string airdrop_token_program = 14;
-    uint32 airdrop_token_decimals = 15;
 }
 
 message Clawback {
@@ -47,7 +46,6 @@ message Clawback {
 
     string airdrop_token_mint = 8;
     string airdrop_token_program = 9;
-    uint32 airdrop_token_decimals = 10;
 }
 
 
