@@ -23,15 +23,13 @@ fn handle_claim(index: usize, instruction: &InstructionView) -> Option<Claim> {
         let mut leaf_amount: u64 = 0;
         let mut leaf_index: u64 = 0;
         let mut leaf_receipt: String = String::new();
-        let mut decimals: u32 = 0;
 
         for log in logs {
-            if log[0..8] == merkle_instant_v10_events::Claimed::DISCRIMINATOR {
-                if let Ok(event) = merkle_instant_v10_events::Claimed::deserialize(&mut &log[8..]) {
+            if log[0..8] == merkle_instant_v10_events::Claim::DISCRIMINATOR {
+                if let Ok(event) = merkle_instant_v10_events::Claim::deserialize(&mut &log[8..]) {
                     leaf_amount = event.amount;
                     leaf_index = event.index as u64;
                     leaf_receipt = event.claim_receipt.to_string();
-                    decimals = 9; // TODO replace with event decimals in future versions
                 }
             }
         }
@@ -59,7 +57,6 @@ fn handle_claim(index: usize, instruction: &InstructionView) -> Option<Claim> {
 
             airdrop_token_mint: accounts[2].to_string(),
             airdrop_token_program: accounts[9].to_string(),
-            airdrop_token_decimals: decimals, // TODO replace with event decimals in future versions
         })
     } else {
         None
@@ -85,7 +82,6 @@ fn handle_clawback(index: usize, instruction: &InstructionView) -> Option<Clawba
 
             airdrop_token_mint: accounts[2].to_string(),
             airdrop_token_program: accounts[5].to_string(),
-            airdrop_token_decimals: 9, // TODO replace with event decimals in future versions
         })
     } else {
         None
@@ -100,12 +96,12 @@ fn handle_create(index: usize, instruction: &InstructionView) -> Option<Create> 
 
         let logs = util::get_anchor_logs(instruction);
 
-        let mut decimals: u32 = 0;
+        let mut token_decimals: u8 = 0;
 
         for log in logs {
-            if log[0..8] == merkle_instant_v10_events::CampaignCreated::DISCRIMINATOR {
-                if let Ok(_event) = merkle_instant_v10_events::CampaignCreated::deserialize(&mut &log[8..]) {
-                    decimals = 9 // TODO replace with event decimals in future versions;
+            if log[0..8] == merkle_instant_v10_events::CreateCampaign::DISCRIMINATOR {
+                if let Ok(event) = merkle_instant_v10_events::CreateCampaign::deserialize(&mut &log[8..]) {
+                    token_decimals = event.token_decimals;
                 }
             }
         }
@@ -120,7 +116,7 @@ fn handle_create(index: usize, instruction: &InstructionView) -> Option<Create> 
                 arguments.merkle_root.iter().map(|b| format!("{:02x}", b)).collect::<String>()
             ),
             expiration: arguments.expiration_time as u64,
-            ipfs_cid: arguments.ipfs_id,
+            ipfs_cid: arguments.ipfs_cid,
             name: arguments.name,
             aggregated_amount: arguments.aggregate_amount,
             recipient_count: arguments.recipient_count as u64,
@@ -130,8 +126,8 @@ fn handle_create(index: usize, instruction: &InstructionView) -> Option<Create> 
             campaign_ata: accounts[3].to_string(),
 
             airdrop_token_mint: accounts[1].to_string(),
-            airdrop_token_program: accounts[5].to_string(),
-            airdrop_token_decimals: decimals,
+            airdrop_token_program: accounts[4].to_string(),
+            airdrop_token_decimals: token_decimals as u32,
         })
     } else {
         None
