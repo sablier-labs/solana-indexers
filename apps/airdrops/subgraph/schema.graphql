@@ -26,6 +26,8 @@ type Action @entity {
   campaign: Campaign!
   "transaction details: hash"
   hash: String!
+  "address that triggered the transaction"
+  from: String!
 
   "unique global id tracked by the subgraph watcher"
   subgraphId: BigInt!
@@ -71,7 +73,7 @@ type Activity @entity {
 
 type Asset @entity(immutable: true) {
   "unique identifier resolving to the asset/token address"
-  id: ID!
+  id: String!
 
   "mint address of the asset/token"
   address: String!

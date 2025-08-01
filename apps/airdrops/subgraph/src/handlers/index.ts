@@ -22,7 +22,8 @@ export function handleClaim(event: EventClaim, system: ProtoData): void {
     event.transactionHash,
     BigInt.fromI64(system.blockTimestamp),
     BigInt.fromU64(system.blockNumber),
-    BigInt.fromU64(event.instructionIndex)
+    BigInt.fromU64(event.instructionIndex),
+    event.claimer
   );
 
   if (action == null) {
@@ -72,7 +73,8 @@ export function handleClawback(event: EventClawback, system: ProtoData): void {
     event.transactionHash,
     BigInt.fromI64(system.blockTimestamp),
     BigInt.fromU64(system.blockNumber),
-    BigInt.fromU64(event.instructionIndex)
+    BigInt.fromU64(event.instructionIndex),
+    event.creator
   );
 
   if (action == null) {
@@ -109,7 +111,8 @@ export function handleCreate(event: EventCreate, system: ProtoData): void {
     event.transactionHash,
     BigInt.fromI64(system.blockTimestamp),
     BigInt.fromU64(system.blockNumber),
-    BigInt.fromU64(event.instructionIndex)
+    BigInt.fromU64(event.instructionIndex),
+    event.creator
   );
 
   if (action == null) {
