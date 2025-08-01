@@ -13,7 +13,8 @@ export function createAction(
   hash: string,
   timestamp: BigInt,
   block: BigInt,
-  instruction: BigInt
+  instruction: BigInt,
+  from: string
 ): Action {
   let watcher = getOrCreateWatcher();
   let id = generateActionId(hash, instruction);
@@ -29,6 +30,7 @@ export function createAction(
 
   entity.category = category;
   entity.campaign = campaignId;
+  entity.from = from;
 
   entity.subgraphId = watcher.actionIndex;
   entity.fee = zero; // TODO: Implement fees

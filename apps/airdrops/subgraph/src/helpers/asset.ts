@@ -7,7 +7,7 @@ export function getOrCreateAsset(
   program: string,
   decimals: u32
 ): Asset {
-  let id = generateAssetId(mint);
+  let id = mint;
 
   let entity = Asset.load(id);
 
@@ -26,17 +26,4 @@ export function getOrCreateAsset(
   }
 
   return entity;
-}
-
-/** --------------------------------------------------------------------------------------------------------- */
-/** --------------------------------------------------------------------------------------------------------- */
-/** --------------------------------------------------------------------------------------------------------- */
-
-export function generateAssetId(address: string): string {
-  const chainCode = getChainCode();
-
-  return ""
-    .concat(address)
-    .concat("-")
-    .concat(chainCode);
 }
