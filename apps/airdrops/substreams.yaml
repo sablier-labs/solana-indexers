@@ -29,7 +29,7 @@ binaries:
 modules:
   - name: map_program_data
     kind: map
-    initialBlock: 393006576
+    initialBlock: 399854813
     inputs:
       - map: solana:blocks_without_votes
     output:
@@ -37,6 +37,6 @@ modules:
     blockFilter:
       module: solana:program_ids_without_votes
       query:
-        string: (program:TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA || program:TokenzQdBf9TtFzCwEDvqDxwaUnF6zq5qvQ8TF7vWc || program:GthZ6aQHJonsia3jpdrSBukxipyRfo9TR5ZrepGXLTQR)
+        string: (program:TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA || program:TokenzQdBf9TtFzCwEDvqDxwaUnF6zq5qvQ8TF7vWc || program:GrZhWdwBgZakydbyUMx1eTkCT5Eei7LC21i87Ag7Vh1D)
 
 network: solana-devnet

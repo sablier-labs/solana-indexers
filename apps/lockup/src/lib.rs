@@ -51,7 +51,7 @@ fn handle_cancel(index: usize, instruction: &InstructionView) -> Option<Cancel> 
 fn handle_create_with_durations(index: usize, instruction: &InstructionView, timestamp: i64) -> Option<Create> {
     let slice_u8: &[u8] = &instruction.data()[..];
 
-    if let Ok(arguments) = lockup_linear_v10_methods::CreateWithDurations::deserialize(&mut &slice_u8[8..]) {
+    if let Ok(arguments) = lockup_linear_v10_methods::CreateWithDurationsLl::deserialize(&mut &slice_u8[8..]) {
         let accounts = instruction.accounts();
         let logs = util::get_anchor_logs(instruction);
 
@@ -61,7 +61,7 @@ fn handle_create_with_durations(index: usize, instruction: &InstructionView, tim
         for log in logs {
             if log[0..8] == lockup_linear_v10_events::CreateLockupLinearStream::DISCRIMINATOR {
                 if let Ok(event) = lockup_linear_v10_events::CreateLockupLinearStream::deserialize(&mut &log[8..]) {
-                    token_decimals = event.asset_decimals;
+                    token_decimals = event.deposit_token_decimals;
                     salt = event.salt.to_string();
                 }
             }
@@ -83,9 +83,9 @@ fn handle_create_with_durations(index: usize, instruction: &InstructionView, tim
             cliff_duration: arguments.cliff_duration,
             total_duration: arguments.total_duration,
 
-            deposited_amount: arguments.deposited_amount,
-            initial_amount: arguments.start_unlock,
-            cliff_amount: arguments.cliff_unlock,
+            deposited_amount: arguments.deposit_amount,
+            initial_amount: arguments.start_unlock_amount,
+            cliff_amount: arguments.cliff_unlock_amount,
             cancelable: arguments.is_cancelable,
 
             salt,
@@ -111,7 +111,7 @@ fn handle_create_with_durations(index: usize, instruction: &InstructionView, tim
 fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) -> Option<Create> {
     let slice_u8: &[u8] = &instruction.data()[..];
 
-    if let Ok(arguments) = lockup_linear_v10_methods::CreateWithTimestamps::deserialize(&mut &slice_u8[8..]) {
+    if let Ok(arguments) = lockup_linear_v10_methods::CreateWithTimestampsLl::deserialize(&mut &slice_u8[8..]) {
         let accounts = instruction.accounts();
         let logs = util::get_anchor_logs(instruction);
 
@@ -122,7 +122,7 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
             if log[0..8] == lockup_linear_v10_events::CreateLockupLinearStream::DISCRIMINATOR {
                 if let Ok(event) = lockup_linear_v10_events::CreateLockupLinearStream::deserialize(&mut &log[8..]) {
                     salt = event.salt.to_string();
-                    token_decimals = event.asset_decimals;
+                    token_decimals = event.deposit_token_decimals;
                 }
             }
         }
@@ -142,9 +142,9 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
             cliff_duration,
             total_duration,
 
-            deposited_amount: arguments.deposited_amount,
-            initial_amount: arguments.start_unlock,
-            cliff_amount: arguments.cliff_unlock,
+            deposited_amount: arguments.deposit_amount,
+            initial_amount: arguments.start_unlock_amount,
+            cliff_amount: arguments.cliff_unlock_amount,
             cancelable: arguments.is_cancelable,
 
             salt,
@@ -341,12 +341,12 @@ fn map_program_data(block: Block) -> Data {
                         if let Some(_) = entry {
                             cancel_list.push(entry.unwrap());
                         }
-                    } else if slice_u8[0..8] == lockup_linear_v10_methods::CreateWithDurations::DISCRIMINATOR {
+                    } else if slice_u8[0..8] == lockup_linear_v10_methods::CreateWithDurationsLl::DISCRIMINATOR {
                         let entry: Option<Create> = handle_create_with_durations(index, &instruction, block_timestamp);
                         if let Some(_) = entry {
                             create_list.push(entry.unwrap());
                         }
-                    } else if slice_u8[0..8] == lockup_linear_v10_methods::CreateWithTimestamps::DISCRIMINATOR {
+                    } else if slice_u8[0..8] == lockup_linear_v10_methods::CreateWithTimestampsLl::DISCRIMINATOR {
                         let entry: Option<Create> = handle_create_with_timestamps(index, &instruction);
                         if let Some(_) = entry {
                             create_list.push(entry.unwrap());
