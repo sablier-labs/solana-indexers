@@ -1,4 +1,3 @@
-import { BigInt } from "@graphprotocol/graph-ts";
 import { Ownership } from "../../generated/schema";
 import { getChainCode, getChainId } from "../constants";
 

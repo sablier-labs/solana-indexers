@@ -36,12 +36,16 @@ fn handle_cancel(index: usize, instruction: &InstructionView) -> Option<Cancel> 
 
             refunded,
 
+            // Account order from IDL
             sender: accounts[0].to_string(),
-            deposit_token_mint: accounts[1].to_string(),
-            nft_mint: accounts[2].to_string(),
-            nft_data: accounts[3].to_string(),
-            sender_ata: accounts[5].to_string(),
-            deposit_token_program: accounts[6].to_string(),
+            sender_ata: accounts[1].to_string(),
+            deposited_token_mint: accounts[2].to_string(),
+            stream_data: accounts[3].to_string(),
+            stream_data_ata: accounts[4].to_string(),
+            stream_nft_mint: accounts[5].to_string(),
+            associated_token_program: accounts[6].to_string(),
+            deposited_token_program: accounts[7].to_string(),
+            system_program: accounts[8].to_string(),
         })
     } else {
         None
@@ -91,17 +95,28 @@ fn handle_create_with_durations(index: usize, instruction: &InstructionView, tim
             salt,
             deposit_token_decimals: token_decimals as u32,
 
-            sender: accounts[0].to_string(),
-            deposit_token_mint: accounts[1].to_string(),
-            sender_ata: accounts[2].to_string(),
-            recipient: accounts[3].to_string(),
-
-            nft_mint: accounts[8].to_string(),
-            nft_data: accounts[9].to_string(),
-
-            nft_recipient_ata: accounts[11].to_string(),
-            deposit_token_program: accounts[15].to_string(),
-            nft_token_program: accounts[16].to_string(),
+            // Account order from IDL
+            creator: accounts[0].to_string(),
+            creator_ata: accounts[1].to_string(),
+            recipient: accounts[2].to_string(),
+            sender: accounts[3].to_string(),
+            nft_collection_data: accounts[4].to_string(),
+            nft_collection_master_edition: accounts[5].to_string(),
+            nft_collection_metadata: accounts[6].to_string(),
+            nft_collection_mint: accounts[7].to_string(),
+            deposit_token_mint: accounts[8].to_string(),
+            stream_nft_mint: accounts[9].to_string(),
+            recipient_stream_nft_ata: accounts[10].to_string(),
+            stream_data: accounts[11].to_string(),
+            stream_data_ata: accounts[12].to_string(),
+            stream_nft_master_edition: accounts[13].to_string(),
+            stream_nft_metadata: accounts[14].to_string(),
+            associated_token_program: accounts[15].to_string(),
+            deposit_token_program: accounts[16].to_string(),
+            nft_token_program: accounts[17].to_string(),
+            token_metadata_program: accounts[18].to_string(),
+            system_program: accounts[19].to_string(),
+            rent: accounts[20].to_string(),
         })
     } else {
         None
@@ -150,17 +165,28 @@ fn handle_create_with_timestamps(index: usize, instruction: &InstructionView) ->
             salt,
             deposit_token_decimals: token_decimals as u32,
 
-            sender: accounts[0].to_string(),
-            deposit_token_mint: accounts[1].to_string(),
-            sender_ata: accounts[2].to_string(),
-            recipient: accounts[3].to_string(),
-
-            nft_mint: accounts[8].to_string(),
-            nft_data: accounts[9].to_string(),
-
-            nft_recipient_ata: accounts[11].to_string(),
-            deposit_token_program: accounts[15].to_string(),
-            nft_token_program: accounts[16].to_string(),
+            // Account order from IDL
+            creator: accounts[0].to_string(),
+            creator_ata: accounts[1].to_string(),
+            recipient: accounts[2].to_string(),
+            sender: accounts[3].to_string(),
+            nft_collection_data: accounts[4].to_string(),
+            nft_collection_master_edition: accounts[5].to_string(),
+            nft_collection_metadata: accounts[6].to_string(),
+            nft_collection_mint: accounts[7].to_string(),
+            deposit_token_mint: accounts[8].to_string(),
+            stream_nft_mint: accounts[9].to_string(),
+            recipient_stream_nft_ata: accounts[10].to_string(),
+            stream_data: accounts[11].to_string(),
+            stream_data_ata: accounts[12].to_string(),
+            stream_nft_master_edition: accounts[13].to_string(),
+            stream_nft_metadata: accounts[14].to_string(),
+            associated_token_program: accounts[15].to_string(),
+            deposit_token_program: accounts[16].to_string(),
+            nft_token_program: accounts[17].to_string(),
+            token_metadata_program: accounts[18].to_string(),
+            system_program: accounts[19].to_string(),
+            rent: accounts[20].to_string(),
         })
     } else {
         None
@@ -178,9 +204,10 @@ fn handle_renounce(index: usize, instruction: &InstructionView) -> Option<Renoun
             instruction_program: instruction.program_id().to_string(),
             instruction_index: index as u64,
 
+            // Account order from IDL
             sender: accounts[0].to_string(),
-            nft_mint: accounts[1].to_string(),
-            nft_data: accounts[2].to_string(),
+            stream_data: accounts[1].to_string(),
+            stream_nft_mint: accounts[2].to_string(),
         })
     } else {
         None
@@ -241,19 +268,23 @@ fn handle_withdraw(index: usize, instruction: &InstructionView) -> Option<Withdr
 
             amount: arguments.amount,
 
+            // Account order from IDL
             signer: accounts[0].to_string(),
-            deposit_token_mint: accounts[1].to_string(),
-
-            nft_mint: accounts[3].to_string(),
-            nft_data: accounts[4].to_string(),
-
-            nft_recipient_ata: accounts[6].to_string(),
-
-            to_recipient: accounts[7].to_string(),
-            to_recipient_ata: accounts[8].to_string(),
-
-            deposit_token_program: accounts[11].to_string(),
-            nft_token_program: accounts[12].to_string(),
+            stream_recipient: accounts[1].to_string(),
+            withdrawal_recipient: accounts[2].to_string(),
+            withdrawal_recipient_ata: accounts[3].to_string(),
+            treasury: accounts[4].to_string(),
+            deposited_token_mint: accounts[5].to_string(),
+            recipient_stream_nft_ata: accounts[6].to_string(),
+            stream_data: accounts[7].to_string(),
+            stream_data_ata: accounts[8].to_string(),
+            stream_nft_mint: accounts[9].to_string(),
+            associated_token_program: accounts[10].to_string(),
+            chainlink_program: accounts[11].to_string(),
+            chainlink_sol_usd_feed: accounts[12].to_string(),
+            deposited_token_program: accounts[13].to_string(),
+            nft_token_program: accounts[14].to_string(),
+            system_program: accounts[15].to_string(),
         })
     } else {
         None
@@ -284,19 +315,23 @@ fn handle_withdraw_max(index: usize, instruction: &InstructionView) -> Option<Wi
 
             amount,
 
+            // Account order from IDL
             signer: accounts[0].to_string(),
-            deposit_token_mint: accounts[1].to_string(),
-
-            nft_mint: accounts[3].to_string(),
-            nft_data: accounts[4].to_string(),
-
-            nft_recipient_ata: accounts[6].to_string(),
-
-            to_recipient: accounts[7].to_string(),
-            to_recipient_ata: accounts[8].to_string(),
-
-            deposit_token_program: accounts[11].to_string(),
-            nft_token_program: accounts[12].to_string(),
+            stream_recipient: accounts[1].to_string(),
+            withdrawal_recipient: accounts[2].to_string(),
+            withdrawal_recipient_ata: accounts[3].to_string(),
+            treasury: accounts[4].to_string(),
+            deposited_token_mint: accounts[5].to_string(),
+            recipient_stream_nft_ata: accounts[6].to_string(),
+            stream_data: accounts[7].to_string(),
+            stream_data_ata: accounts[8].to_string(),
+            stream_nft_mint: accounts[9].to_string(),
+            associated_token_program: accounts[10].to_string(),
+            chainlink_program: accounts[11].to_string(),
+            chainlink_sol_usd_feed: accounts[12].to_string(),
+            deposited_token_program: accounts[13].to_string(),
+            nft_token_program: accounts[14].to_string(),
+            system_program: accounts[15].to_string(),
         })
     } else {
         None
