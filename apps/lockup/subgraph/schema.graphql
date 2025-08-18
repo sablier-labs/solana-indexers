@@ -137,6 +137,8 @@ type Stream @entity {
   recipient: String!
   "manager of the stream, defined at creation by the funder (usually the same as the funder)"
   sender: String!
+  "source of funds for the stream (anyone can create and fund a stream on any sender's behalf)"
+  funder: String!
   "list of relevant stream parties (for filtering) - sender, recipient, possibly sender's"
   parties: [String!]!
 

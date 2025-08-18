@@ -85,6 +85,7 @@ export function createLinearStream(
   entity.category = "LockupLinear";
   entity.sender = event.sender;
   entity.recipient = event.recipient;
+  entity.funder = event.creator;
   entity.recipientNFTAta = event.recipientStreamNftAta;
 
   entity.senderAta = event.creatorAta;
