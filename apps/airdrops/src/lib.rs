@@ -47,20 +47,16 @@ fn handle_claim(index: usize, instruction: &InstructionView) -> Option<Claim> {
                 .map(|proof| format!("0x{}", proof.iter().map(|b| format!("{:02x}", b)).collect::<String>()))
                 .collect(),
 
-            // Account order from IDL
             claimer: accounts[0].to_string(),
-            recipient: accounts[1].to_string(),
-            recipient_ata: accounts[2].to_string(),
-            treasury: accounts[3].to_string(),
-            airdrop_token_mint: accounts[4].to_string(),
-            campaign: accounts[5].to_string(),
-            campaign_ata: accounts[6].to_string(),
-            claim_receipt: leaf_receipt,
-            airdrop_token_program: accounts[8].to_string(),
-            associated_token_program: accounts[9].to_string(),
-            chainlink_program: accounts[10].to_string(),
-            chainlink_sol_usd_feed: accounts[11].to_string(),
-            system_program: accounts[12].to_string(),
+            campaign: accounts[1].to_string(),
+            campaign_ata: accounts[4].to_string(),
+
+            recipient: accounts[5].to_string(),
+            recipient_ata: accounts[6].to_string(),
+            receipt: leaf_receipt,
+
+            airdrop_token_mint: accounts[2].to_string(),
+            airdrop_token_program: accounts[9].to_string(),
         })
     } else {
         None
@@ -78,18 +74,14 @@ fn handle_clawback(index: usize, instruction: &InstructionView) -> Option<Clawba
             instruction_index: index as u64,
             transaction_hash: instruction.transaction().id(),
 
+            creator: accounts[0].to_string(),
+            campaign: accounts[1].to_string(),
+            campaign_ata: accounts[3].to_string(),
+
             amount: arguments.amount,
 
-            // Account order from IDL
-            campaign_creator: accounts[0].to_string(),
-            clawback_recipient: accounts[1].to_string(),
-            clawback_recipient_ata: accounts[2].to_string(),
-            airdrop_token_mint: accounts[3].to_string(),
-            campaign: accounts[4].to_string(),
-            campaign_ata: accounts[5].to_string(),
-            airdrop_token_program: accounts[6].to_string(),
-            associated_token_program: accounts[7].to_string(),
-            system_program: accounts[8].to_string(),
+            airdrop_token_mint: accounts[2].to_string(),
+            airdrop_token_program: accounts[5].to_string(),
         })
     } else {
         None
@@ -123,22 +115,19 @@ fn handle_create(index: usize, instruction: &InstructionView) -> Option<Create> 
                 "0x{}",
                 arguments.merkle_root.iter().map(|b| format!("{:02x}", b)).collect::<String>()
             ),
-            campaign_start_time: arguments.campaign_start_time,
-            expiration_time: arguments.expiration_time,
-            name: arguments.name,
+            expiration: arguments.expiration_time as u64,
             ipfs_cid: arguments.ipfs_cid,
-            aggregate_amount: arguments.aggregate_amount,
-            recipient_count: arguments.recipient_count,
-            airdrop_token_decimals: token_decimals as u32,
+            name: arguments.name,
+            aggregated_amount: arguments.aggregate_amount,
+            recipient_count: arguments.recipient_count as u64,
 
-            // Account order from IDL
             creator: accounts[0].to_string(),
-            airdrop_token_mint: accounts[1].to_string(),
             campaign: accounts[2].to_string(),
             campaign_ata: accounts[3].to_string(),
+
+            airdrop_token_mint: accounts[1].to_string(),
             airdrop_token_program: accounts[4].to_string(),
-            associated_token_program: accounts[5].to_string(),
-            system_program: accounts[6].to_string(),
+            airdrop_token_decimals: token_decimals as u32,
         })
     } else {
         None

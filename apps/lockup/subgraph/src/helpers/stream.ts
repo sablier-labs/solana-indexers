@@ -69,7 +69,7 @@ export function createLinearStream(
   system: ProtoData
 ): Stream | null {
   let entity = createStream(
-    event.streamNftMint,
+    event.nftMint,
     event.instructionProgram,
     BigInt.fromU64(event.instructionIndex),
     event.transactionHash,
@@ -85,13 +85,12 @@ export function createLinearStream(
   entity.category = "LockupLinear";
   entity.sender = event.sender;
   entity.recipient = event.recipient;
-  entity.funder = event.creator;
-  entity.recipientNFTAta = event.recipientStreamNftAta;
+  entity.recipientNFTAta = event.nftRecipientAta;
 
-  entity.senderAta = event.creatorAta;
+  entity.senderAta = event.senderAta;
 
-  entity.nftMint = event.streamNftMint;
-  entity.nftData = event.streamData;
+  entity.nftMint = event.nftMint;
+  entity.nftData = event.nftData;
 
   entity.parties = [event.sender, event.recipient];
 

@@ -13,23 +13,25 @@ message Data {
     int64 block_timestamp = 8;
 }
 
+
 message Cancel {
     string instruction_program = 1;
     uint64 instruction_index = 2;
     string transaction_hash = 3;
+
     uint64 refunded = 4;
 
-    // Account order from IDL
     string sender = 5;
     string sender_ata = 6;
-    string deposited_token_mint = 7;
-    string stream_data = 8;
-    string stream_data_ata = 9;
-    string stream_nft_mint = 10;
-    string associated_token_program = 11;
-    string deposited_token_program = 12;
-    string system_program = 13;
+
+    string deposit_token_mint = 7;
+    string deposit_token_program = 8;
+
+    string nft_mint = 9;
+    string nft_data = 10;
+
 }
+
 
 message Create {
     string instruction_program = 1;
@@ -39,37 +41,30 @@ message Create {
     int64 start_time = 4;
     int64 cliff_time = 5;
     int64 end_time = 6;
+
     int64 total_duration = 7;
     int64 cliff_duration = 8;
+
     uint64 deposited_amount = 9;
     uint64 initial_amount = 10;
     uint64 cliff_amount = 11;
-    bool cancelable = 12;
-    string salt = 13;
-    uint32 deposit_token_decimals = 14;
 
-    // Account order from IDL
-    string creator = 15;
-    string creator_ata = 16;
-    string recipient = 17;
-    string sender = 18;
-    string nft_collection_data = 19;
-    string nft_collection_master_edition = 20;
-    string nft_collection_metadata = 21;
-    string nft_collection_mint = 22;
-    string deposit_token_mint = 23;
-    string stream_nft_mint = 24;
-    string recipient_stream_nft_ata = 25;
-    string stream_data = 26;
-    string stream_data_ata = 27;
-    string stream_nft_master_edition = 28;
-    string stream_nft_metadata = 29;
-    string associated_token_program = 30;
-    string deposit_token_program = 31;
-    string nft_token_program = 32;
-    string token_metadata_program = 33;
-    string system_program = 34;
-    string rent = 35;
+    bool cancelable = 12;
+
+    string sender = 13;
+    string sender_ata = 14;
+    string recipient = 15;
+
+    string deposit_token_mint = 16;
+    string deposit_token_program = 17;
+    uint32 deposit_token_decimals = 18;
+
+    string nft_mint = 19;
+    string nft_data = 20;
+    string nft_recipient_ata = 21;
+    string nft_token_program = 22;
+
+    string salt = 23;
 }
 
 message Renounce {
@@ -77,10 +72,11 @@ message Renounce {
     uint64 instruction_index = 2;
     string transaction_hash = 3;
 
-    // Account order from IDL
     string sender = 4;
-    string stream_data = 5;
-    string stream_nft_mint = 6;
+
+    string nft_mint = 5;
+    string nft_data = 6;
+
 }
 
 message Transfer {
@@ -92,7 +88,9 @@ message Transfer {
     string to = 5;
     string from_owner = 6;
     string to_owner = 7;
+
     string nft_mint = 8;
+
     uint64 amount = 9;
 }
 
@@ -100,48 +98,40 @@ message Withdraw {
     string instruction_program = 1;
     uint64 instruction_index = 2;
     string transaction_hash = 3;
+
     uint64 amount = 4;
 
-    // Account order from IDL
-    string signer = 5;
-    string stream_recipient = 6;
-    string withdrawal_recipient = 7;
-    string withdrawal_recipient_ata = 8;
-    string treasury = 9;
-    string deposited_token_mint = 10;
-    string recipient_stream_nft_ata = 11;
-    string stream_data = 12;
-    string stream_data_ata = 13;
-    string stream_nft_mint = 14;
-    string associated_token_program = 15;
-    string chainlink_program = 16;
-    string chainlink_sol_usd_feed = 17;
-    string deposited_token_program = 18;
-    string nft_token_program = 19;
-    string system_program = 20;
+    string to_recipient = 5;
+    string to_recipient_ata = 6;
+
+    string deposit_token_mint = 7;
+    string deposit_token_program = 8;
+
+    string nft_mint = 9;
+    string nft_data = 10;
+    string nft_recipient_ata = 11;
+    string nft_token_program = 12;
+
+    string signer = 13;
 }
 
 message WithdrawMax {
     string instruction_program = 1;
     uint64 instruction_index = 2;
     string transaction_hash = 3;
+
     uint64 amount = 4;
 
-    // Account order from IDL
-    string signer = 5;
-    string stream_recipient = 6;
-    string withdrawal_recipient = 7;
-    string withdrawal_recipient_ata = 8;
-    string treasury = 9;
-    string deposited_token_mint = 10;
-    string recipient_stream_nft_ata = 11;
-    string stream_data = 12;
-    string stream_data_ata = 13;
-    string stream_nft_mint = 14;
-    string associated_token_program = 15;
-    string chainlink_program = 16;
-    string chainlink_sol_usd_feed = 17;
-    string deposited_token_program = 18;
-    string nft_token_program = 19;
-    string system_program = 20;
+    string to_recipient = 5;
+    string to_recipient_ata = 6;
+
+    string deposit_token_mint = 7;
+    string deposit_token_program = 8;
+
+    string nft_mint = 9;
+    string nft_data = 10;
+    string nft_recipient_ata = 11;
+    string nft_token_program = 12;
+
+    string signer = 14;
 }

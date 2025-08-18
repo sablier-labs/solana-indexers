@@ -1,3 +1,4 @@
+import { BigInt } from "@graphprotocol/graph-ts";
 import { Contract } from "../../generated/schema";
 import {
   getChainCode,
