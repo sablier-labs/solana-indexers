@@ -67,11 +67,14 @@ export function handleCreateStream(
 }
 
 export function handleCancel(event: EventCancel, system: ProtoData): void {
-  let stream = getStreamByNftMint(event.streamData, event.instructionProgram);
+  let stream = getStreamByNftMint(
+    event.streamNftMint,
+    event.instructionProgram
+  );
 
   if (stream == null) {
     log_exit("Stream hasn't been registered before this cancel event: {}", [
-      generateStreamId(event.streamData, event.instructionProgram)
+      generateStreamId(event.streamNftMint, event.instructionProgram)
     ]);
 
     return;
@@ -109,11 +112,14 @@ export function handleCancel(event: EventCancel, system: ProtoData): void {
 }
 
 export function handleRenounce(event: EventRenounce, system: ProtoData): void {
-  let stream = getStreamByNftMint(event.streamData, event.instructionProgram);
+  let stream = getStreamByNftMint(
+    event.streamNftMint,
+    event.instructionProgram
+  );
 
   if (stream == null) {
     log_exit("Stream hasn't been registered before this cancel event: {}", [
-      generateStreamId(event.streamData, event.instructionProgram)
+      generateStreamId(event.streamNftMint, event.instructionProgram)
     ]);
     return;
   }
@@ -198,11 +204,14 @@ export function handleSPLTransfer(
 }
 
 export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
-  let stream = getStreamByNftMint(event.streamData, event.instructionProgram);
+  let stream = getStreamByNftMint(
+    event.streamNftMint,
+    event.instructionProgram
+  );
 
   if (stream == null) {
     log_exit("Stream hasn't been registered before this cancel event: {}", [
-      generateStreamId(event.streamData, event.instructionProgram)
+      generateStreamId(event.streamNftMint, event.instructionProgram)
     ]);
     return;
   }
@@ -242,11 +251,14 @@ export function handleWithdrawMax(
   event: EventWithdrawMax,
   system: ProtoData
 ): void {
-  let stream = getStreamByNftMint(event.streamData, event.instructionProgram);
+  let stream = getStreamByNftMint(
+    event.streamNftMint,
+    event.instructionProgram
+  );
 
   if (stream == null) {
     log_exit("Stream hasn't been registered before this cancel event: {}", [
-      generateStreamId(event.streamData, event.instructionProgram)
+      generateStreamId(event.streamNftMint, event.instructionProgram)
     ]);
     return;
   }
