@@ -1,5 +1,4 @@
 import { BigInt } from "@graphprotocol/graph-ts";
-
 import { EventClaim, EventClawback, EventCreate, ProtoData } from "../adapters";
 import {
   createCampaignInstant,
@@ -35,7 +34,7 @@ export function handleClaim(event: EventClaim, system: ProtoData): void {
   action.claimIndex = BigInt.fromU64(event.index);
   action.claimAmount = BigInt.fromU64(event.amount);
   action.claimRecipient = event.recipient;
-  action.claimReceipt = event.receipt;
+  action.claimReceipt = event.claimReceipt;
   action.save();
 
   /** --------------- */
@@ -74,7 +73,7 @@ export function handleClawback(event: EventClawback, system: ProtoData): void {
     BigInt.fromI64(system.blockTimestamp),
     BigInt.fromU64(system.blockNumber),
     BigInt.fromU64(event.instructionIndex),
-    event.creator
+    event.campaignCreator
   );
 
   if (action == null) {
@@ -83,8 +82,8 @@ export function handleClawback(event: EventClawback, system: ProtoData): void {
   }
 
   /** --------------- */
-  action.clawbackFrom = event.creator;
-  action.clawbackTo = event.creator;
+  action.clawbackFrom = event.campaignCreator;
+  action.clawbackTo = event.clawbackRecipient;
   action.clawbackAmount = BigInt.fromU64(event.amount);
 
   /** --------------- */

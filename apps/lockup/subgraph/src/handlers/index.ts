@@ -1,4 +1,4 @@
-import { BigInt, log } from "@graphprotocol/graph-ts";
+import { BigInt } from "@graphprotocol/graph-ts";
 import { Stream } from "../../generated/schema";
 import {
   EventCancel,
@@ -55,9 +55,9 @@ export function handleCreateStream(
   /** --------------- */
 
   let ownership = createOwnership(
-    event.nftMint,
+    event.streamNftMint,
     event.recipient,
-    event.nftRecipientAta
+    event.recipientStreamNftAta
   );
 
   ownership.stream = stream.id;
@@ -67,11 +67,14 @@ export function handleCreateStream(
 }
 
 export function handleCancel(event: EventCancel, system: ProtoData): void {
-  let stream = getStreamByNftMint(event.nftData, event.instructionProgram);
+  let stream = getStreamByNftMint(
+    event.streamNftMint,
+    event.instructionProgram
+  );
 
   if (stream == null) {
     log_exit("Stream hasn't been registered before this cancel event: {}", [
-      generateStreamId(event.nftData, event.instructionProgram)
+      generateStreamId(event.streamNftMint, event.instructionProgram)
     ]);
 
     return;
@@ -109,11 +112,14 @@ export function handleCancel(event: EventCancel, system: ProtoData): void {
 }
 
 export function handleRenounce(event: EventRenounce, system: ProtoData): void {
-  let stream = getStreamByNftMint(event.nftData, event.instructionProgram);
+  let stream = getStreamByNftMint(
+    event.streamNftMint,
+    event.instructionProgram
+  );
 
   if (stream == null) {
     log_exit("Stream hasn't been registered before this cancel event: {}", [
-      generateStreamId(event.nftData, event.instructionProgram)
+      generateStreamId(event.streamNftMint, event.instructionProgram)
     ]);
     return;
   }
@@ -198,11 +204,14 @@ export function handleSPLTransfer(
 }
 
 export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
-  let stream = getStreamByNftMint(event.nftData, event.instructionProgram);
+  let stream = getStreamByNftMint(
+    event.streamNftMint,
+    event.instructionProgram
+  );
 
   if (stream == null) {
     log_exit("Stream hasn't been registered before this cancel event: {}", [
-      generateStreamId(event.nftData, event.instructionProgram)
+      generateStreamId(event.streamNftMint, event.instructionProgram)
     ]);
     return;
   }
@@ -218,7 +227,7 @@ export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
   let amount = BigInt.fromU64(event.amount);
 
   action.category = "Withdraw";
-  action.addressB = event.toRecipient;
+  action.addressB = event.withdrawalRecipient;
   action.amountB = amount;
 
   /** --------------- */
@@ -242,11 +251,14 @@ export function handleWithdrawMax(
   event: EventWithdrawMax,
   system: ProtoData
 ): void {
-  let stream = getStreamByNftMint(event.nftMint, event.instructionProgram);
+  let stream = getStreamByNftMint(
+    event.streamNftMint,
+    event.instructionProgram
+  );
 
   if (stream == null) {
     log_exit("Stream hasn't been registered before this cancel event: {}", [
-      generateStreamId(event.nftMint, event.instructionProgram)
+      generateStreamId(event.streamNftMint, event.instructionProgram)
     ]);
     return;
   }
@@ -262,7 +274,7 @@ export function handleWithdrawMax(
   let amount = BigInt.fromU64(event.amount);
 
   action.category = "Withdraw";
-  action.addressB = event.toRecipient;
+  action.addressB = event.withdrawalRecipient;
   action.amountB = amount;
 
   /** --------------- */

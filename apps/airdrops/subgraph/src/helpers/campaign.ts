@@ -90,13 +90,13 @@ export function createCampaignInstant(
   entity.admin = event.creator;
   entity.ata = event.campaignAta;
 
-  entity.expiration = BigInt.fromU64(event.expiration);
-  entity.expires = event.expiration !== 0;
+  entity.expiration = BigInt.fromU64(event.expirationTime);
+  entity.expires = event.expirationTime !== 0;
 
   entity.name = event.name;
   entity.root = event.merkleRoot;
   entity.ipfsCID = event.ipfsCid;
-  entity.aggregateAmount = BigInt.fromU64(event.aggregatedAmount);
+  entity.aggregateAmount = BigInt.fromU64(event.aggregateAmount);
   entity.totalRecipients = BigInt.fromU64(event.recipientCount);
 
   /** --------------- */
