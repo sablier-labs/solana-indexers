@@ -1,0 +1,39 @@
+{
+  "name": "@sablier/solana-indexers-airdrops-subquery",
+  "version": "0.0.1",
+  "description": "This project can be use as a starting point for developing your new Solana SubQuery project",
+  "main": "dist/index.js",
+  "scripts": {
+    "_codegen": "yarn _codegen-constants && yarn _codegen-project-yaml && yarn _codegen-types",
+    "_codegen-types": "subql codegen",
+    "_codegen-constants": "mkdir -p ./src/generated && mustache ../../packages/constants/$CLUSTER.json ../../packages/templates/constants.ts.mustache > ./src/generated/env.ts",
+    "_codegen-project-yaml": "",
+    "setup:devnet": "CLUSTER=devnet yarn _codegen",
+    "subquery-build": "yarn setup:devnet && subql build",
+    "subquery-run:devnet": "yarn setup:devnet && subql build && docker compose pull && docker compose up --remove-orphans"
+  },
+  "homepage": "https://github.com/subquery/solana-subql-starter",
+  "repository": "github:subquery/solana-subql-starter",
+  "files": [
+    "dist",
+    "schema.graphql",
+    "project.yaml"
+  ],
+  "author": "razgraf",
+  "license": "MIT",
+  "dependencies": {
+    "@codama/nodes-from-anchor": "^1.2.5",
+    "@solana/kit": "^2.1.0",
+    "@subql/common-solana": "^1.0.0",
+    "@types/node-fetch": "latest",
+    "abab": "^2.0.6",
+    "assert": "^2.0.0"
+  },
+  "devDependencies": {
+    "@subql/cli": "^6.2.0",
+    "@subql/testing": "latest",
+    "dotenv": "latest",
+    "mustache": "^4.2.0",
+    "typescript": "latest"
+  }
+}

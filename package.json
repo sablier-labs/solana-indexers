@@ -3,6 +3,7 @@
   "private": true,
   "workspaces": [
     "apps/*/subgraph",
+    "apps/airdrops-subquery",
     "packages/subgraph"
   ],
   "packageManager": "yarn@4.7.0",
