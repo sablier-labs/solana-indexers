@@ -1,14 +1,29 @@
-import { getChainCode, log_exit, one, zero } from "../constants";
+import assert from "node:assert";
+
+import { getChainCode, log_debug, log_exit, one, zero } from "../constants";
 import { getOrCreateWatcher } from "./watcher";
 import { getOrCreateFactory } from "./factory";
 import { getOrCreateAsset } from "./asset";
-import { InstructionCreate } from "../adapters";
-import { bindGetAccount, fromUint8Array } from "../utils";
+import { InstructionCreate, getCreateCampaignDecoder } from "../adapters";
+import { bindGetAccount, decode, fromUint8Array, getProgramId } from "../utils";
 import { CampaignCategory, Campaign } from "../types";
-import assert from "node:assert";
 
-import { SolanaLogMessage } from "@subql/types-solana";
-import { getCreateCampaignDecoder } from "../types/program-interfaces/GrZhWdwBgZakydbyUMx1eTkCT5Eei7LC21i87Ag7Vh1D";
+async function getDecimals(instruction: InstructionCreate) {
+  const logs = instruction.transaction.meta?.logMessages || [];
+  let found = undefined;
+  for (let i = 0; i < logs.length; i++) {
+    if (
+      (found = decode("CreateCampaign", logs[i], getCreateCampaignDecoder()))
+    ) {
+      break;
+    }
+  }
+
+  log_debug(
+    "< ----------------------------- INSTRUCTION LOGS ----------------------------- >"
+  );
+  logger.info(found);
+}
 
 export async function createCampaignInstant(
   instruction: InstructionCreate
@@ -20,15 +35,20 @@ export async function createCampaignInstant(
   const getAccount = bindGetAccount(instruction);
 
   const address = getAccount(2);
-  const program = getAccount(instruction.programIdIndex);
+  const program = getProgramId(instruction);
 
   /* -------------------------------------------------------------------------- */
 
-  let asset = await getOrCreateAsset(
+  await getDecimals(instruction);
+
+  const asset = await getOrCreateAsset(
     getAccount(1), // airdropTokenMint
     getAccount(4), // airdropTokenProgram
-    BigInt(9) // TODO 🚨🚨🚨🚨🚨🚨🚨🚨 event.airdropTokenDecimals
+    BigInt(0) // TODO 🚨🚨🚨🚨🚨🚨🚨🚨 event.airdropTokenDecimals
   );
+
+  asset.program = getAccount(4);
+  await asset.save();
 
   /* -------------------------------------------------------------------------- */
 

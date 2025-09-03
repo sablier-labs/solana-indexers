@@ -5,12 +5,14 @@
   "main": "dist/index.js",
   "scripts": {
     "_codegen": "yarn _codegen-constants && yarn _codegen-project-yaml && yarn _codegen-types",
-    "_codegen-types": "subql codegen",
+    "_codegen-types": "yarn subql codegen",
     "_codegen-constants": "mkdir -p ./src/generated && mustache ../../packages/constants/$CLUSTER.json ../../packages/templates/constants.ts.mustache > ./src/generated/env.ts",
     "_codegen-project-yaml": "",
+    "dev": "yarn subquery-run-clean:devnet",
     "setup:devnet": "CLUSTER=devnet yarn _codegen",
-    "subquery-build": "yarn setup:devnet && subql build",
-    "subquery-run:devnet": "yarn setup:devnet && subql build && docker compose pull && docker compose up --remove-orphans"
+    "subquery-build": "yarn setup:devnet && yarn subql build",
+    "subquery-run:devnet": "yarn setup:devnet && yarn subql build && docker compose pull && docker compose up --remove-orphans",
+    "subquery-run-clean:devnet": "rm -rf ./.data && yarn run subquery-run:devnet"
   },
   "homepage": "https://github.com/subquery/solana-subql-starter",
   "repository": "github:subquery/solana-subql-starter",
@@ -22,15 +24,17 @@
   "author": "razgraf",
   "license": "MIT",
   "dependencies": {
-    "@codama/nodes-from-anchor": "^1.2.5",
+    "@codama/nodes-from-anchor": "^1.2.6",
     "@solana/kit": "^2.1.0",
-    "@subql/common-solana": "^1.0.0",
+    "@subql/common-solana": "^1.0.2",
     "@types/node-fetch": "latest",
     "abab": "^2.0.6",
-    "assert": "^2.0.0"
+    "assert": "^2.0.0",
+    "event-target-shim": "^6.0.2",
+    "node-abort-controller": "^3.1.1"
   },
   "devDependencies": {
-    "@subql/cli": "^6.2.0",
+    "@subql/cli": "^6.2.2",
     "@subql/testing": "latest",
     "dotenv": "latest",
     "mustache": "^4.2.0",

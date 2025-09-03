@@ -58,5 +58,5 @@ export function log_exit(message: string, dependencies: string[] = []): void {
 }
 
 export function log_debug(message: string, dependencies: string[] = []): void {
-  logger.debug(`Sablier Logger: ${message}`, dependencies);
+  logger.info(`Sablier Logger: ${message}`, dependencies);
 }

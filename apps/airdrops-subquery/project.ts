@@ -18,7 +18,7 @@ const project: SolanaProject = {
   runner: {
     node: {
       name: "@subql/node-solana",
-      version: ">=3.0.0"
+      version: ">=6.0.7"
     },
     query: {
       name: "@subql/query",
@@ -45,7 +45,7 @@ const project: SolanaProject = {
         ]
       ]),
       mapping: {
-        file: "./dist/mappings.js",
+        file: "./dist/index.js",
         handlers: [
           {
             kind: SolanaHandlerKind.Instruction,

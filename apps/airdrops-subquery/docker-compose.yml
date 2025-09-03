@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   postgres:
     build:
@@ -19,6 +17,7 @@ services:
 
   subquery-node:
     image: subquerynetwork/subql-node-solana:latest
+    # image: subquerynetwork/query-subgraph:latest
     depends_on:
       "postgres":
         condition: service_healthy
@@ -40,6 +39,7 @@ services:
       - --unfinalized-blocks=true
       - --unsafe
       - --force-clean
+      - --log-level=info
 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://subquery-node:3000/ready"]
@@ -48,7 +48,7 @@ services:
       retries: 10
 
   graphql-engine:
-    image: subquerynetwork/query-subgraph:latest
+    image: subquerynetwork/subql-query:latest
     ports:
       - 3000:3000
     depends_on:
