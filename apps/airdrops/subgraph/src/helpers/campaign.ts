@@ -92,6 +92,7 @@ export function createCampaignInstant(
 
   entity.expiration = BigInt.fromU64(event.expirationTime);
   entity.expires = event.expirationTime !== 0;
+  entity.startTime = BigInt.fromU64(event.campaignStartTime);
 
   entity.name = event.name;
   entity.root = event.merkleRoot;

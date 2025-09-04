@@ -52,7 +52,7 @@ fn handle_cancel(index: usize, instruction: &InstructionView) -> Option<Cancel> 
     }
 }
 
-fn handle_create_with_durations(index: usize, instruction: &InstructionView, timestamp: i64) -> Option<Create> {
+fn handle_create_with_durations(index: usize, instruction: &InstructionView, timestamp: u64) -> Option<Create> {
     let slice_u8: &[u8] = &instruction.data()[..];
 
     if let Ok(arguments) = lockup_linear_v10_methods::CreateWithDurationsLl::deserialize(&mut &slice_u8[8..]) {
@@ -355,7 +355,7 @@ fn map_program_data(block: Block) -> Data {
     let mut spl_transfer_list: Vec<Transfer> = Vec::new();
 
     let block_number = block.block_height.as_ref().map_or(0, |h| h.block_height);
-    let block_timestamp = block.block_time.as_ref().map_or(0, |t| t.timestamp);
+    let block_timestamp = block.block_time.as_ref().map_or(0, |t| t.timestamp as u64);
 
     block.transactions().for_each(|transaction| {
         // ------------- TRANSACTIONS -------------

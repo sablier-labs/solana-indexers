@@ -154,7 +154,7 @@ fn map_program_data(block: Block) -> Data {
     let mut create_list: Vec<Create> = Vec::new();
 
     let block_number = block.block_height.as_ref().map_or(0, |h| h.block_height);
-    let block_timestamp = block.block_time.as_ref().map_or(0, |t| t.timestamp);
+    let block_timestamp = block.block_time.as_ref().map_or(0, |t| t.timestamp as u64);
 
     block.transactions().for_each(|transaction| {
         // ------------- TRANSACTIONS -------------

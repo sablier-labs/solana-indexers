@@ -134,6 +134,8 @@ type Campaign @entity {
   expires: Boolean!
   "time at which the campaign expires and clawback is enabled, if the expires flag is true"
   expiration: BigInt
+  "time at which the campaign starts"
+  startTime: BigInt!
   "name assigned as the campaign title"
   name: String!
 

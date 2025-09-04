@@ -1,5 +1,5 @@
 {
-  "address": "GrZhWdwBgZakydbyUMx1eTkCT5Eei7LC21i87Ag7Vh1D",
+  "address": "8t2R21V3vjS1ucZzmX2memtGptjYZi2yGY3cYVa8dak7",
   "metadata": {
     "name": "sablier_merkle_instant",
     "version": "0.1.0",
@@ -746,11 +746,11 @@
         },
         {
           "name": "campaign_start_time",
-          "type": "i64"
+          "type": "u64"
         },
         {
           "name": "expiration_time",
-          "type": "i64"
+          "type": "u64"
         },
         {
           "name": "name",
@@ -800,7 +800,7 @@
         "",
         "# Parameters",
         "",
-        "- `index` The index of the recipient in the Merkle tree."
+        "- `_index` The index of the recipient in the Merkle tree."
       ],
       "discriminator": [182, 195, 167, 56, 232, 3, 223, 102],
       "accounts": [
@@ -952,6 +952,31 @@
           "type": "pubkey"
         }
       ]
+    },
+    {
+      "name": "treasury_view",
+      "docs": ["Returns the treasury details."],
+      "discriminator": [247, 160, 213, 237, 247, 121, 164, 82],
+      "accounts": [
+        {
+          "name": "treasury",
+          "docs": ["Read account: the account storing the treasury details."],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [116, 114, 101, 97, 115, 117, 114, 121]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [],
+      "returns": {
+        "defined": {
+          "name": "Treasury"
+        }
+      }
     }
   ],
   "accounts": [
@@ -1016,13 +1041,7 @@
   "types": [
     {
       "name": "Campaign",
-      "docs": [
-        "Groups all the data for a Merkle Instant campaign.",
-        "",
-        "All timestamp fields use `i64` instead of an unsigned integer to match Solana’s `Clock` struct,",
-        "which returns timestamps as `i64`. This avoids extra conversions and keeps things consistent",
-        "when working with Solana’s built-in time functions."
-      ],
+      "docs": ["Groups all the data for a Merkle Instant campaign."],
       "type": {
         "kind": "struct",
         "fields": [
@@ -1036,7 +1055,7 @@
           },
           {
             "name": "campaign_start_time",
-            "type": "i64"
+            "type": "u64"
           },
           {
             "name": "creator",
@@ -1044,11 +1063,11 @@
           },
           {
             "name": "expiration_time",
-            "type": "i64"
+            "type": "u64"
           },
           {
             "name": "first_claim_time",
-            "type": "i64"
+            "type": "u64"
           },
           {
             "name": "ipfs_cid",
@@ -1153,7 +1172,7 @@
           },
           {
             "name": "campaign_start_time",
-            "type": "i64"
+            "type": "u64"
           },
           {
             "name": "creator",
@@ -1161,7 +1180,7 @@
           },
           {
             "name": "expiration_time",
-            "type": "i64"
+            "type": "u64"
           },
           {
             "name": "ipfs_cid",

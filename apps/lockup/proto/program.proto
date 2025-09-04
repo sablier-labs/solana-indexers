@@ -10,7 +10,7 @@ message Data {
     repeated WithdrawMax withdraw_max_list = 5;
     repeated Transfer spl_transfer_list = 6;
     uint64 block_number = 7;
-    int64 block_timestamp = 8;
+    uint64 block_timestamp = 8;
 }
 
 message Cancel {
@@ -36,11 +36,11 @@ message Create {
     uint64 instruction_index = 2;
     string transaction_hash = 3;
 
-    int64 start_time = 4;
-    int64 cliff_time = 5;
-    int64 end_time = 6;
-    int64 total_duration = 7;
-    int64 cliff_duration = 8;
+    uint64 start_time = 4;
+    uint64 cliff_time = 5;
+    uint64 end_time = 6;
+    uint64 total_duration = 7;
+    uint64 cliff_duration = 8;
     uint64 deposited_amount = 9;
     uint64 initial_amount = 10;
     uint64 cliff_amount = 11;
