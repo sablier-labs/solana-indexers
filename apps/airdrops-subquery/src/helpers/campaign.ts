@@ -39,7 +39,7 @@ export async function createCampaignInstant(
 
   /* -------------------------------------------------------------------------- */
 
-  await getDecimals(instruction);
+  // await getDecimals(instruction);
 
   const asset = await getOrCreateAsset(
     getAccount(1), // airdropTokenMint

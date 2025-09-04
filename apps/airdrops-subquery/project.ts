@@ -7,7 +7,14 @@ import {
 import * as dotenv from "dotenv";
 import path from "path";
 
-dotenv.config({ path: path.resolve(__dirname, ".env"), quiet: true });
+import {
+  chainGenesis,
+  rpc,
+  merkleInstant,
+  startBlock_airdrops
+} from "./src/generated/env";
+
+dotenv.config({ path: path.resolve(__dirname, "./../../.env"), quiet: true });
 
 // Can expand the Datasource processor types via the generic param
 const project: SolanaProject = {
@@ -29,20 +36,15 @@ const project: SolanaProject = {
     file: "./schema.graphql"
   },
   network: {
-    chainId: "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG", // TODO template
-    endpoint: [
-      "https://devnet.helius-rpc.com/?api-key=72a1257a-8a5c-4bd8-9945-2ad8956aaf73" // TODO move to env
-    ]
+    chainId: chainGenesis,
+    endpoint: [`${rpc}${process.env.HELIUS_RPC_KEY}`]
   },
   dataSources: [
     {
       kind: SolanaDatasourceKind.Runtime,
-      startBlock: 401945064,
+      startBlock: startBlock_airdrops,
       assets: new Map([
-        [
-          "GrZhWdwBgZakydbyUMx1eTkCT5Eei7LC21i87Ag7Vh1D", // TODO template
-          { file: "./idls/merkle_instant_v10.json" }
-        ]
+        [merkleInstant[0][0], { file: "./idls/merkle_instant_v10.json" }]
       ]),
       mapping: {
         file: "./dist/index.js",
@@ -51,15 +53,15 @@ const project: SolanaProject = {
             kind: SolanaHandlerKind.Instruction,
             handler: "handleClaim",
             filter: {
-              programId: "GrZhWdwBgZakydbyUMx1eTkCT5Eei7LC21i87Ag7Vh1D",
-              discriminator: "claim" // TODO: type check names using IDL
+              programId: merkleInstant[0][0],
+              discriminator: "claim"
             }
           },
           {
             kind: SolanaHandlerKind.Instruction,
             handler: "handleClawback",
             filter: {
-              programId: "GrZhWdwBgZakydbyUMx1eTkCT5Eei7LC21i87Ag7Vh1D",
+              programId: merkleInstant[0][0],
               discriminator: "clawback"
             }
           },
@@ -67,7 +69,7 @@ const project: SolanaProject = {
             kind: SolanaHandlerKind.Instruction,
             handler: "handleCreate",
             filter: {
-              programId: "GrZhWdwBgZakydbyUMx1eTkCT5Eei7LC21i87Ag7Vh1D",
+              programId: merkleInstant[0][0],
               discriminator: "createCampaign"
             }
           }

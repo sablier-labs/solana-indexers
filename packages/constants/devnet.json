@@ -1,7 +1,9 @@
 {
   "chainId": 900000020,
   "chainCode": "SOLDEV",
+  "chainGenesis": "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG",
   "cluster": "devnet",
+  "rpc": "https://devnet.helius-rpc.com/?api-key=",
   "substream": "solana-devnet",
   "startBlock": {
     "lockup": 405402172,

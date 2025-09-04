@@ -40,6 +40,10 @@ apps/*-subquery/project.yaml
 apps/*-subquery/src/generated
 apps/*-subquery/src/types
 
+# ------- SCRIPTS -------- #
+
+packages/scripts/out
+
 # ------- YARN -------- #
 
 .yarn/*
