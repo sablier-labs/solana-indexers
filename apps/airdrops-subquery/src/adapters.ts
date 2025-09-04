@@ -10,4 +10,8 @@ export {
   getClawbackDecoder
 } from "./types/program-interfaces/GrZhWdwBgZakydbyUMx1eTkCT5Eei7LC21i87Ag7Vh1D/types";
 
-export { CreateCampaign as EventCreateCampaign } from "./types/program-interfaces/GrZhWdwBgZakydbyUMx1eTkCT5Eei7LC21i87Ag7Vh1D/types";
+export {
+  CreateCampaign as EventCreateCampaign,
+  Claim as EventClaim,
+  Clawback as EventClawback
+} from "./types/program-interfaces/GrZhWdwBgZakydbyUMx1eTkCT5Eei7LC21i87Ag7Vh1D/types";

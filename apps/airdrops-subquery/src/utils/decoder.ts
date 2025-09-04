@@ -1,13 +1,14 @@
 import { createHash } from "node:crypto";
 import { Buffer } from "node:buffer";
-import { getCreateCampaignDecoder } from "../adapters";
 
 // Strip program data and convert log to Uint8Array
-function formatLogToUint8Array(logWithProgramData: string): Uint8Array {
+function formatLogToUint8Array(
+  logWithProgramData: string
+): [Uint8Array, string] {
   const base64 = logWithProgramData.split("Program data: ")[1]?.trim();
   const uint8Array = new Uint8Array(Buffer.from(base64, "base64"));
 
-  return uint8Array;
+  return [uint8Array, base64];
 }
 
 // Discriminator are the first 8 bytes of the sha256 over the event's name
@@ -49,19 +50,21 @@ export function decode<T>(
     return undefined;
   }
 
-  const log = formatLogToUint8Array(logWithProgramData);
+  const [log] = formatLogToUint8Array(logWithProgramData);
 
   if (!isDiscriminatedEvent(event, log)) {
     return undefined;
   }
 
-  try {
-    // const [value] = structDecoder.read(log.subarray(8), 0);
-    const value = getCreateCampaignDecoder().decode(log.subarray(8), 0);
-    return value as T;
-  } catch (e) {
-    logger.error("EEEE -----");
-    logger.error(JSON.stringify({ log }));
-    throw new Error(e as any);
-  }
+  logger.info(
+    JSON.stringify({
+      label: "Event Decoder",
+      params: {
+        logWithProgramData
+      }
+    })
+  );
+
+  const value = structDecoder.decode(log.subarray(8), 0);
+  return value as T;
 }
