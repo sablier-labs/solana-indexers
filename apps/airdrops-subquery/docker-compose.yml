@@ -17,7 +17,6 @@ services:
 
   subquery-node:
     image: subquerynetwork/subql-node-solana:latest
-    # image: subquerynetwork/query-subgraph:latest
     depends_on:
       "postgres":
         condition: service_healthy
@@ -49,6 +48,7 @@ services:
 
   graphql-engine:
     image: subquerynetwork/subql-query:latest
+    # image: subquerynetwork/query-subgraph:latest
     ports:
       - 3000:3000
     depends_on:

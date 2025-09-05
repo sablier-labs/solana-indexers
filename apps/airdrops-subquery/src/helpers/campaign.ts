@@ -1,6 +1,4 @@
-import assert from "node:assert";
-
-import { getChainCode, log_debug, log_exit, one, zero } from "../constants";
+import { getChainCode, log_error, one, zero } from "../constants";
 import { getOrCreateWatcher } from "./watcher";
 import { getOrCreateFactory } from "./factory";
 import { getOrCreateAsset } from "./asset";
@@ -19,17 +17,17 @@ async function getDecimals(instruction: InstructionCreate) {
     }
   }
 
-  log_debug(
-    "< ----------------------------- INSTRUCTION LOGS ----------------------------- >"
-  );
-  logger.info(found);
+  return found;
 }
 
 export async function createCampaignInstant(
   instruction: InstructionCreate
 ): Promise<Campaign | undefined> {
   const decoded = await instruction.decodedData;
-  assert(decoded, "Expected decoded value");
+  if (!decoded) {
+    log_error(`Missing instruction decoding for transaction`, instruction);
+    return undefined;
+  }
 
   const params = decoded.data;
   const getAccount = bindGetAccount(instruction);
@@ -39,12 +37,16 @@ export async function createCampaignInstant(
 
   /* -------------------------------------------------------------------------- */
 
-  // await getDecimals(instruction);
+  const event = await getDecimals(instruction);
+  if (!event) {
+    log_error(`Missing event decoding for transaction`, instruction);
+    return undefined;
+  }
 
   const asset = await getOrCreateAsset(
-    getAccount(1), // airdropTokenMint
-    getAccount(4), // airdropTokenProgram
-    BigInt(0) // TODO 🚨🚨🚨🚨🚨🚨🚨🚨 event.airdropTokenDecimals
+    getAccount(1), // airdrop_token_mint
+    getAccount(4), // airdrop_token_program
+    BigInt(event.tokenDecimals) // token_decimals
   );
 
   asset.program = getAccount(4);
@@ -53,15 +55,12 @@ export async function createCampaignInstant(
   /* -------------------------------------------------------------------------- */
 
   const factory = await getOrCreateFactory(program);
+  const watcher = await getOrCreateWatcher();
+
   const index = factory.campaignIndex + one;
 
   factory.campaignIndex = index;
   await factory.save();
-
-  /* -------------------------------------------------------------------------- */
-  const watcher = await getOrCreateWatcher();
-  watcher.campaignIndex = watcher.campaignIndex + one;
-  await watcher.save();
 
   /* -------------------------------------------------------------------------- */
   const id = generateCampaignId(address);
@@ -108,12 +107,12 @@ export async function createCampaignInstant(
     totalRecipients: BigInt(params.recipientCount)
   });
 
-  if (!entity) {
-    log_exit("Campaign hasn't been registered.");
-    return undefined;
-  }
+  /* -------------------------------------------------------------------------- */
 
-  entity.save();
+  watcher.campaignIndex = watcher.campaignIndex + one;
+  await watcher.save();
+
+  await entity.save();
   return entity;
 }
 

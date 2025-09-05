@@ -10,7 +10,8 @@
   "scripts": {
     "g:lockup-setup:devnet": "yarn workspace @sablier/solana-indexers-lockup setup:devnet",
     "g:airdrops-setup:devnet": "yarn workspace @sablier/solana-indexers-airdrops setup:devnet",
-    "g:anchor-to-codama": "cd ./packages/scripts && yarn ts-node --project ./tsconfig.json --files ./anchor-to-codama.ts"
+    "g:anchor-to-codama": "cd ./packages/scripts && yarn tsx --tsconfig ./tsconfig.json ./anchor-to-codama.ts",
+    "g:test": "cd ./packages/scripts && yarn tsx --tsconfig ./tsconfig.json ./test.ts"
   },
   "devDependencies": {
     "@codama/nodes-from-anchor": "^1.2.6",
@@ -27,7 +28,7 @@
     "protoc-gen-js": "^3.21.2",
     "protocol-buffers": "^5.0.0",
     "stdio": "^2.1.3",
-    "ts-node": "^10.9.2",
-    "typescript": "^3.9.10"
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
   }
 }

@@ -1,3 +1,4 @@
+import { SolanaInstruction } from "@subql/types-solana";
 import {
   chainCode,
   chainId,
@@ -53,10 +54,19 @@ export function getSubstreamCluster(): string {
   return substream;
 }
 
-export function log_exit(message: string, dependencies: string[] = []): void {
-  logger.error(`Sablier Logger: ${message}`, dependencies);
+export function log_error(
+  message: string,
+  instruction?: SolanaInstruction
+): void {
+  if (!instruction) {
+    logger.error(`Sablier Logger: ${message}`);
+  } else {
+    logger.error(
+      `Sablier Logger [TX ${instruction.transaction.transaction.signatures[0]}]: ${message}`
+    );
+  }
 }
 
-export function log_debug(message: string, dependencies: string[] = []): void {
-  logger.info(`Sablier Logger: ${message}`, dependencies);
+export function log_info(message: string): void {
+  logger.error(`Sablier Logger: ${message}`);
 }

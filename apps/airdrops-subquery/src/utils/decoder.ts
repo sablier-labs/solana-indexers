@@ -56,15 +56,8 @@ export function decode<T>(
     return undefined;
   }
 
-  logger.info(
-    JSON.stringify({
-      label: "Event Decoder",
-      params: {
-        logWithProgramData
-      }
-    })
-  );
+  const sliced = new Uint8Array(log.subarray(8));
+  const value = structDecoder.decode(sliced, 0);
 
-  const value = structDecoder.decode(log.subarray(8), 0);
   return value as T;
 }

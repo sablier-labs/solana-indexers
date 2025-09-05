@@ -9,8 +9,9 @@
     "module": "commonjs",
     "outDir": "dist",
     "rootDir": "src",
-    "target": "es2018",
-    "strict": true
+    "strict": true,
+
+    "target": "esnext"
   },
   "include": [
     "./generated/*",
