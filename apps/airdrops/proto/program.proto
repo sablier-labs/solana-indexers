@@ -7,7 +7,7 @@ message Data {
     repeated Clawback clawback_list = 2;
     repeated Create create_list = 3;
     uint64 block_number = 4;
-    int64 block_timestamp = 5;
+    uint64 block_timestamp = 5;
 }
 
 message Claim {
@@ -57,8 +57,8 @@ message Create {
     uint64 instruction_index = 2;
     string transaction_hash = 3;
     string merkle_root = 4;
-    int64 campaign_start_time = 5;
-    int64 expiration_time = 6;
+    uint64 campaign_start_time = 5;
+    uint64 expiration_time = 6;
     string name = 7;
     string ipfs_cid = 8;
     uint64 aggregate_amount = 9;

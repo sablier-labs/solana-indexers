@@ -1,5 +1,5 @@
 {
-  "address": "8B3TuvxTSjVxZLpfvzvp9HKpomUqDsa1KEHXVo2iAfK7",
+  "address": "B1NkZf77LvLw5nft55LUBgyrBaTEbnEmHSCLdrsFzRe4",
   "metadata": {
     "name": "sablier_lockup",
     "version": "0.1.0",
@@ -449,7 +449,7 @@
         },
         {
           "name": "nft_collection_mint",
-          "docs": ["Write account: the mint account for the NFT collection."],
+          "docs": ["Read account: the mint account for the NFT collection."],
           "pda": {
             "seeds": [
               {
@@ -662,7 +662,7 @@
         {
           "name": "stream_nft_master_edition",
           "docs": [
-            "Create if needed account: the master edition account for the stream NFT."
+            "Create account: the master edition account for the stream NFT."
           ],
           "writable": true,
           "pda": {
@@ -692,9 +692,7 @@
         },
         {
           "name": "stream_nft_metadata",
-          "docs": [
-            "Create if needed account: the metadata account for the stream NFT."
-          ],
+          "docs": ["Create account: the metadata account for the stream NFT."],
           "writable": true,
           "pda": {
             "seeds": [
@@ -757,11 +755,11 @@
         },
         {
           "name": "cliff_duration",
-          "type": "i64"
+          "type": "u64"
         },
         {
           "name": "total_duration",
-          "type": "i64"
+          "type": "u64"
         },
         {
           "name": "start_unlock_amount",
@@ -988,7 +986,7 @@
         },
         {
           "name": "nft_collection_mint",
-          "docs": ["Write account: the mint account for the NFT collection."],
+          "docs": ["Read account: the mint account for the NFT collection."],
           "pda": {
             "seeds": [
               {
@@ -1201,7 +1199,7 @@
         {
           "name": "stream_nft_master_edition",
           "docs": [
-            "Create if needed account: the master edition account for the stream NFT."
+            "Create account: the master edition account for the stream NFT."
           ],
           "writable": true,
           "pda": {
@@ -1231,9 +1229,7 @@
         },
         {
           "name": "stream_nft_metadata",
-          "docs": [
-            "Create if needed account: the metadata account for the stream NFT."
-          ],
+          "docs": ["Create account: the metadata account for the stream NFT."],
           "writable": true,
           "pda": {
             "seeds": [
@@ -1296,15 +1292,15 @@
         },
         {
           "name": "start_time",
-          "type": "i64"
+          "type": "u64"
         },
         {
           "name": "cliff_time",
-          "type": "i64"
+          "type": "u64"
         },
         {
           "name": "end_time",
-          "type": "i64"
+          "type": "u64"
         },
         {
           "name": "start_unlock_amount",
@@ -1603,9 +1599,7 @@
       "accounts": [
         {
           "name": "stream_data",
-          "docs": [
-            "Read account: the stream data account storing stream details."
-          ],
+          "docs": ["Read account: the account storing stream details."],
           "pda": {
             "seeds": [
               {
@@ -1691,9 +1685,7 @@
       "accounts": [
         {
           "name": "stream_data",
-          "docs": [
-            "Read account: the stream data account storing stream details."
-          ],
+          "docs": ["Read account: the account storing stream details."],
           "pda": {
             "seeds": [
               {
@@ -1720,6 +1712,67 @@
       }
     },
     {
+      "name": "stream_exists",
+      "docs": [
+        "Returns a flag indicating whether a stream based on the `_sender` and the `_salt` already exists.",
+        "",
+        "# Parameters",
+        "",
+        "- `_sender` The sender of the stream.",
+        "- `_salt` The unique salt used to derive the stream NFT mint address."
+      ],
+      "discriminator": [104, 209, 104, 97, 122, 35, 165, 195],
+      "accounts": [
+        {
+          "name": "stream_nft_mint",
+          "docs": ["Read account: the mint account for the stream NFT."],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  114,
+                  101,
+                  97,
+                  109,
+                  95,
+                  110,
+                  102,
+                  116,
+                  95,
+                  109,
+                  105,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "_sender"
+              },
+              {
+                "kind": "arg",
+                "path": "_salt"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "_sender",
+          "type": "pubkey"
+        },
+        {
+          "name": "_salt",
+          "type": "u128"
+        }
+      ],
+      "returns": "bool"
+    },
+    {
       "name": "streamed_amount_of",
       "docs": [
         "Calculates the amount streamed to the recipient, denoted in units of the token's decimals.",
@@ -1742,9 +1795,7 @@
       "accounts": [
         {
           "name": "stream_data",
-          "docs": [
-            "Read account: the stream data account storing stream details."
-          ],
+          "docs": ["Read account: the account storing stream details."],
           "pda": {
             "seeds": [
               {
@@ -1765,6 +1816,31 @@
       ],
       "args": [],
       "returns": "u64"
+    },
+    {
+      "name": "treasury_view",
+      "docs": ["Returns the treasury details."],
+      "discriminator": [247, 160, 213, 237, 247, 121, 164, 82],
+      "accounts": [
+        {
+          "name": "treasury",
+          "docs": ["Read account: the account storing the treasury details."],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [116, 114, 101, 97, 115, 117, 114, 121]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [],
+      "returns": {
+        "defined": {
+          "name": "Treasury"
+        }
+      }
     },
     {
       "name": "withdraw",
@@ -1886,7 +1962,7 @@
         {
           "name": "treasury",
           "docs": [
-            "Write account: the treasury account that receives the withdrawal fee"
+            "Write account: the treasury account that receives the withdrawal fee."
           ],
           "writable": true,
           "pda": {
@@ -2184,7 +2260,7 @@
         {
           "name": "treasury",
           "docs": [
-            "Write account: the treasury account that receives the withdrawal fee"
+            "Write account: the treasury account that receives the withdrawal fee."
           ],
           "writable": true,
           "pda": {
@@ -2392,9 +2468,7 @@
       "accounts": [
         {
           "name": "stream_data",
-          "docs": [
-            "Read account: the stream data account storing stream details."
-          ],
+          "docs": ["Read account: the account storing stream details."],
           "pda": {
             "seeds": [
               {
@@ -2548,7 +2622,7 @@
     },
     {
       "code": 6010,
-      "name": "StartTimeNotPositive",
+      "name": "StartTimeZero",
       "msg": "Start time can't be zero!"
     },
     {
@@ -2794,27 +2868,21 @@
     },
     {
       "name": "Timestamps",
-      "docs": [
-        "Groups the timestamps for a Lockup stream.",
-        "",
-        "All fields use `i64`, instead of a unsigned integer, to match Solana’s `Clock` struct, which returns",
-        "timestamps as `i64`. This avoids extra conversions and keeps things consistent",
-        "when working with Solana’s built-in time functions."
-      ],
+      "docs": ["Groups the timestamps for a Lockup stream."],
       "type": {
         "kind": "struct",
         "fields": [
           {
             "name": "cliff",
-            "type": "i64"
+            "type": "u64"
           },
           {
             "name": "end",
-            "type": "i64"
+            "type": "u64"
           },
           {
             "name": "start",
-            "type": "i64"
+            "type": "u64"
           }
         ]
       }
