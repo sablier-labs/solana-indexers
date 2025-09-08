@@ -1,5 +1,5 @@
 import { atob } from "abab";
-import { AbortController, AbortSignal } from "node-abort-controller";
+import { AbortController, AbortSignal } from "abort-controller";
 import { EventTarget } from "event-target-shim";
 import { TextDecoder, TextEncoder } from "fastestsmallesttextencoderdecoder";
 

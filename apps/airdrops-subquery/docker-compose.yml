@@ -34,7 +34,7 @@ services:
       - -f=/app
       - --db-schema=app
       # - --workers=4 # Because of the Solana dictionary, unless all blocks are being indexed workers will likely slow down indexing
-      - --batch-size=1
+      - --batch-size=3
       - --unfinalized-blocks=true
       - --unsafe
       - --force-clean

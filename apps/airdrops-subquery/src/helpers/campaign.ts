@@ -2,9 +2,12 @@ import { getChainCode, log_error, one, zero } from "../constants";
 import { getOrCreateWatcher } from "./watcher";
 import { getOrCreateFactory } from "./factory";
 import { getOrCreateAsset } from "./asset";
-import { InstructionCreate, getCreateCampaignDecoder } from "../adapters";
+import { InstructionCreate } from "../generated/adapters";
 import { bindGetAccount, decode, fromUint8Array, getProgramId } from "../utils";
 import { CampaignCategory, Campaign } from "../types";
+
+// TODO: use adapters once /types avoid @solana/rpc
+import { getCreateCampaignDecoder } from "../_workaround";
 
 async function getDecimals(instruction: InstructionCreate) {
   const logs = instruction.transaction.meta?.logMessages || [];
@@ -97,7 +100,7 @@ export async function createCampaignInstant(
     admin: getAccount(0), // creator
     assetId: asset.id,
     ata: getAccount(3), // campaign_ata
-    start: BigInt(params.campaignStartTime),
+    startTime: BigInt(params.campaignStartTime),
     expiration: BigInt(params.expirationTime),
     expires: BigInt(params.expirationTime) != zero,
     name: params.name,

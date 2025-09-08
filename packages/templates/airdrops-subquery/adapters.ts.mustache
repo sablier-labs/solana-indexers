@@ -1,0 +1,14 @@
+export {
+  CreateCampaignInstruction as InstructionCreate,
+  ClawbackInstruction as InstructionClawback,
+  ClaimInstruction as InstructionClaim
+} from "../types/handler-inputs/{{merkleInstant.V10.0.0}}";
+
+
+// TODO: use this instead of the workaround once /types avoid @solana/rpc
+
+// export {
+//  getCreateCampaignDecoder,
+//  getClaimDecoder,
+//  getClawbackDecoder
+// } from "../types/program-interfaces/{{merkleInstant.V10.0.0}}/types";

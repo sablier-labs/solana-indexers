@@ -19,8 +19,8 @@ dotenv.config({ path: path.resolve(__dirname, "./../../.env"), quiet: true });
 // Can expand the Datasource processor types via the generic param
 const project: SolanaProject = {
   specVersion: "1.0.0",
-  version: "0.0.1",
-  name: "@sablier/solana-indexers-airdrops-subquery",
+  version: "0.0.2",
+  name: "Sablier Solana Airdrops Devnet",
   description: "Sablier subquery indexers for airdrops on Solana",
   runner: {
     node: {
@@ -29,7 +29,7 @@ const project: SolanaProject = {
     },
     query: {
       name: "@subql/query",
-      version: "*"
+      version: ">=2.23.5"
     }
   },
   schema: {
@@ -42,7 +42,7 @@ const project: SolanaProject = {
   dataSources: [
     {
       kind: SolanaDatasourceKind.Runtime,
-      startBlock: 401945064, // TODO startBlock_airdrops,
+      startBlock: startBlock_airdrops,
       assets: new Map([
         [merkleInstant[0][0], { file: "./idls/merkle_instant_v10.json" }]
       ]),

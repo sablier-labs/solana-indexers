@@ -7,8 +7,8 @@ import stdio from "stdio";
 
 function convert() {
   const options = stdio.getopt({
-    anchor: {
-      key: "anchor",
+    from: {
+      key: "from",
       args: 1,
       description:
         "Path for the Anchor IDL file to be converted, relative to ./packages/scripts",
@@ -23,7 +23,7 @@ function convert() {
     }
   });
 
-  const inputPath = join(__dirname, _.toString(_.get(options, "anchor")));
+  const inputPath = join(__dirname, _.toString(_.get(options, "from")));
 
   const anchorIDL = JSON.parse(readFileSync(inputPath, "utf-8"));
   const codama = createFromRoot(rootNodeFromAnchor(anchorIDL));

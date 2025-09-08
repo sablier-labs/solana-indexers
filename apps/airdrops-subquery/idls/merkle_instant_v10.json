@@ -1,11 +1,11 @@
 {
   "kind": "rootNode",
   "standard": "codama",
-  "version": "1.2.11",
+  "version": "1.3.4",
   "program": {
     "kind": "programNode",
     "name": "sablierMerkleInstant",
-    "publicKey": "GrZhWdwBgZakydbyUMx1eTkCT5Eei7LC21i87Ag7Vh1D",
+    "publicKey": "8t2R21V3vjS1ucZzmX2memtGptjYZi2yGY3cYVa8dak7",
     "version": "0.1.0",
     "origin": "anchor",
     "docs": [],
@@ -55,7 +55,7 @@
               "docs": [],
               "type": {
                 "kind": "numberTypeNode",
-                "format": "i64",
+                "format": "u64",
                 "endian": "le"
               }
             },
@@ -71,7 +71,7 @@
               "docs": [],
               "type": {
                 "kind": "numberTypeNode",
-                "format": "i64",
+                "format": "u64",
                 "endian": "le"
               }
             },
@@ -81,7 +81,7 @@
               "docs": [],
               "type": {
                 "kind": "numberTypeNode",
-                "format": "i64",
+                "format": "u64",
                 "endian": "le"
               }
             },
@@ -1224,7 +1224,7 @@
                     "docs": [],
                     "type": {
                       "kind": "numberTypeNode",
-                      "format": "i64",
+                      "format": "u64",
                       "endian": "le"
                     }
                   },
@@ -1234,7 +1234,7 @@
                     "docs": [],
                     "type": {
                       "kind": "numberTypeNode",
-                      "format": "i64",
+                      "format": "u64",
                       "endian": "le"
                     }
                   },
@@ -1433,7 +1433,7 @@
             "docs": [],
             "type": {
               "kind": "numberTypeNode",
-              "format": "i64",
+              "format": "u64",
               "endian": "le"
             }
           },
@@ -1443,7 +1443,7 @@
             "docs": [],
             "type": {
               "kind": "numberTypeNode",
-              "format": "i64",
+              "format": "u64",
               "endian": "le"
             }
           },
@@ -1563,7 +1563,7 @@
           "",
           "# Parameters",
           "",
-          "- `index` The index of the recipient in the Merkle tree."
+          "- `_index` The index of the recipient in the Merkle tree."
         ],
         "optionalAccountStrategy": "programId",
         "accounts": [
@@ -1879,6 +1879,67 @@
             "offset": 0
           }
         ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "treasuryView",
+        "docs": ["Returns the treasury details."],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "treasury",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the account storing the treasury details."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "treasury",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "7472656173757279",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": []
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "f7a0d5edf779a452",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
       }
     ],
     "definedTypes": [
@@ -2027,7 +2088,7 @@
               "docs": [],
               "type": {
                 "kind": "numberTypeNode",
-                "format": "i64",
+                "format": "u64",
                 "endian": "le"
               }
             },
@@ -2043,7 +2104,7 @@
               "docs": [],
               "type": {
                 "kind": "numberTypeNode",
-                "format": "i64",
+                "format": "u64",
                 "endian": "le"
               }
             },

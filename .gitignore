@@ -39,6 +39,7 @@ apps/*-subquery/dist
 apps/*-subquery/project.yaml
 apps/*-subquery/src/generated
 apps/*-subquery/src/types
+apps/*-subquery/.project-cid
 
 # ------- SCRIPTS -------- #
 

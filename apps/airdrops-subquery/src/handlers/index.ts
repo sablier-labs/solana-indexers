@@ -3,11 +3,14 @@ import {
   getCampaignByAccount
 } from "../helpers/campaign";
 import {
-  getClaimDecoder,
   InstructionClaim,
   InstructionClawback,
   InstructionCreate
-} from "../adapters";
+} from "../generated/adapters";
+
+// TODO: use adapters once /types avoid @solana/rpc
+import { getClaimDecoder } from "../_workaround";
+
 import { createAction } from "../helpers/action";
 import { ActionCategory } from "../types";
 import { log_error, one } from "../constants";
