@@ -3,15 +3,16 @@
   "private": true,
   "workspaces": [
     "apps/*/subgraph",
-    "apps/airdrops-subquery",
+    "apps/*-subquery",
     "packages/subgraph"
   ],
   "packageManager": "yarn@4.7.0",
   "scripts": {
     "g:lockup-setup:devnet": "yarn workspace @sablier/solana-indexers-lockup setup:devnet",
+    "g:lockup-subquery-publish:devnet": "yarn workspaces @sablier/solana-indexers-lockup-subquery publish:devnet",
     "g:airdrops-setup:devnet": "yarn workspace @sablier/solana-indexers-airdrops setup:devnet",
-    "g:anchor-to-codama": "cd ./packages/scripts && yarn tsx --tsconfig ./tsconfig.json ./anchor-to-codama.ts",
-    "g:test": "cd ./packages/scripts && yarn tsx --tsconfig ./tsconfig.json ./test.ts"
+    "g:airdrops-subquery-publish:devnet": "yarn workspaces @sablier/solana-indexers-airdrops-subquery publish:devnet",
+    "g:anchor-to-codama": "cd ./packages/scripts && yarn tsx --tsconfig ./tsconfig.json ./anchor-to-codama.ts"
   },
   "devDependencies": {
     "@codama/nodes-from-anchor": "^1.2.6",

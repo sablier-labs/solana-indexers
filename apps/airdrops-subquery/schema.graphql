@@ -76,9 +76,9 @@ type Asset @entity {
   id: ID!
 
   "mint address of the asset/token"
-  address: String! @index(unique: true)
+  address: String!
   "mint address of the asset/token"
-  mint: String! @index(unique: true)
+  mint: String!
   "hardcoded chain code, to be included in aliases and cross-chain filtering"
   chainCode: String!
   "hardcoded chain id, made up chain id to make chain definitions compatible with those on the EVM"
@@ -102,9 +102,9 @@ type Campaign @entity {
   "unique global id tracked by the subgraph watcher - 🚨 these may change if new contracts are added and the chronological order of streams changes"
   subgraphId: BigInt! @index(unique: true)
   "address of the campaign account"
-  address: String! @index(unique: true)
+  address: String!
   "address of the campaign ATA"
-  ata: String! @index(unique: true)
+  ata: String!
 
   "underlying asset"
   asset: Asset!
@@ -174,9 +174,9 @@ type Factory @entity {
   "unique identifier resolving to contract address"
   id: ID!
   "hardcoded alias"
-  alias: String! @index(unique: true)
+  alias: String!
   "address of the contract"
-  address: String! @index(unique: true)
+  address: String!
   "hardcoded chain code, to be included in aliases and cross-chain filtering"
   chainCode: String!
   "hardcoded chain id, made up chain id to make chain definitions compatible with those on the EVM"

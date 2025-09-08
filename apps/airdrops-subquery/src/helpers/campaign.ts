@@ -9,7 +9,7 @@ import { CampaignCategory, Campaign } from "../types";
 // TODO: use adapters once /types avoid @solana/rpc
 import { getCreateCampaignDecoder } from "../_workaround";
 
-async function getDecimals(instruction: InstructionCreate) {
+async function getCreated(instruction: InstructionCreate) {
   const logs = instruction.transaction.meta?.logMessages || [];
   let found = undefined;
   for (let i = 0; i < logs.length; i++) {
@@ -40,7 +40,7 @@ export async function createCampaignInstant(
 
   /* -------------------------------------------------------------------------- */
 
-  const event = await getDecimals(instruction);
+  const event = await getCreated(instruction);
   if (!event) {
     log_error(`Missing event decoding for transaction`, instruction);
     return undefined;
