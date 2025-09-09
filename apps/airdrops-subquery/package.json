@@ -8,8 +8,8 @@
     "_codegen-constants": "mkdir -p ./src/generated && mustache ../../packages/constants/$CLUSTER.json ../../packages/templates/constants.ts.mustache > ./src/generated/env.ts",
     "_codegen-adapter": "mkdir -p ./src/generated && mustache ../../packages/constants/$CLUSTER.json ../../packages/templates/airdrops-subquery/adapters.ts.mustache > ./src/generated/adapters.ts",
     "_codegen-project-yaml": "",
+    "deploy-traceye:devnet": "yarn setup:devnet && yarn run traceye subquery:deploy --url https://app.traceye.io/shared-api/subquery/8d1e3cb9b09fa923cbcad78839d9b5e0443927c1fbcb0479/deploy/node --ipfs https://app.traceye.io/shared-api/subquery/8d1e3cb9b09fa923cbcad78839d9b5e0443927c1fbcb0479/ipfs/node razgraf-solana-airdrops-devnet",
     "dev": "yarn subquery-run-clean:devnet",
-    "read-cid": "IPFS_CID=$(cat ./.project-cid) && $IPFS_CID",
     "publish:devnet": "yarn setup:devnet && yarn subql publish",
     "setup:devnet": "CLUSTER=devnet yarn _codegen",
     "subquery-build": "yarn setup:devnet && yarn subql build",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@codama/nodes-from-anchor": "^1.2.6",
     "@subql/cli": "^6.2.2",
+    "@traceeye/cli": "^1.0.6",
     "@types/events": "^3",
     "@types/fastestsmallesttextencoderdecoder": "^1",
     "@types/node-fetch": "latest",
