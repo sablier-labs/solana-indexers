@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: ./docker/pg-Dockerfile
     ports:
-      - 5442:5433
+      - 5442:5432
     volumes:
       - .data/postgres:/var/lib/postgresql/data
     environment:
@@ -26,7 +26,7 @@ services:
       DB_PASS: postgres
       DB_DATABASE: postgres
       DB_HOST: postgres
-      DB_PORT: 5433
+      DB_PORT: 5432
     volumes:
       - ./:/app
     command:
@@ -62,7 +62,7 @@ services:
       DB_PASS: postgres
       DB_DATABASE: postgres
       DB_HOST: postgres
-      DB_PORT: 5433
+      DB_PORT: 5432
     command:
       - --name=app
       - --playground

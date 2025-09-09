@@ -19,7 +19,6 @@ async function getCreated(instruction: InstructionCreate) {
       break;
     }
   }
-
   return found;
 }
 

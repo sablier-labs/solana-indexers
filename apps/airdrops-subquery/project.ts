@@ -25,7 +25,7 @@ const project: SolanaProject = {
   runner: {
     node: {
       name: "@subql/node-solana",
-      version: ">=6.0.7"
+      version: ">=6.1.0"
     },
     query: {
       name: "@subql/query",

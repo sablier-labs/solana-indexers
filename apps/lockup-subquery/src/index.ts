@@ -1,11 +1,6 @@
-import { atob } from "abab";
 import { AbortController, AbortSignal } from "abort-controller";
 import { EventTarget } from "event-target-shim";
 import { TextDecoder, TextEncoder } from "fastestsmallesttextencoderdecoder";
-
-if (!global.atob) {
-  global.atob = atob as any;
-}
 
 /* -------------------------------------------------------------------------- */
 /*                                  POLYFILLS                                 */

@@ -1,5 +1,4 @@
-import { getChainCode, one, zero, log_error } from "../constants";
-import { getOrCreateWatcher } from "./watcher";
+import { zero, log_error } from "../constants";
 import { Activity } from "../types";
 import { getCampaignById } from "./campaign";
 
