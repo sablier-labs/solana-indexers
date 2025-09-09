@@ -55,7 +55,7 @@ function createStream(
   entity.transferable = true; /**  All streams are transferable by default */
   entity.withdrawnAmount = zero;
 
-  entity.senderAta = null; /** We don't initialize a recipientAta since it may (1) be unavailable at create and (2) change with transfers or withdraw-to */
+  entity.funderAta = null;
 
   /** --------------- */
   watcher.streamIndex = watcher.streamIndex.plus(one);
@@ -88,12 +88,10 @@ export function createLinearStream(
   entity.funder = event.creator;
   entity.recipientNFTAta = event.recipientStreamNftAta;
 
-  entity.senderAta = event.creatorAta;
+  entity.funderAta = event.creatorAta;
 
   entity.nftMint = event.streamNftMint;
   entity.nftData = event.streamData;
-
-  entity.parties = [event.sender, event.recipient];
 
   entity.depositAmount = BigInt.fromU64(event.depositedAmount);
   entity.intactAmount = BigInt.fromU64(event.depositedAmount);

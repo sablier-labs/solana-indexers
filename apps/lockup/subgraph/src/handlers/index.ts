@@ -118,7 +118,7 @@ export function handleRenounce(event: EventRenounce, system: ProtoData): void {
   );
 
   if (stream == null) {
-    log_exit("Stream hasn't been registered before this cancel event: {}", [
+    log_exit("Stream hasn't been registered before this renounce event: {}", [
       generateStreamId(event.streamNftMint, event.instructionProgram)
     ]);
     return;
@@ -191,9 +191,6 @@ export function handleSPLTransfer(
   stream.recipient = toRecipient;
   stream.recipientNFTAta = toRecipientAta;
 
-  let parties = [stream.sender, toRecipient];
-  stream.parties = parties;
-
   ownership.owner = toRecipient;
   ownership.ownerAta = toRecipientAta;
 
@@ -210,7 +207,7 @@ export function handleWithdraw(event: EventWithdraw, system: ProtoData): void {
   );
 
   if (stream == null) {
-    log_exit("Stream hasn't been registered before this cancel event: {}", [
+    log_exit("Stream hasn't been registered before this withdraw event: {}", [
       generateStreamId(event.streamNftMint, event.instructionProgram)
     ]);
     return;
@@ -257,9 +254,10 @@ export function handleWithdrawMax(
   );
 
   if (stream == null) {
-    log_exit("Stream hasn't been registered before this cancel event: {}", [
-      generateStreamId(event.streamNftMint, event.instructionProgram)
-    ]);
+    log_exit(
+      "Stream hasn't been registered before this withdraw max event: {}",
+      [generateStreamId(event.streamNftMint, event.instructionProgram)]
+    );
     return;
   }
 

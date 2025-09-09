@@ -11,7 +11,7 @@ export async function createAction(
   contractId: string,
   category: ActionCategory,
   instruction: SolanaInstruction
-): Promise<Action | undefined> {
+): Promise<Action> {
   const watcher = await getOrCreateWatcher();
   const id = generateActionId(
     instruction.transaction.transaction.signatures[0],

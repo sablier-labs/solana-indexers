@@ -1,25 +1,19 @@
+import { SolanaInstruction } from "@subql/types-solana";
 import { getChainCode, log_error, one, zero } from "../constants";
 import { getOrCreateWatcher } from "./watcher";
 import { getOrCreateContract } from "./contract";
 import { getOrCreateAsset } from "./asset";
 import {
-  InstructionCancel,
   InstructionCreateWithDurations,
-  InstructionCreateWithTimestamps,
-  InstructionRenounce,
-  InstructionWithdraw,
-  InstructionWithdrawMax
+  InstructionCreateWithTimestamps
 } from "../generated/adapters";
-import { bindGetAccount, decode, fromUint8Array, getProgramId } from "../utils";
-import { Contract, Stream, StreamCategory } from "../types";
+import { bindGetAccount, decode, getProgramId } from "../utils";
+import { ActionCategory, Contract, Stream, StreamCategory } from "../types";
+import { createOwnership } from "./ownership";
+import { createAction } from "./action";
 
 // TODO: use adapters once /types avoid @solana/rpc
-import {
-  getCreateLockupLinearStreamDecoder,
-  getCancelLockupStreamDecoder,
-  getWithdrawFromLockupStreamDecoder
-} from "../_workaround";
-import { SolanaInstruction } from "@subql/types-solana";
+import { getCreateLockupLinearStreamDecoder } from "../_workaround";
 
 async function getCreated(
   instruction: InstructionCreateWithDurations | InstructionCreateWithTimestamps
@@ -50,7 +44,7 @@ export async function createStream(instruction: SolanaInstruction) {
 
   /* -------------------------------------------------------------------------- */
 
-  const nftMint = getAccount(9);
+  const nftMint = getAccount(9); // nftMint
   const id = generateStreamId(nftMint, program);
   const alias = generateStreamAlias(nftMint, contract);
 
@@ -88,8 +82,17 @@ export async function createStream(instruction: SolanaInstruction) {
   } as const;
 }
 
+type Times = {
+  cliffDuration: bigint;
+  cliffTime: bigint;
+  duration: bigint;
+  endTime: bigint;
+  startTime: bigint;
+};
+
 export async function createLinearStream(
-  instruction: InstructionCreateWithDurations
+  instruction: InstructionCreateWithDurations | InstructionCreateWithTimestamps,
+  times: Times
 ): Promise<Stream | undefined> {
   const decoded = await instruction.decodedData;
   if (!decoded) {
@@ -128,19 +131,90 @@ export async function createLinearStream(
 
     salt: event.salt.toString(),
     category: StreamCategory.LockupLinear,
+    assetId: asset.id,
 
     funder: getAccount(1), // creator
     recipient: getAccount(2), // recipient
     sender: getAccount(3), // sender
     recipientNFTAta: getAccount(10), // recipientStreamNftAta
 
-    senderAta: getAccount(2) // creatorAta
+    funderAta: getAccount(2), // creatorAta
+
+    nftMint: getAccount(9), // nftMint
+    nftData: getAccount(11), // nftData
+
+    depositAmount: BigInt(params.depositAmount),
+    intactAmount: BigInt(params.depositAmount),
+
+    cancelable: params.isCancelable,
+
+    startTime: times.startTime,
+    endTime: times.endTime,
+    duration: times.duration,
+
+    ...(times.cliffTime !== zero
+      ? {
+          cliff: true,
+          cliffAmount: BigInt(params.cliffUnlockAmount),
+          cliffTime: times.cliffTime
+        }
+      : { cliff: false }),
+
+    ...(BigInt(params.startUnlockAmount) !== zero
+      ? { initial: true, initialAmount: BigInt(params.startUnlockAmount) }
+      : { initial: false })
   });
 
   /* -------------------------------------------------------------------------- */
 
   await entity.save();
   return entity;
+}
+
+export async function handleCreateStreamDependencies(
+  instruction: InstructionCreateWithDurations | InstructionCreateWithTimestamps,
+  stream: Stream
+): Promise<Stream | undefined> {
+  /* -------------------------------------------------------------------------- */
+
+  const action = await createAction(
+    stream.contractId,
+    ActionCategory.Create,
+    instruction
+  );
+
+  if (!action) {
+    return;
+  }
+
+  action.addressA = stream.sender;
+  action.addressB = stream.recipient;
+  action.amountA = stream.depositAmount;
+  action.streamId = stream.id;
+
+  await action.save();
+
+  /* -------------------------------------------------------------------------- */
+
+  if (!stream.cancelable) {
+    stream.renounceActionId = action.id;
+    stream.renounceTime = stream.timestamp;
+  }
+
+  await stream.save();
+
+  /* -------------------------------------------------------------------------- */
+
+  const ownership = await createOwnership(
+    stream.nftMint,
+    stream.recipient,
+    stream.recipientNFTAta,
+    stream.id
+  );
+
+  await ownership.save();
+
+  return stream;
 }
 
 /** --------------------------------------------------------------------------------------------------------- */
