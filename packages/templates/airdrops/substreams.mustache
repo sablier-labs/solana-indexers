@@ -37,6 +37,6 @@ modules:
     blockFilter:
       module: solana:program_ids_without_votes
       query:
-        string: (program:TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA || program:TokenzQdBf9TtFzCwEDvqDxwaUnF6zq5qvQ8TF7vWc{{#merkleInstant.V10}} || program:{{0}}{{/merkleInstant.V10}})
+        string: (program:{{tokenProgram.SPL}}{{#merkleInstant.V10}} || program:{{0}}{{/merkleInstant.V10}})
 
 network: {{substream}}

@@ -11,8 +11,9 @@ import {
   chainGenesis,
   rpc,
   startBlock_lockup,
-  lockupLinear
-} from "./src/generated/env";
+  lockupLinear,
+  tokenProgram
+} from "./src/constants/index";
 
 dotenv.config({ path: path.resolve(__dirname, "./../../.env"), quiet: true });
 
@@ -48,7 +49,8 @@ const project: SolanaProject = {
       kind: SolanaDatasourceKind.Runtime,
       startBlock: startBlock_lockup,
       assets: new Map([
-        [lockupLinear[0][0], { file: "./idls/lockup_linear_v10.json" }]
+        [lockupLinear[0][0], { file: "./idls/lockup_linear_v10.json" }],
+        [tokenProgram.SPL, { file: "./idls/token_program.json" }]
       ]),
       mapping: {
         file: "./dist/index.js",
@@ -101,9 +103,23 @@ const project: SolanaProject = {
               programId: lockupLinear[0][0],
               discriminator: "withdrawMax"
             }
+          },
+          {
+            kind: SolanaHandlerKind.Instruction,
+            handler: "handleSPLTransfer",
+            filter: {
+              programId: tokenProgram.SPL,
+              discriminator: "transfer"
+            }
+          },
+          {
+            kind: SolanaHandlerKind.Instruction,
+            handler: "handleSPLTransferChecked",
+            filter: {
+              programId: tokenProgram.SPL,
+              discriminator: "transferChecked"
+            }
           }
-
-          // TODO add support for transfers
         ]
       }
     }

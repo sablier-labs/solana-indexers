@@ -1,4 +1,10 @@
 export {
+  TransferInstruction as InstructionSPLTransfer,
+  TransferCheckedInstruction as InstructionSPLTransferChecked
+} from "../types/handler-inputs/{{tokenProgram.SPL}}";
+
+
+export {
   CancelInstruction as InstructionCancel,
   CreateWithDurationsLlInstruction as InstructionCreateWithDurations,
   CreateWithTimestampsLlInstruction as InstructionCreateWithTimestamps,

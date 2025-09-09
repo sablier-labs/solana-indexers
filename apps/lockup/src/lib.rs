@@ -343,7 +343,7 @@ fn map_program_data(block: Block) -> Data {
     let watched_programs: Vec<&str> = constants::cluster::SABLIER_LOCKUP_LINEAR_V10
         .iter()
         .copied()
-        .chain(util::SPL_PROGRAMS.iter().copied())
+        .chain(constants::cluster::SPL_TOKEN_PROGRAMS.iter().copied())
         .collect();
 
     let mut cancel_list: Vec<Cancel> = Vec::new();
@@ -404,7 +404,7 @@ fn map_program_data(block: Block) -> Data {
                     }
                 }
 
-                if util::SPL_TOKEN_PROGRAM_ID == instruction.program_id().to_string().as_str() {
+                if constants::cluster::SPL_TOKEN_PROGRAM_ID == instruction.program_id().to_string().as_str() {
                     let list: Vec<Transfer> = handle_spl_transfers(index, &instruction);
 
                     list.iter().for_each(|entry| {

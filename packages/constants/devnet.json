@@ -14,5 +14,8 @@
   },
   "merkleInstant": {
     "V10": [["8t2R21V3vjS1ucZzmX2memtGptjYZi2yGY3cYVa8dak7", "MI", "V10"]]
+  },
+  "tokenProgram": {
+    "SPL": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
   }
 }

@@ -4,7 +4,9 @@ import {
   InstructionCreateWithTimestamps,
   InstructionRenounce,
   InstructionWithdraw,
-  InstructionWithdrawMax
+  InstructionWithdrawMax,
+  InstructionSPLTransfer,
+  InstructionSPLTransferChecked
 } from "../generated/adapters";
 
 // TODO: use adapters once /types avoid @solana/rpc
@@ -22,6 +24,13 @@ import {
   getStreamByNftMint,
   handleCreateStreamDependencies
 } from "../helpers/stream";
+
+import {
+  getSPLTransferCheckedEntities,
+  getSPLTransferEntities,
+  getSPLTransferMetaEntities,
+  handleSPLTransferDependencies
+} from "../helpers/transfer";
 
 async function getCanceled(instruction: InstructionCancel) {
   const logs = instruction.transaction.meta?.logMessages || [];
@@ -208,6 +217,56 @@ export async function handleRenounced(instruction: InstructionRenounce) {
   await stream.save();
 }
 
+export async function handleSPLTransfer(instruction: InstructionSPLTransfer) {
+  const core = await getSPLTransferEntities(instruction);
+
+  if (!core) {
+    return;
+  }
+
+  const meta = getSPLTransferMetaEntities(instruction, core.fromOwner);
+
+  if (!meta) {
+    return;
+  }
+
+  /* -------------------------------------------------------------------------- */
+
+  await handleSPLTransferDependencies(instruction, {
+    fromAta: core.fromAta,
+    fromOwner: core.fromOwner,
+    nftMint: meta.nftMint,
+    toAta: core.toAta,
+    toOwner: meta.toOwner
+  });
+}
+
+export async function handleSPLTransferChecked(
+  instruction: InstructionSPLTransferChecked
+) {
+  const core = await getSPLTransferCheckedEntities(instruction);
+
+  if (!core) {
+    return;
+  }
+
+  const meta = getSPLTransferMetaEntities(instruction, core.fromOwner);
+
+  if (!meta) {
+    return;
+  }
+
+  /* -------------------------------------------------------------------------- */
+
+  await handleSPLTransferDependencies(instruction, {
+    fromAta: core.fromAta,
+    fromOwner: core.fromOwner,
+    nftMint: meta.nftMint,
+    toAta: core.toAta,
+    toOwner: meta.toOwner
+  });
+}
+
 export async function handleWithdraw(instruction: InstructionWithdraw) {
   const decoded = await instruction.decodedData;
   if (!decoded) {
@@ -220,6 +279,8 @@ export async function handleWithdraw(instruction: InstructionWithdraw) {
   const getAccount = bindGetAccount(instruction);
 
   const nftMint = getAccount(5); //streamNftMint
+
+  /* -------------------------------------------------------------------------- */
 
   const stream = await getStreamByNftMint(nftMint, program);
 

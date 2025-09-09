@@ -2,11 +2,6 @@ use base64::{engine::general_purpose, Engine as _};
 use borsh::{BorshDeserialize, BorshSerialize};
 use substreams_solana::block_view::InstructionView;
 
-pub const SPL_TOKEN_PROGRAM_ID: &str = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA";
-pub const SPL_TOKEN_2022_PROGRAM_ID: &str = "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb";
-
-pub const SPL_PROGRAMS: [&str; 2] = [SPL_TOKEN_PROGRAM_ID, SPL_TOKEN_2022_PROGRAM_ID];
-
 #[derive(BorshSerialize, BorshDeserialize, Debug, Default)]
 pub struct SPLTransfer {
     pub amount: u64,
@@ -114,4 +109,4 @@ pub fn get_transfer_entities(instruction: &InstructionView, from_owner: String) 
     let to_owner = post_balance_to.unwrap().owner.to_string();
 
     Some((to_owner, nft_mint))
-} 
+}

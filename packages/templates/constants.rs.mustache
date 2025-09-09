@@ -5,4 +5,6 @@
 pub mod cluster {
  pub const SABLIER_LOCKUP_LINEAR_V10: [&str; {{lockupLinear.V10.length}}] = [{{#lockupLinear.V10}}"{{0}}",{{/lockupLinear.V10}}];
  pub const SABLIER_MERKLE_INSTANT_V10: [&str; {{merkleInstant.V10.length}}] = [{{#merkleInstant.V10}}"{{0}}",{{/merkleInstant.V10}}];
+ pub const SPL_TOKEN_PROGRAM_ID: &str = "{{tokenProgram.SPL}}";
+ pub const SPL_TOKEN_PROGRAMS: [&str; 1] = ["{{tokenProgram.SPL}}"];
 }

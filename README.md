@@ -6,6 +6,9 @@
 4. [Deployment](#deployment-)
 5. [Useful Resources](#useful-resources-)
 
+> [!IMPORTANT]
+> The following only addresses the subgraph x substream projects (lockup, airdrops). Subquery documentation coming soon.
+
 ## Getting Started 🔮
 
 #### 1. Install Rust
@@ -146,3 +149,6 @@ yarn setup:devnet
 
 - The [manifest reference](https://docs.substreams.dev/reference-material/substreams-components/manifests) for the structure of `substreams.yaml`
 - Examples of [existing modules](https://substreams.dev/packages/solana-common/latest) show some versions of query strings (they can have `||` operators)
+
+- Blocks for quick tests (lockup)
+  - Stream transfer on devnet: `406699648` (create), `406699649` (transfer)
