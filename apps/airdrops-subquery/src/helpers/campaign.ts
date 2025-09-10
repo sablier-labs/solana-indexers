@@ -19,6 +19,22 @@ async function getCreated(instruction: InstructionCreate) {
       break;
     }
   }
+
+  try {
+    logger.info("Sablier Logger: CreateCampaign");
+
+    const list = decoder.decodeLogs(logs) || [];
+
+    for (const item of list) {
+      const decoded = await item.decodedMessage;
+      if (decoded) {
+        logger.info(`Sablier Logger: ${decoded?.name}`);
+        logger.info(`Sablier Logger: ${JSON.stringify(decoded?.data)}`);
+      }
+    }
+  } catch (e) {
+    logger.error(e);
+  }
   return found;
 }
 

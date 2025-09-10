@@ -46,7 +46,7 @@ const project: SolanaProject = {
   dataSources: [
     {
       kind: SolanaDatasourceKind.Runtime,
-      startBlock: startBlock_airdrops,
+      startBlock: 405402287, // startBlock_airdrops,
       assets: new Map([
         [merkleInstant[0][0], { file: "./idls/merkle_instant_v10.json" }]
       ]),

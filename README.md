@@ -205,6 +205,8 @@ Using docker you can run an instance of your subquery indexer on your computer. 
 
 ### Useful Resources 📦
 
-- Blocks for quick tests (lockup)
-  - Stream create on devnet: `406699648` (create)
-  - Stream transfer on devnet: `406699648` (create), `406699649` (transfer)
+- Blocks for quick tests on devnet, lockup
+  - Stream create: `406699648` (create)
+  - Stream transfer: `406699648` (create), `406699649` (transfer)
+- Blocks for quick tests on devnet, airdrops
+  - Campaign create: `405402287`
