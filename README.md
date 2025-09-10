@@ -1,15 +1,13 @@
 # Sablier Subgraphs and Indexers (Solana)
 
-1. [Getting Started](#getting-started-)
-2. [Registration](#registration-)
-3. [Development](#development-)
-4. [Deployment](#deployment-)
-5. [Useful Resources](#useful-resources-)
+This repository contains support for two vendors to be used as fallbacks for each-other:
 
-> [!IMPORTANT]
-> The following only addresses the subgraph x substream projects (lockup, airdrops). Subquery documentation coming soon.
+1. [Substream powered Subgraphs 🔮](#solution-1-substream-powered-subgraphs)
+2. [Subquery 🍀](#solution-2-subquery)
 
-## Getting Started 🔮
+## Solution 1: Substream powered Subgraphs 🔮
+
+### Getting Started ✴️
 
 #### 1. Install Rust
 
@@ -31,9 +29,15 @@ https://www.docker.com/products/docker-desktop/
    brew install bufbuild/buf/buf
 ```
 
+#### 4. Install project dependencies
+
+```bash
+yarn install
+```
+
 This will also install a dependency for Protobuf support.
 
-## Registration 📑
+### Registration 📑
 
 You'll need to create an account or log into an existing one on The Graph Market. This will grant you access to a token which enables indexing.
 
@@ -77,11 +81,11 @@ Create or look for the subgraph profile and look for the authenticate & deploy s
    yarn subgraph-auth # or simply substreams auth
 ```
 
-## Development 👨‍💻
+### Development 👨‍💻
 
-After dealing with all the necessary dependencies from [Getting Started](#getting-started-) and [Registration](#registration-) you can start submitting updates for the substreams / subgraphs. The [`./subgraph/package.json`](./subgraph/package.json) file has some handy scripts for quick configurations so we're going to assume commands will from now on be run from inside the **`./subgraph`** folder.
+After dealing with all the necessary dependencies from [Getting Started](#getting-started-) and [Registration](#registration-) you can start submitting updates for the substreams / subgraphs. The `./subgraph/package.json` file has some handy scripts for quick configurations so we're going to assume commands will from now on be run from inside the **`./subgraph`** folder.
 
-### Set up ⭐
+#### Set up ⭐
 
 ```bash
    yarn setup:devnet
@@ -94,7 +98,7 @@ The `setup` command will:
 3. build the substream `*.spkg` based on `./substreams.yaml`, `./proto` and `./buf.gen.yaml`
 4. generate `./subgraph/generated` based on `*.spkg` and `./subgraphs/bug.gen.yaml`
 
-### Substreams
+#### Substreams
 
 To develop new features into the substream, look into modifying the following files:
 
@@ -108,25 +112,25 @@ To test your changes locally, you can run:
    yarn substream-gui:devnet
 ```
 
-### Subgraphs
+#### Subgraphs
 
-#### 1. Create a new subgraph on [thegraph.com/studio](https://thegraph.com/studio/)
+##### 1. Create a new subgraph on [thegraph.com/studio](https://thegraph.com/studio/)
 
 Create a placeholder project in the Studio. We'll need the `auth` key and the name.
 
-#### 2. Replace details in package.json and subgraph.yaml
+##### 2. Replace details in package.json and subgraph.yaml
 
 - Make sure the `dataSources.source.package.file` is set to the actual name of the substream `spkg` (produced after build)
 - Make sure the name for protogen also matches
 - Replace slug in `subgraph-deploy` (package.json) with the one created at step 1
 
-#### 3. Deploy
+##### 3. Deploy
 
 ```bash
    yarn setup:devnet
 ```
 
-## Deployment 🚀
+### Deployment 🚀
 
 To engage with the `devnet` substream gui you can run:
 
@@ -143,12 +147,66 @@ yarn setup:devnet
 
 ```
 
-## Useful Resources 📦
+### Useful Resources 📦
 
 ### `substreams.yaml`
 
 - The [manifest reference](https://docs.substreams.dev/reference-material/substreams-components/manifests) for the structure of `substreams.yaml`
 - Examples of [existing modules](https://substreams.dev/packages/solana-common/latest) show some versions of query strings (they can have `||` operators)
 
-- Blocks for quick tests (lockup)
-  - Stream transfer on devnet: `406699648` (create), `406699649` (transfer)
+## Solution 2: Subquery 🍀
+
+### Getting Started ✴️
+
+#### 1. Install dependencies
+
+```bash
+yarn install
+```
+
+#### 2. Install Docker Desktop
+
+https://www.docker.com/products/docker-desktop/
+
+If already used, you can adapt the dedicated ports from the `docker-compose.yml`.
+
+#### 3. Add ENV variables in the `.env`
+
+Check the `.env.example` located at the root of the repository for required secrets. To run subqueries locally you'll only need a `HELIUS_RPC_KEY` set (alternatively you can edit `apps/*-subquery/project.ts` and add your own RPC)
+
+### Development 👨‍💻
+
+After dealing with all the necessary dependencies from [Getting Started](#getting-started--1) you can start submitting updates to the subquery indexers. The `./apps/*-subquery/package.json` file has some handy scripts for quick configurations.
+
+#### Set up ⭐
+
+```bash
+   yarn setup:devnet
+```
+
+The `setup` command will:
+
+1. generate files with constants from our [templates](./packages/templates/) and general [constants](./packages/constants/)
+2. generate `./*-subquery/types` for the project
+
+#### Run locally
+
+Using docker you can run an instance of your subquery indexer on your computer. Make sure to have docker desktop booted up.
+
+```bash
+   yarn dev
+   # or, if you want to skip the templating step or keep some manual changes added after the fact
+   yarn subquery-play
+```
+
+> [!NOTE]
+>
+> To test certain events in particular you don't need to wait for the indexer to read everything from the start block. Check `project.ts` and replace the startBlock with one from the useful resources section to quickly reach relevant events. You can use the [constants](./packages/constants/devnet.json) to investigate onchain for other key blocks.
+
+### Useful Resources 📦
+
+- Blocks for quick tests on devnet, lockup
+  - Stream create: `406699648` (create)
+  - Stream transfer: `406699648` (create), `406699649` (transfer)
+- Blocks for quick tests on devnet, airdrops
+  - Campaign create: `405402287`
