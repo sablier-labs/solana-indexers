@@ -1431,7 +1431,7 @@ __metadata:
     "@subql/cli": "npm:^6.2.2"
     "@subql/common-solana": "npm:^1.1.1"
     "@subql/types-solana": "npm:^1.1.0"
-    "@traceeye/cli": "npm:^1.0.6"
+    "@traceye-tech/cli": "npm:^2.0.0"
     "@types/events": "npm:^3"
     "@types/fastestsmallesttextencoderdecoder": "npm:^1"
     "@types/node-fetch": "npm:latest"
@@ -2274,9 +2274,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@traceeye/cli@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "@traceeye/cli@npm:0.0.1"
+"@traceye-tech/cli@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@traceye-tech/cli@npm:2.0.0"
   dependencies:
     "@oclif/core": "npm:2.8.6"
     "@oclif/plugin-not-found": "npm:^2.4.0"
@@ -2292,30 +2292,7 @@ __metadata:
     js-yaml: "npm:^4.1.0"
   bin:
     traceye: bin/run
-  checksum: 10/e4aa7a6b5d63a0cea6fc678ec863ec820bfa9ec1c6d9dd780d00b805799aa0334034b237fb79534f07e4c3318330fc4a840667dbe1b770b2d78b4697e4b95388
-  languageName: node
-  linkType: hard
-
-"@traceeye/cli@npm:^1.0.6":
-  version: 1.0.6
-  resolution: "@traceeye/cli@npm:1.0.6"
-  dependencies:
-    "@oclif/core": "npm:2.8.6"
-    "@oclif/plugin-not-found": "npm:^2.4.0"
-    "@traceeye/cli": "npm:^0.0.1"
-    chalk: "npm:3.0.0"
-    debug: "npm:^4.3.4"
-    fs-extra: "npm:^11.2.0"
-    gluegun: "npm:^5.1.6"
-    graphql: "npm:^16.8.1"
-    immutable: "npm:^5.0.0-beta.5"
-    inquirer: "npm:^8.2.0"
-    inquirer-autocomplete-prompt: "npm:^1.4.0"
-    ipfs-http-client: "npm:55.0.0"
-    js-yaml: "npm:^4.1.0"
-  bin:
-    traceye: bin/run
-  checksum: 10/7d8bfe12fd83702e24784c69e75d1e87ab62491104dabb62c821f484710b84e7f1c616604becd9e304ed04ebfa7f09c5ac525c221c9b5713a1f9a1f458408082
+  checksum: 10/cdd7d8e9220d21099ccda69089b12d15951053cd4efa1b3beed830cc38cc2c9e4b3dd61b26df8d9264d1c57ce3a67f4dd46ea7c17d423ef597a8ea35ad78c2ee
   languageName: node
   linkType: hard
 

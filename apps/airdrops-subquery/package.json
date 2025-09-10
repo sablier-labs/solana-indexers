@@ -35,7 +35,7 @@
   "devDependencies": {
     "@codama/nodes-from-anchor": "^1.2.6",
     "@subql/cli": "^6.2.2",
-    "@traceeye/cli": "^1.0.6",
+    "@traceye-tech/cli": "^2.0.0",
     "@types/events": "^3",
     "@types/fastestsmallesttextencoderdecoder": "^1",
     "@types/node-fetch": "latest",
