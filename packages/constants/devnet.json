@@ -3,7 +3,11 @@
   "chainCode": "SOLDEV",
   "chainGenesis": "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG",
   "cluster": "devnet",
-  "rpc": "https://devnet.helius-rpc.com/?api-key=",
+  "rpc": {
+    "helius": "https://devnet.helius-rpc.com/?api-key=",
+    "onfinality": "https://solana-devnet.api.onfinality.io/rpc?apikey=",
+    "public": ["https://api.devnet.solana.com"]
+  },
   "substream": "solana-devnet",
   "startBlock": {
     "lockup": 405402172,

@@ -16,6 +16,17 @@ import {
 
 dotenv.config({ path: path.resolve(__dirname, "./../../.env"), quiet: true });
 
+const RPC_HELIUS = process.env.HELIUS_RPC_KEY
+  ? `${rpc.helius}${process.env.HELIUS_RPC_KEY}`
+  : undefined;
+const RPC_ONFINALITY = process.env.ONFINALITY_RPC_KEY
+  ? `${rpc.helius}${process.env.ONFINALITY_RPC_KEY}`
+  : undefined;
+
+const endpoint = [RPC_HELIUS, RPC_ONFINALITY, ...rpc.public].filter(
+  r => r
+) as string[];
+
 // Can expand the Datasource processor types via the generic param
 const project: SolanaProject = {
   specVersion: "1.0.0",
@@ -31,17 +42,13 @@ const project: SolanaProject = {
       name: "@subql/query",
       version: ">=2.23.5"
     }
-    // query: {
-    //   name: "@subql/query-subgraph",
-    //   version: ">=0.2.2"
-    // }
   },
   schema: {
     file: "./schema.graphql"
   },
   network: {
     chainId: chainGenesis,
-    endpoint: [`${rpc}${process.env.HELIUS_RPC_KEY}`]
+    endpoint
   },
   dataSources: [
     {

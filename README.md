@@ -172,7 +172,7 @@ If already used, you can adapt the dedicated ports from the `docker-compose.yml`
 
 #### 3. Add ENV variables in the `.env`
 
-Check the `.env.example` located at the root of the repository for required secrets. To run subqueries locally you'll only need a `HELIUS_RPC_KEY` set (alternatively you can edit `apps/*-subquery/project.ts` and add your own RPC)
+Check the `.env.example` located at the root of the repository for required secrets. To run subqueries locally you'll only need a `HELIUS_RPC_KEY` and/or `ONFINALITY_RPC_KEY` set (alternatively you can edit `apps/*-subquery/project.ts` and add your own RPC)
 
 ### Development 👨‍💻
 
