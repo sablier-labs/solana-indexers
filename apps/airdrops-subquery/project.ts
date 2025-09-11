@@ -20,7 +20,7 @@ const RPC_HELIUS = process.env.HELIUS_RPC_KEY
   ? `${rpc.helius}${process.env.HELIUS_RPC_KEY}`
   : undefined;
 const RPC_ONFINALITY = process.env.ONFINALITY_RPC_KEY
-  ? `${rpc.helius}${process.env.ONFINALITY_RPC_KEY}`
+  ? `${rpc.onfinality}${process.env.ONFINALITY_RPC_KEY}`
   : undefined;
 
 const endpoint = [RPC_HELIUS, RPC_ONFINALITY, ...rpc.public].filter(

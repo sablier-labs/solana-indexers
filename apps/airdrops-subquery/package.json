@@ -3,11 +3,10 @@
   "version": "0.0.1",
   "main": "dist/index.js",
   "scripts": {
-    "_codegen": "yarn _codegen-constants && yarn _codegen-adapter && yarn _codegen-project-yaml && yarn _codegen-types",
+    "_codegen": "yarn _codegen-constants && yarn _codegen-adapter && yarn _codegen-types",
     "_codegen-types": "yarn subql codegen",
     "_codegen-constants": "mkdir -p ./src/generated && mustache ../../packages/constants/$CLUSTER.json ../../packages/templates/constants.ts.mustache > ./src/generated/env.ts",
     "_codegen-adapter": "mkdir -p ./src/generated && mustache ../../packages/constants/$CLUSTER.json ../../packages/templates/airdrops-subquery/adapters.ts.mustache > ./src/generated/adapters.ts",
-    "_codegen-project-yaml": "",
     "deploy-traceye:devnet": "yarn setup:devnet && yarn run traceye subquery:deploy --url https://app.traceye.io/shared-api/subquery/a80348ee7a697e3459a356bfbe868117c64d75585baabca4/deploy/node --ipfs https://app.traceye.io/shared-api/subquery/a80348ee7a697e3459a356bfbe868117c64d75585baabca4/ipfs/node sablier-solana-airdrops-devnet",
     "dev": "yarn subquery-run-clean:devnet",
     "publish:devnet": "yarn setup:devnet && yarn subql publish",
