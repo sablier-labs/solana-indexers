@@ -37,12 +37,16 @@ const project: SolanaProject = {
   runner: {
     node: {
       name: "@subql/node-solana",
-      version: ">=6.1.1"
+      version: ">=6.1.2"
     },
     query: {
-      name: "@subql/query",
-      version: ">=2.23.5"
+      name: "@subql/query-subgraph",
+      version: ">=0.2.3"
     }
+    // query: {
+    //   name: "@subql/query",
+    //   version: ">=2.23.5"
+    // }
   },
   schema: {
     file: "./schema.graphql"
