@@ -39,14 +39,16 @@ const project: SolanaProject = {
       name: "@subql/node-solana",
       version: ">=6.1.2"
     },
-    query: {
-      name: "@subql/query-subgraph",
-      version: ">=0.2.3"
-    }
-    // query: {
-    //   name: "@subql/query",
-    //   version: ">=2.23.5"
-    // }
+    query:
+      process.env.SUBQL_QUERY_SYNTAX === "subgraph"
+        ? {
+            name: "@subql/query-subgraph",
+            version: ">=0.2.3"
+          }
+        : {
+            name: "@subql/query",
+            version: ">=2.23.5"
+          }
   },
   schema: {
     file: "./schema.graphql"
