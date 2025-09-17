@@ -6,7 +6,7 @@
   "rpc": {
     "helius": "https://devnet.helius-rpc.com/?api-key=",
     "onfinality": "https://solana-devnet.api.onfinality.io/rpc?apikey=",
-    "public": ["https://api.devnet.solana.com"]
+    "fallback": ["https://api.devnet.solana.com"]
   },
   "substream": "solana-devnet",
   "startBlock": {

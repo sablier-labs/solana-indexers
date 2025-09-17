@@ -6,9 +6,9 @@
   "rpc": {
     "helius": "https://mainnet.helius-rpc.com/?api-key=",
     "onfinality": "https://solana-mainnet.api.onfinality.io/rpc?apikey=",
-    "public": ["https://api.mainnet-beta.solana.com"]
+    "fallback": ["https://api.mainnet-beta.solana.com"]
   },
-  "substream": "solana-mainnet-beta",
+  "substream": "solana-mainnet",
   "startBlock": {
     "lockup": 365675725,
     "airdrops": 365675848
