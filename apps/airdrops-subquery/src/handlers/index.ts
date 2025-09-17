@@ -3,30 +3,32 @@ import {
   getCampaignByAccount
 } from "../helpers/campaign";
 import {
+  EventClaim,
   InstructionClaim,
   InstructionClawback,
   InstructionCreate
 } from "../generated/adapters";
 
-// TODO: use adapters once /types avoid @solana/rpc
-import { getClaimDecoder } from "../_workaround";
-
 import { createAction } from "../helpers/action";
 import { ActionCategory } from "../types";
 import { log_error, one } from "../constants";
-import { bindGetAccount, decode } from "../utils";
+import { bindGetAccount } from "../utils";
 import { getOrCreateActivity } from "../helpers/activity";
 
 async function getClaimed(instruction: InstructionClaim) {
   const logs = instruction.transaction.meta?.logMessages || [];
-  let found = undefined;
+  const list = decoder.decodeLogs(logs) || [];
+
   for (let i = 0; i < logs.length; i++) {
-    if ((found = decode("Claim", logs[i], getClaimDecoder()))) {
-      break;
-    }
+    try {
+      const decoded = await list[i].decodedMessage;
+      if (decoded?.name.toLowerCase() === "Claim".toLowerCase()) {
+        return decoded.data as EventClaim;
+      }
+    } catch (_error_failed_to_decode) {}
   }
 
-  return found;
+  return undefined;
 }
 
 export async function handleClaim(instruction: InstructionClaim) {

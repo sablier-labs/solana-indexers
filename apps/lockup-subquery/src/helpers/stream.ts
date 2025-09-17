@@ -4,35 +4,33 @@ import { getOrCreateWatcher } from "./watcher";
 import { getOrCreateContract } from "./contract";
 import { getOrCreateAsset } from "./asset";
 import {
+  EventCreate,
   InstructionCreateWithDurations,
   InstructionCreateWithTimestamps
 } from "../generated/adapters";
-import { bindGetAccount, decode, getProgramId } from "../utils";
+import { bindGetAccount, getProgramId } from "../utils";
 import { ActionCategory, Contract, Stream, StreamCategory } from "../types";
 import { createOwnership } from "./ownership";
 import { createAction } from "./action";
-
-// TODO: use adapters once /types avoid @solana/rpc
-import { getCreateLockupLinearStreamDecoder } from "../_workaround";
 
 async function getCreated(
   instruction: InstructionCreateWithDurations | InstructionCreateWithTimestamps
 ) {
   const logs = instruction.transaction.meta?.logMessages || [];
-  let found = undefined;
+  const list = decoder.decodeLogs(logs) || [];
+
   for (let i = 0; i < logs.length; i++) {
-    if (
-      (found = decode(
-        "CreateLockupLinearStream",
-        logs[i],
-        getCreateLockupLinearStreamDecoder()
-      ))
-    ) {
-      break;
-    }
+    try {
+      const decoded = await list[i].decodedMessage;
+      if (
+        decoded?.name.toLowerCase() === "CreateLockupLinearStream".toLowerCase()
+      ) {
+        return decoded.data as EventCreate;
+      }
+    } catch (_error_failed_to_decode) {}
   }
 
-  return found;
+  return undefined;
 }
 
 export async function createStream(instruction: SolanaInstruction) {

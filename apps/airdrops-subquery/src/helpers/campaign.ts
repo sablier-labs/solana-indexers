@@ -3,23 +3,24 @@ import { getOrCreateWatcher } from "./watcher";
 import { getOrCreateFactory } from "./factory";
 import { getOrCreateAsset } from "./asset";
 import { InstructionCreate } from "../generated/adapters";
-import { bindGetAccount, decode, fromUint8Array, getProgramId } from "../utils";
+import { bindGetAccount, fromUint8Array, getProgramId } from "../utils";
 import { CampaignCategory, Campaign } from "../types";
-
-// TODO: use adapters once /types avoid @solana/rpc
-import { getCreateCampaignDecoder } from "../_workaround";
+import { EventCreate } from "../generated/adapters";
 
 async function getCreated(instruction: InstructionCreate) {
   const logs = instruction.transaction.meta?.logMessages || [];
-  let found = undefined;
+  const list = decoder.decodeLogs(logs) || [];
+
   for (let i = 0; i < logs.length; i++) {
-    if (
-      (found = decode("CreateCampaign", logs[i], getCreateCampaignDecoder()))
-    ) {
-      break;
-    }
+    try {
+      const decoded = await list[i].decodedMessage;
+      if (decoded?.name.toLowerCase() === "CreateCampaign".toLowerCase()) {
+        return decoded.data as EventCreate;
+      }
+    } catch (_error_failed_to_decode) {}
   }
-  return found;
+
+  return undefined;
 }
 
 export async function createCampaignInstant(

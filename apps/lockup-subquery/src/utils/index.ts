@@ -40,4 +40,3 @@ export function getProgramId(instruction: SolanaInstruction): string {
   return getAccounts(instruction.transaction)[instruction.programIdIndex];
 }
 
-export { decode } from "./decoder";

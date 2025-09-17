@@ -31,23 +31,23 @@ const endpoint = [RPC_HELIUS, RPC_ONFINALITY, ...rpc.public].filter(
 // Can expand the Datasource processor types via the generic param
 const project: SolanaProject = {
   specVersion: "1.0.0",
-  version: "0.0.1",
+  version: "0.1.1",
   name: "Sablier Solana Lockup Devnet",
   description: "Sablier subquery indexers for lockup on Solana",
   runner: {
     node: {
       name: "@subql/node-solana",
-      version: ">=6.1.2"
+      version: ">=6.2.0"
     },
     query:
       process.env.SUBQL_QUERY_SYNTAX === "subgraph"
         ? {
             name: "@subql/query-subgraph",
-            version: ">=0.2.3"
+            version: ">=0.3.0"
           }
         : {
             name: "@subql/query",
-            version: ">=2.23.5"
+            version: ">=2.23.6"
           }
   },
   schema: {

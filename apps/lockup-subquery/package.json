@@ -25,7 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "@solana/kit": "^3.0.2",
-    "@subql/common-solana": "^1.1.1",
+    "@subql/common-solana": "^1.2.0",
     "@subql/types-solana": "^1.1.0",
     "abort-controller": "^3.0.0",
     "event-target-shim": "^6.0.2",
@@ -33,7 +33,8 @@
   },
   "devDependencies": {
     "@codama/nodes-from-anchor": "^1.2.6",
-    "@subql/cli": "^6.2.2",
+    "@subql/cli": "^6.3.0",
+    "@traceye-tech/cli": "^2.0.0",
     "@types/events": "^3",
     "@types/fastestsmallesttextencoderdecoder": "^1",
     "@types/node-fetch": "latest",

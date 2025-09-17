@@ -6,19 +6,15 @@ import {
   InstructionWithdraw,
   InstructionWithdrawMax,
   InstructionSPLTransfer,
-  InstructionSPLTransferChecked
+  InstructionSPLTransferChecked,
+  EventCancel,
+  EventWithdraw
 } from "../generated/adapters";
-
-// TODO: use adapters once /types avoid @solana/rpc
-import {
-  getCancelLockupStreamDecoder,
-  getWithdrawFromLockupStreamDecoder
-} from "../_workaround";
 
 import { createAction } from "../helpers/action";
 import { ActionCategory } from "../types";
 import { log_error, zero } from "../constants";
-import { bindGetAccount, decode, getProgramId } from "../utils";
+import { bindGetAccount, getProgramId } from "../utils";
 import {
   createLinearStream,
   getStreamByNftMint,
@@ -34,20 +30,18 @@ import {
 
 async function getCanceled(instruction: InstructionCancel) {
   const logs = instruction.transaction.meta?.logMessages || [];
-  let found = undefined;
+  const list = decoder.decodeLogs(logs) || [];
+
   for (let i = 0; i < logs.length; i++) {
-    if (
-      (found = decode(
-        "CancelLockupStream",
-        logs[i],
-        getCancelLockupStreamDecoder()
-      ))
-    ) {
-      break;
-    }
+    try {
+      const decoded = await list[i].decodedMessage;
+      if (decoded?.name.toLowerCase() === "CancelLockupStream".toLowerCase()) {
+        return decoded.data as EventCancel;
+      }
+    } catch (_error_failed_to_decode) {}
   }
 
-  return found;
+  return undefined;
 }
 
 export async function handleCanceled(instruction: InstructionCancel) {
@@ -325,20 +319,20 @@ export async function handleWithdraw(instruction: InstructionWithdraw) {
 
 async function getWithdrawnMax(instruction: InstructionWithdrawMax) {
   const logs = instruction.transaction.meta?.logMessages || [];
-  let found = undefined;
+  const list = decoder.decodeLogs(logs) || [];
+
   for (let i = 0; i < logs.length; i++) {
-    if (
-      (found = decode(
-        "WithdrawFromLockupStream",
-        logs[i],
-        getWithdrawFromLockupStreamDecoder()
-      ))
-    ) {
-      break;
-    }
+    try {
+      const decoded = await list[i].decodedMessage;
+      if (
+        decoded?.name.toLowerCase() === "WithdrawFromLockupStream".toLowerCase()
+      ) {
+        return decoded.data as EventWithdraw;
+      }
+    } catch (_error_failed_to_decode) {}
   }
 
-  return found;
+  return undefined;
 }
 
 export async function handleWithdrawMax(instruction: InstructionWithdrawMax) {

@@ -11,10 +11,11 @@ export {
   RenounceInstruction as InstructionRenounce,
   WithdrawInstruction as InstructionWithdraw,
   WithdrawMaxInstruction as InstructionWithdrawMax,
-} from "../types/handler-inputs/B1NkZf77LvLw5nft55LUBgyrBaTEbnEmHSCLdrsFzRe4";
+} from "../types/handler-inputs/{{lockupLinear.V10.0.0}}";
 
 
-// TODO: use this instead of the workaround once /types avoid @solana/rpc
-
-// export {
-// } from "../types/program-interfaces/B1NkZf77LvLw5nft55LUBgyrBaTEbnEmHSCLdrsFzRe4/types";
+export type {
+  CancelLockupStream as EventCancel,
+  CreateLockupLinearStream as EventCreate,
+  WithdrawFromLockupStream as EventWithdraw
+} from "../types/program-interfaces/{{lockupLinear.V10.0.0}}/types";
