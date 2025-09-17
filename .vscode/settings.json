@@ -1,4 +1,5 @@
 {
-  "rust-analyzer.rustfmt.rangeFormatting.enable": true
+  "rust-analyzer.rustfmt.rangeFormatting.enable": true,
   // "rust-analyzer.rustfmt.overrideCommand": ["rustfmt", "--edition", "2021"]
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

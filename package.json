@@ -3,23 +3,33 @@
   "private": true,
   "workspaces": [
     "apps/*/subgraph",
+    "apps/*-subquery",
     "packages/subgraph"
   ],
   "packageManager": "yarn@4.7.0",
   "scripts": {
     "g:lockup-setup:devnet": "yarn workspace @sablier/solana-indexers-lockup setup:devnet",
-    "g:airdrops-setup:devnet": "yarn workspace @sablier/solana-indexers-airdrops setup:devnet"
+    "g:lockup-subquery-publish:devnet": "yarn workspaces @sablier/solana-indexers-lockup-subquery publish:devnet",
+    "g:airdrops-setup:devnet": "yarn workspace @sablier/solana-indexers-airdrops setup:devnet",
+    "g:airdrops-subquery-publish:devnet": "yarn workspaces @sablier/solana-indexers-airdrops-subquery publish:devnet",
+    "g:anchor-to-codama": "cd ./packages/scripts && yarn tsx --tsconfig ./tsconfig.json ./anchor-to-codama.ts"
   },
   "devDependencies": {
+    "@codama/nodes-from-anchor": "^1.2.6",
     "@stepd/as-proto-gen": "^1.3.3",
+    "@types/lodash-es": "^4.17.12",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
     "as-proto": "^1.3.0",
+    "codama": "^1.3.4",
     "eslint": "^6.2.2",
     "eslint-config-prettier": "^6.1.0",
+    "lodash-es": "^4.17.21",
     "prettier": "^1.18.2",
     "protoc-gen-js": "^3.21.2",
     "protocol-buffers": "^5.0.0",
-    "typescript": "^3.9.10"
+    "stdio": "^2.1.3",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
   }
 }

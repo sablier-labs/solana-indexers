@@ -1,0 +1,4811 @@
+{
+  "kind": "rootNode",
+  "standard": "codama",
+  "version": "1.3.4",
+  "program": {
+    "kind": "programNode",
+    "name": "sablierLockup",
+    "publicKey": "B1NkZf77LvLw5nft55LUBgyrBaTEbnEmHSCLdrsFzRe4",
+    "version": "0.1.0",
+    "origin": "anchor",
+    "docs": [],
+    "accounts": [
+      {
+        "kind": "accountNode",
+        "name": "nftCollectionData",
+        "size": 17,
+        "docs": [],
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "docs": [],
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "9f1a25962c54abac",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "totalSupply",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "streamData",
+        "size": 156,
+        "docs": [],
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "docs": [],
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "3d59948d9a515671",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "amounts",
+              "docs": [],
+              "type": { "kind": "definedTypeLinkNode", "name": "amounts" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "depositedTokenMint",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "salt",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u128",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "isCancelable",
+              "docs": [],
+              "type": {
+                "kind": "booleanTypeNode",
+                "size": {
+                  "kind": "numberTypeNode",
+                  "format": "u8",
+                  "endian": "le"
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "isDepleted",
+              "docs": [],
+              "type": {
+                "kind": "booleanTypeNode",
+                "size": {
+                  "kind": "numberTypeNode",
+                  "format": "u8",
+                  "endian": "le"
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "timestamps",
+              "docs": [],
+              "type": { "kind": "definedTypeLinkNode", "name": "timestamps" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "sender",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "wasCanceled",
+              "docs": [],
+              "type": {
+                "kind": "booleanTypeNode",
+                "size": {
+                  "kind": "numberTypeNode",
+                  "format": "u8",
+                  "endian": "le"
+                }
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "treasury",
+        "size": 105,
+        "docs": [],
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "docs": [],
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "eeef7bee5901a8fd",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "feeCollector",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "chainlinkProgram",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "chainlinkSolUsdFeed",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      }
+    ],
+    "instructions": [
+      {
+        "kind": "instructionNode",
+        "name": "cancel",
+        "docs": [
+          "Cancels the stream and refunds any remaining tokens to the sender ATA.",
+          "",
+          "# Accounts Expected",
+          "",
+          "- `sender` The transaction signer and the stream's sender.",
+          "- `deposited_token_mint` The mint of the deposited token.",
+          "- `stream_nft_mint` The stream NFT mint uniquely identifying the stream.",
+          "- `deposited_token_program` The Token Program of the deposited token.",
+          "",
+          "# Notes",
+          "",
+          "- If there are any tokens left for the recipient to withdraw, the stream is marked as canceled. Otherwise, the",
+          "stream is marked as depleted.",
+          "- If the sender does not have an ATA for the deposited token, it is created.",
+          "- Emits a [`crate::utils::events::CancelLockupStream`] event.",
+          "",
+          "# Requirements",
+          "",
+          "- The signer must be the stream's sender.",
+          "- The `stream_nft_mint` must exist.",
+          "- The stream must be cancelable.",
+          "- The stream must be Pending or Streaming."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "sender",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": [
+              "Write account: the sender of the stream who can cancel it."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "senderAta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create if needed account: the deposited token ATA owned by the sender."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "senderAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "sender",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositedTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositedTokenMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "sender",
+                  "value": { "kind": "accountValueNode", "name": "sender" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositedTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositedTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositedTokenMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositedTokenMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "depositedTokenMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account of the deposited token."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamData",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the stream data account storing stream details."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamData",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "73747265616d5f64617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamDataAta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the deposited token ATA owned by the stream data account."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamDataAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamData",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositedTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositedTokenMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamData",
+                  "value": { "kind": "accountValueNode", "name": "streamData" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositedTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositedTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositedTokenMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositedTokenMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the stream NFT."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "associatedTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Associated Token program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+              "identifier": "associatedTokenProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "depositedTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Program account: the Token program of the deposited token."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the System program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "e8dbdf29dbecdcbe",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "collectFees",
+        "docs": [
+          "Collects the fees accumulated in the treasury by transferring them to the fee recipient.",
+          "",
+          "# Accounts Expected",
+          "",
+          "- `fee_collector` The transaction signer and the fee collector.",
+          "- `fee_recipient` The address receiving the collected fees.",
+          "",
+          "# Notes",
+          "",
+          "- Leaves a buffer of 0.001 SOL to ensure the account remains rent-exempt after the fee collection.",
+          "- Emits a [`crate::utils::events::FeesCollected`] event.",
+          "",
+          "# Requirements",
+          "",
+          "- `fee_collector` must be authorized for fee collection."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "feeCollector",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": [
+              "Write account: the account authorized to collect fees from the treasury."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "feeRecipient",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the address that will receive the collected fees."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "treasury",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the treasury account that holds the fees."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "treasury",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "7472656173757279",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": []
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "a498cf631eba13b6",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "createWithDurationsLl",
+        "docs": [
+          "Creates a stream by setting the start time to the current timestamp, and the end time to the sum of the",
+          "current timestamp and the total duration The stream is funded by the signer and wrapped in a Metaplex NFT.",
+          "",
+          "# Accounts Expected",
+          "",
+          "Refer to the accounts in [`fn@crate::sablier_lockup::create_with_timestamps_ll`].",
+          "",
+          "# Parameters",
+          "",
+          "Refer to the parameters in [`fn@crate::sablier_lockup::create_with_timestamps_ll`].",
+          "",
+          "# Notes",
+          "",
+          "Refer to the notes in [`fn@crate::sablier_lockup::create_with_timestamps_ll`].",
+          "",
+          "# Requirements",
+          "",
+          "Refer to the requirements in [`fn@crate::sablier_lockup::create_with_timestamps_ll`]."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "creator",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Write account: the creator and funder of the stream."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "creatorAta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Write account: the creator's ATA for the deposit token."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "creatorAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "creator",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositTokenMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "creator",
+                  "value": { "kind": "accountValueNode", "name": "creator" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositTokenMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositTokenMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "recipient",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the recipient of the stream."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "sender",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the sender of the stream."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftCollectionData",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the NFT collection data storing the total supply."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "nftCollectionData",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6e66745f636f6c6c656374696f6e5f64617461",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftCollectionMasterEdition",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the master edition account for the NFT collection."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "nftCollectionMasterEdition",
+                "docs": [],
+                "programId": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6d65746164617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "tokenMetadataProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "nftCollectionMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "65646974696f6e",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "tokenMetadataProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMetadataProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nftCollectionMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "nftCollectionMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftCollectionMetadata",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the metadata account for the NFT collection."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "nftCollectionMetadata",
+                "docs": [],
+                "programId": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6d65746164617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "tokenMetadataProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "nftCollectionMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "tokenMetadataProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMetadataProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nftCollectionMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "nftCollectionMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftCollectionMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the NFT collection."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "nftCollectionMint",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6e66745f636f6c6c656374696f6e5f6d696e74",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "depositTokenMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the deposit token."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMint",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Create account: the mint account for the stream NFT."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamNftMint",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "73747265616d5f6e66745f6d696e74",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "sender",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "salt",
+                    "docs": [],
+                    "type": {
+                      "kind": "numberTypeNode",
+                      "format": "u128",
+                      "endian": "le"
+                    }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "sender",
+                  "value": { "kind": "accountValueNode", "name": "sender" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "salt",
+                  "value": { "kind": "argumentValueNode", "name": "salt" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "recipientStreamNftAta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the ATA for the stream NFT owned by the recipient."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "recipientStreamNftAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "recipient",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "nftTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "recipient",
+                  "value": { "kind": "accountValueNode", "name": "recipient" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nftTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "nftTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamData",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the account that will store the stream data."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamData",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "73747265616d5f64617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamDataAta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the ATA for deposit tokens owned by stream data account."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamDataAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamData",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositTokenMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamData",
+                  "value": { "kind": "accountValueNode", "name": "streamData" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositTokenMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositTokenMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMasterEdition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the master edition account for the stream NFT."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamNftMasterEdition",
+                "docs": [],
+                "programId": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6d65746164617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "tokenMetadataProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "65646974696f6e",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "tokenMetadataProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMetadataProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMetadata",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the metadata account for the stream NFT."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamNftMetadata",
+                "docs": [],
+                "programId": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6d65746164617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "tokenMetadataProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "tokenMetadataProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMetadataProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "associatedTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Associated Token program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+              "identifier": "associatedTokenProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "depositTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Token program of the deposit token."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Token program of the stream NFT."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenMetadataProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Token Metadata program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+              "identifier": "tokenMetadataProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the System program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "rent",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Sysvar account: Rent."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "SysvarRent111111111111111111111111111111111",
+              "identifier": "rent"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "5711aaa79c98a93d",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "salt",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u128",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "depositAmount",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "cliffDuration",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "totalDuration",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "startUnlockAmount",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "cliffUnlockAmount",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "isCancelable",
+            "docs": [],
+            "type": {
+              "kind": "booleanTypeNode",
+              "size": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "createWithTimestampsLl",
+        "docs": [
+          "Creates a stream with the provided start and end times. The stream is funded by the signer and wrapped in",
+          "a Metaplex NFT.",
+          "",
+          "# Accounts Expected",
+          "",
+          "- `creator` The transaction signer.",
+          "- `sender` The account that will have authority to cancel or renounce the stream.",
+          "- `deposit_token_mint` The mint of the tokens to be deposited.",
+          "- `recipient` The address receiving the tokens, as well as the NFT owner.",
+          "- `deposit_token_program` The Token Program of the deposit token.",
+          "- `nft_token_program` The Token Program of the NFT.",
+          "",
+          "# Parameters",
+          "",
+          "- `salt` A unique salt used to derive the address of the stream NFT mint.",
+          "- `deposit_amount` The deposit amount, denoted in units of the token's decimals.",
+          "- `start_time` The Unix timestamp indicating the stream's start.",
+          "- `cliff_time` The Unix timestamp indicating the stream's cliff.",
+          "- `end_time` The Unix timestamp indicating the stream's end.",
+          "- `start_unlock_amount` The amount to be unlocked at the start time.",
+          "- `cliff_unlock_amount` The amount to be unlocked at the cliff time.",
+          "- `is_cancelable` Indicates if the stream is cancelable.",
+          "",
+          "# Notes",
+          "",
+          "- The passed sender of the stream doesn't have to be the same as its creator.",
+          "- A cliff time of zero means there is no cliff.",
+          "- As long as the times are ordered, it is not an error for the start or the cliff time to be in the past.",
+          "- The stream recipient is given solely by the ownership of the stream NFT, which is minted to the passed",
+          "`recipient`.",
+          "- Emits a [`crate::utils::events::CreateLockupLinearStream`] event.",
+          "",
+          "# Requirements",
+          "",
+          "- `deposit_amount` must be greater than zero.",
+          "- `start_time` must be greater than zero and less than `end_time`.",
+          "- If set, `cliff_time` must be greater than `start_time` and less than `end_time`.",
+          "- The sum of `start_unlock_amount` and `cliff_unlock_amount` must be less than or equal to deposit amount.",
+          "- If `cliff_time` is not set, the `cliff_unlock_amount` amount must be zero."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "creator",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Write account: the creator and funder of the stream."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "creatorAta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Write account: the creator's ATA for the deposit token."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "creatorAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "creator",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositTokenMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "creator",
+                  "value": { "kind": "accountValueNode", "name": "creator" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositTokenMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositTokenMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "recipient",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the recipient of the stream."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "sender",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the sender of the stream."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftCollectionData",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the NFT collection data storing the total supply."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "nftCollectionData",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6e66745f636f6c6c656374696f6e5f64617461",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftCollectionMasterEdition",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the master edition account for the NFT collection."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "nftCollectionMasterEdition",
+                "docs": [],
+                "programId": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6d65746164617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "tokenMetadataProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "nftCollectionMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "65646974696f6e",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "tokenMetadataProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMetadataProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nftCollectionMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "nftCollectionMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftCollectionMetadata",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the metadata account for the NFT collection."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "nftCollectionMetadata",
+                "docs": [],
+                "programId": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6d65746164617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "tokenMetadataProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "nftCollectionMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "tokenMetadataProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMetadataProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nftCollectionMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "nftCollectionMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftCollectionMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the NFT collection."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "nftCollectionMint",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6e66745f636f6c6c656374696f6e5f6d696e74",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "depositTokenMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the deposit token."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMint",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Create account: the mint account for the stream NFT."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamNftMint",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "73747265616d5f6e66745f6d696e74",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "sender",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "salt",
+                    "docs": [],
+                    "type": {
+                      "kind": "numberTypeNode",
+                      "format": "u128",
+                      "endian": "le"
+                    }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "sender",
+                  "value": { "kind": "accountValueNode", "name": "sender" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "salt",
+                  "value": { "kind": "argumentValueNode", "name": "salt" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "recipientStreamNftAta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the ATA for the stream NFT owned by the recipient."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "recipientStreamNftAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "recipient",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "nftTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "recipient",
+                  "value": { "kind": "accountValueNode", "name": "recipient" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nftTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "nftTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamData",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the account that will store the stream data."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamData",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "73747265616d5f64617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamDataAta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the ATA for deposit tokens owned by stream data account."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamDataAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamData",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositTokenMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamData",
+                  "value": { "kind": "accountValueNode", "name": "streamData" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositTokenMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositTokenMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMasterEdition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the master edition account for the stream NFT."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamNftMasterEdition",
+                "docs": [],
+                "programId": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6d65746164617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "tokenMetadataProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "65646974696f6e",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "tokenMetadataProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMetadataProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMetadata",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the metadata account for the stream NFT."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamNftMetadata",
+                "docs": [],
+                "programId": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6d65746164617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "tokenMetadataProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "tokenMetadataProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMetadataProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "associatedTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Associated Token program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+              "identifier": "associatedTokenProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "depositTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Token program of the deposit token."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Token program of the stream NFT."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenMetadataProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Token Metadata program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+              "identifier": "tokenMetadataProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the System program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "rent",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Sysvar account: Rent."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "SysvarRent111111111111111111111111111111111",
+              "identifier": "rent"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "96a5931c44293029",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "salt",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u128",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "depositAmount",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "startTime",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "cliffTime",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "endTime",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "startUnlockAmount",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "cliffUnlockAmount",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "isCancelable",
+            "docs": [],
+            "type": {
+              "kind": "booleanTypeNode",
+              "size": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "initialize",
+        "docs": [
+          "Initializes the program with the provided fee collector address by creating a Metaplex NFT collection.",
+          "",
+          "# Accounts Expected",
+          "",
+          "- `initializer` The transaction signer.",
+          "- `nft_token_program` The Token Program of the NFT collection.",
+          "",
+          "# Parameters:",
+          "",
+          "- `fee_collector`: The address that will have the authority to collect fees.",
+          "- `chainlink_program`: The Chainlink program used to retrieve on-chain price feeds.",
+          "- `chainlink_sol_usd_feed`: The account providing the SOL/USD price feed data."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "initializer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Write account: the initializer of the program."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "treasury",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the treasury account that will hold the fees."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "treasury",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "7472656173757279",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftCollectionData",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the NFT collection data account storing collection metadata."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "nftCollectionData",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6e66745f636f6c6c656374696f6e5f64617461",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftCollectionMasterEdition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the master edition account for the NFT collection."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "nftCollectionMasterEdition",
+                "docs": [],
+                "programId": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6d65746164617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "tokenMetadataProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "nftCollectionMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "65646974696f6e",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "tokenMetadataProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMetadataProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nftCollectionMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "nftCollectionMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftCollectionMetadata",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the metadata account for the NFT collection."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "nftCollectionMetadata",
+                "docs": [],
+                "programId": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6d65746164617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "tokenMetadataProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "nftCollectionMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "tokenMetadataProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMetadataProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nftCollectionMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "nftCollectionMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftCollectionMint",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the mint account for the NFT collection."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "nftCollectionMint",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "6e66745f636f6c6c656374696f6e5f6d696e74",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftCollectionAta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create account: the ATA for the NFT collection owned by treasury."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "nftCollectionAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "treasury",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "nftTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "nftCollectionMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "treasury",
+                  "value": { "kind": "accountValueNode", "name": "treasury" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nftTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "nftTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nftCollectionMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "nftCollectionMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "associatedTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Associated Token program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+              "identifier": "associatedTokenProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Program account: the Token program of the collection NFT."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenMetadataProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Token Metadata program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+              "identifier": "tokenMetadataProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "rent",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Sysvar account: Rent."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "SysvarRent111111111111111111111111111111111",
+              "identifier": "rent"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the System program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "afaf6d1f0d989bed",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "feeCollector",
+            "docs": [],
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "chainlinkProgram",
+            "docs": [],
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "chainlinkSolUsdFeed",
+            "docs": [],
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "refundableAmountOf",
+        "docs": [
+          "Calculates the amount that the sender would be refunded if the stream were canceled, denoted in units of the",
+          "token's decimals.",
+          "",
+          "# Accounts Expected",
+          "",
+          "- `stream_nft_mint` The stream NFT mint uniquely identifying the stream.",
+          "",
+          "# Requirements",
+          "",
+          "- The stream does not exist."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamData",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the account storing stream details."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamData",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "73747265616d5f64617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the stream NFT."]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "a0887278eab2923a",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "renounce",
+        "docs": [
+          "Removes the right of the stream's sender to cancel the stream.",
+          "",
+          "# Accounts Expected",
+          "",
+          "- `sender` The transaction signer and the stream's sender.",
+          "- `stream_nft_mint` The stream NFT mint uniquely identifying the stream.",
+          "",
+          "# Notes",
+          "",
+          "- Emits a [`crate::utils::events::RenounceLockupStream`] event."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "sender",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Write account: the sender of the stream."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamData",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the stream data account storing stream details."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamData",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "73747265616d5f64617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the stream NFT."]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "f19d8ad208ebbb7b",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "statusOf",
+        "docs": [
+          "Retrieves the stream's status.",
+          "",
+          "# Accounts Expected",
+          "",
+          "- `stream_nft_mint` The stream NFT mint uniquely identifying the stream.",
+          "",
+          "# Requirements",
+          "",
+          "- The stream does not exist."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamData",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the account storing stream details."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamData",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "73747265616d5f64617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the stream NFT."]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "5ad6fded7eec84ed",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "streamExists",
+        "docs": [
+          "Returns a flag indicating whether a stream based on the `_sender` and the `_salt` already exists.",
+          "",
+          "# Parameters",
+          "",
+          "- `_sender` The sender of the stream.",
+          "- `_salt` The unique salt used to derive the stream NFT mint address."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the stream NFT."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamNftMint",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "73747265616d5f6e66745f6d696e74",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "sender",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "salt",
+                    "docs": [],
+                    "type": {
+                      "kind": "numberTypeNode",
+                      "format": "u128",
+                      "endian": "le"
+                    }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "sender",
+                  "value": { "kind": "argumentValueNode", "name": "sender" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "salt",
+                  "value": { "kind": "argumentValueNode", "name": "salt" }
+                }
+              ]
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "68d168617a23a5c3",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "sender",
+            "docs": [],
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "salt",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u128",
+              "endian": "le"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "streamedAmountOf",
+        "docs": [
+          "Calculates the amount streamed to the recipient, denoted in units of the token's decimals.",
+          "",
+          "# Accounts Expected",
+          "",
+          "- `stream_nft_mint` The stream NFT mint uniquely identifying the stream.",
+          "",
+          "# Notes",
+          "",
+          "- Upon cancellation of the stream, the amount streamed is calculated as the difference between the deposited",
+          "amount and the refunded amount. Ultimately, when the stream becomes depleted, the streamed amount is equivalent",
+          "to the total amount withdrawn.",
+          "",
+          "# Requirements",
+          "",
+          "- The stream does not exist."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamData",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the account storing stream details."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamData",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "73747265616d5f64617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the stream NFT."]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "5b45db30bd1a0d21",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "treasuryView",
+        "docs": ["Returns the treasury details."],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "treasury",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the account storing the treasury details."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "treasury",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "7472656173757279",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": []
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "f7a0d5edf779a452",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "withdraw",
+        "docs": [
+          "Withdraws the provided amount of tokens from the stream data ATA to the provided account.",
+          "",
+          "# Accounts Expected",
+          "",
+          "- `signer` The transaction signer.",
+          "- `deposited_token_mint` The mint of the deposited token.",
+          "- `stream_nft_mint` The stream NFT mint uniquely identifying the stream.",
+          "- `withdrawal_recipient` The address of the recipient receiving the withdrawn tokens.",
+          "- `deposited_token_program` The Token Program of the deposited token.",
+          "- `nft_token_program` The Token Program of the NFT.",
+          "- `chainlink_program`: The Chainlink program used to retrieve on-chain price feeds.",
+          "- `chainlink_sol_usd_feed`: The account providing the SOL/USD price feed data.",
+          "",
+          "# Parameters",
+          "",
+          "- `amount` The amount to withdraw, denoted in units of the token's decimals.",
+          "",
+          "# Notes",
+          "",
+          "- If the withdrawal recipient does not have an ATA for the deposited token, one is created.",
+          "- The instruction charges a fee in the native token (SOL), equivalent to $1 USD.",
+          "- Emits [`crate::utils::events::WithdrawFromLockupStream`] event.",
+          "",
+          "# Requirements",
+          "",
+          "- `stream_nft_mint` must exist.",
+          "- `withdrawal_recipient` must be the recipient if the signer is not the stream's recipient.",
+          "- `amount` must be greater than zero and must not exceed the withdrawable amount.",
+          "- The stream must not be Depleted.",
+          "- `chainlink_program` and `chainlink_sol_usd_feed` must match the ones stored in the treasury."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": [
+              "Write account: the signer of the withdrawal who pays the withdrawal fee."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamRecipient",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Read account: the recipient of the stream who owns the stream NFT."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "withdrawalRecipient",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Read account: the account that will receive the withdrawn tokens.",
+              "recipient."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "withdrawalRecipientAta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create if needed account: the ATA for deposited tokens owned by withdrawal recipient."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "withdrawalRecipientAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "withdrawalRecipient",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositedTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositedTokenMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "withdrawalRecipient",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "withdrawalRecipient"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositedTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositedTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositedTokenMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositedTokenMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "treasury",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the treasury account that receives the withdrawal fee."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "treasury",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "7472656173757279",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "depositedTokenMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the deposited token."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "recipientStreamNftAta",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Read account: the ATA for the stream NFT owned by recipient.",
+              ""
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "recipientStreamNftAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamRecipient",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "nftTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamRecipient",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamRecipient"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nftTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "nftTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamData",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Write account: the account storing the stream data."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamData",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "73747265616d5f64617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamDataAta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the ATA for deposited tokens owned by stream data."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamDataAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamData",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositedTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositedTokenMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamData",
+                  "value": { "kind": "accountValueNode", "name": "streamData" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositedTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositedTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositedTokenMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositedTokenMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the stream NFT."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "associatedTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Associated Token program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+              "identifier": "associatedTokenProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "chainlinkProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Read account: The Chainlink program used to retrieve on-chain price feeds."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "chainlinkSolUsdFeed",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Read account: The account providing the SOL/USD price feed data."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "depositedTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Program account: the Token program of the deposited token."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Token program of the stream NFT."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the System program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "b712469c946da122",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "amount",
+            "docs": [],
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "withdrawMax",
+        "docs": [
+          "Withdraws the maximum withdrawable amount from the stream data ATA to the provided account.",
+          "",
+          "# Accounts Expected",
+          "",
+          "Refer to the accounts in [`fn@crate::sablier_lockup::withdraw`].",
+          "",
+          "# Notes",
+          "",
+          "Refer to the notes in [`fn@crate::sablier_lockup::withdraw`].",
+          "",
+          "# Requirements",
+          "",
+          "Refer to the requirements in [`fn@crate::sablier_lockup::withdraw`]."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": [
+              "Write account: the signer of the withdrawal who pays the withdrawal fee."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamRecipient",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Read account: the recipient of the stream who owns the stream NFT."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "withdrawalRecipient",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Read account: the account that will receive the withdrawn tokens.",
+              "recipient."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "withdrawalRecipientAta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Create if needed account: the ATA for deposited tokens owned by withdrawal recipient."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "withdrawalRecipientAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "withdrawalRecipient",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositedTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositedTokenMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "withdrawalRecipient",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "withdrawalRecipient"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositedTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositedTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositedTokenMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositedTokenMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "treasury",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the treasury account that receives the withdrawal fee."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "treasury",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "7472656173757279",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "depositedTokenMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the deposited token."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "recipientStreamNftAta",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Read account: the ATA for the stream NFT owned by recipient.",
+              ""
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "recipientStreamNftAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamRecipient",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "nftTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamRecipient",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamRecipient"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nftTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "nftTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamData",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Write account: the account storing the stream data."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamData",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "73747265616d5f64617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamDataAta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Write account: the ATA for deposited tokens owned by stream data."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamDataAta",
+                "docs": [],
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamData",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositedTokenProgram",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "depositedTokenMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamData",
+                  "value": { "kind": "accountValueNode", "name": "streamData" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositedTokenProgram",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositedTokenProgram"
+                  }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "depositedTokenMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "depositedTokenMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the stream NFT."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "associatedTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Associated Token program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+              "identifier": "associatedTokenProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "chainlinkProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Read account: The Chainlink program used to retrieve on-chain price feeds."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "chainlinkSolUsdFeed",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Read account: The account providing the SOL/USD price feed data."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "depositedTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Program account: the Token program of the deposited token."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "nftTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the Token program of the stream NFT."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Program account: the System program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "20472e62694c5560",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "withdrawableAmountOf",
+        "docs": [
+          "Calculates the amount that the recipient can withdraw from the stream, denoted in units of the token's",
+          "decimals.",
+          "",
+          "# Accounts Expected",
+          "",
+          "- `stream_nft_mint` The stream NFT mint uniquely identifying the stream.",
+          "",
+          "# Requirements",
+          "",
+          "- The stream does not exist."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamData",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the account storing stream details."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "streamData",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "73747265616d5f64617461",
+                      "encoding": "base16"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "streamNftMint",
+                    "docs": [],
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "streamNftMint",
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "streamNftMint"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "streamNftMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Read account: the mint account for the stream NFT."]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "1ec38c8dad7bfd3c",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "withdrawalFeeInLamports",
+        "docs": [
+          "Calculates the withdrawal fee in lamports, which is equivalent to $1 USD.",
+          "",
+          "# Accounts Expected:",
+          "",
+          "- `chainlink_program`: The Chainlink program used to retrieve on-chain price feeds.",
+          "- `chainlink_sol_usd_feed`: The account providing the SOL/USD price feed data."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "treasury",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Read account: the treasury account that receives the withdrawal fee."
+            ],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "treasury",
+                "docs": [],
+                "seeds": [
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "7472656173757279",
+                      "encoding": "base16"
+                    }
+                  }
+                ]
+              },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "chainlinkProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Read account: The Chainlink program used to retrieve on-chain price feeds."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "chainlinkSolUsdFeed",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "Read account: The account providing the SOL/USD price feed data."
+            ]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "docs": [],
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": { "kind": "bytesTypeNode" }
+            },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "37ff58e0df17618c",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ]
+      }
+    ],
+    "definedTypes": [
+      {
+        "kind": "definedTypeNode",
+        "name": "amounts",
+        "docs": [],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "startUnlock",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "cliffUnlock",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "deposited",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "refunded",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "withdrawn",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "cancelLockupStream",
+        "docs": [],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "depositedTokenMint",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "recipientAmount",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "senderAmount",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "streamData",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "streamNftMint",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "createLockupLinearStream",
+        "docs": [],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "depositTokenDecimals",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "depositTokenMint",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "recipient",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "salt",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u128",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "streamData",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "streamNftMint",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "feesCollected",
+        "docs": [],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "feeAmount",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "feeCollector",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "feeRecipient",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "renounceLockupStream",
+        "docs": [],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "depositedTokenMint",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "streamData",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "streamNftMint",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "streamStatus",
+        "docs": [],
+        "type": {
+          "kind": "enumTypeNode",
+          "variants": [
+            { "kind": "enumEmptyVariantTypeNode", "name": "pending" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "streaming" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "settled" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "canceled" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "depleted" }
+          ],
+          "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "timestamps",
+        "docs": ["Groups the timestamps for a Lockup stream."],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "cliff",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "end",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "start",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "withdrawFromLockupStream",
+        "docs": [],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "depositedTokenMint",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "feeInLamports",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "streamData",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "streamNftMint",
+              "docs": [],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "withdrawnAmount",
+              "docs": [],
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "pdas": [],
+    "errors": [
+      {
+        "kind": "errorNode",
+        "name": "streamDepleted",
+        "code": 6000,
+        "message": "Can't perform the action on a depleted stream!",
+        "docs": [
+          "StreamDepleted: Can't perform the action on a depleted stream!"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "streamCanceled",
+        "code": 6001,
+        "message": "Can't renounce an already-renounced Stream!",
+        "docs": ["StreamCanceled: Can't renounce an already-renounced Stream!"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "streamIsNotCancelable",
+        "code": 6002,
+        "message": "Can't cancel a non-cancelable Stream!",
+        "docs": ["StreamIsNotCancelable: Can't cancel a non-cancelable Stream!"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "streamSettled",
+        "code": 6003,
+        "message": "Can't cancel a settled Stream!",
+        "docs": ["StreamSettled: Can't cancel a settled Stream!"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "cantCollectZeroFees",
+        "code": 6004,
+        "message": "Can't collect zero fees!",
+        "docs": ["CantCollectZeroFees: Can't collect zero fees!"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "cliffTimeNotLessThanEndTime",
+        "code": 6005,
+        "message": "Invalid cliff time of the Stream!",
+        "docs": [
+          "CliffTimeNotLessThanEndTime: Invalid cliff time of the Stream!"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "cliffTimeZeroUnlockAmountNotZero",
+        "code": 6006,
+        "message": "Cliff time zero but unlock amount not zero!",
+        "docs": [
+          "CliffTimeZeroUnlockAmountNotZero: Cliff time zero but unlock amount not zero!"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "depositAmountZero",
+        "code": 6007,
+        "message": "Invalid deposit amount!",
+        "docs": ["DepositAmountZero: Invalid deposit amount!"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "startTimeNotLessThanCliffTime",
+        "code": 6008,
+        "message": "Start time must be less than cliff time!",
+        "docs": [
+          "StartTimeNotLessThanCliffTime: Start time must be less than cliff time!"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "startTimeNotLessThanEndTime",
+        "code": 6009,
+        "message": "Start time must be less than end time!",
+        "docs": [
+          "StartTimeNotLessThanEndTime: Start time must be less than end time!"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "startTimeZero",
+        "code": 6010,
+        "message": "Start time can't be zero!",
+        "docs": ["StartTimeZero: Start time can't be zero!"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "unlockAmountsSumTooHigh",
+        "code": 6011,
+        "message": "Unlock amounts sum is greater than deposit amount!",
+        "docs": [
+          "UnlockAmountsSumTooHigh: Unlock amounts sum is greater than deposit amount!"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "streamAlreadyNonCancelable",
+        "code": 6012,
+        "message": "Can't renounce a non-cancelable Stream!",
+        "docs": [
+          "StreamAlreadyNonCancelable: Can't renounce a non-cancelable Stream!"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "overdraw",
+        "code": 6013,
+        "message": "Attempting to withdraw more than available in the stream!",
+        "docs": [
+          "Overdraw: Attempting to withdraw more than available in the stream!"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "withdrawAmountZero",
+        "code": 6014,
+        "message": "Can't withdraw a zero amount!",
+        "docs": ["WithdrawAmountZero: Can't withdraw a zero amount!"]
+      }
+    ]
+  },
+  "additionalPrograms": []
+}

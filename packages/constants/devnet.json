@@ -1,7 +1,13 @@
 {
   "chainId": 900000020,
   "chainCode": "SOLDEV",
+  "chainGenesis": "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG",
   "cluster": "devnet",
+  "rpc": {
+    "helius": "https://devnet.helius-rpc.com/?api-key=",
+    "onfinality": "https://solana-devnet.api.onfinality.io/rpc?apikey=",
+    "public": ["https://api.devnet.solana.com"]
+  },
   "substream": "solana-devnet",
   "startBlock": {
     "lockup": 405402172,
@@ -12,5 +18,8 @@
   },
   "merkleInstant": {
     "V10": [["8t2R21V3vjS1ucZzmX2memtGptjYZi2yGY3cYVa8dak7", "MI", "V10"]]
+  },
+  "tokenProgram": {
+    "SPL": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
   }
 }

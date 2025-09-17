@@ -32,6 +32,19 @@ apps/*/subgraph/generated/
 apps/*/substream.yaml
 apps/*/subgraph/subgraph.yaml
 
+# ------- SUBQUERY -------- #
+
+apps/*-subquery/.data
+apps/*-subquery/dist
+apps/*-subquery/project.yaml
+apps/*-subquery/src/generated
+apps/*-subquery/src/types
+apps/*-subquery/.project-cid
+
+# ------- SCRIPTS -------- #
+
+packages/scripts/out
+
 # ------- YARN -------- #
 
 .yarn/*
