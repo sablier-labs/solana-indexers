@@ -9,6 +9,7 @@ import path from "path";
 
 import {
   chainGenesis,
+  cluster,
   rpc,
   startBlock_lockup,
   lockupLinear,
@@ -32,7 +33,7 @@ const endpoint = [RPC_HELIUS, RPC_ONFINALITY, ...rpc.public].filter(
 const project: SolanaProject = {
   specVersion: "1.0.0",
   version: "0.1.1",
-  name: "Sablier Solana Lockup Devnet",
+  name: `sablier-lockup-solana-${cluster}`,
   description: "Sablier subquery indexers for lockup on Solana",
   runner: {
     node: {

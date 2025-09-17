@@ -1,6 +1,10 @@
 [workspace]
 resolver = "2"
-members = ["apps/lockup", "apps/airdrops", "packages/substream"]
+members = [
+    "apps/lockup-substream",
+    "apps/airdrops-substream",
+    "packages/substream",
+]
 
 [workspace.dependencies]
 hex-literal = "0.3.4"

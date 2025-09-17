@@ -1,5 +1,5 @@
 {
-  "name": "@sablier/solana-indexers-airdrops-subquery",
+  "name": "@sablier-indexers-solana/airdrops-subquery",
   "version": "0.0.1",
   "main": "dist/index.js",
   "scripts": {
@@ -9,12 +9,16 @@
     "_codegen-adapter": "mkdir -p ./src/generated && mustache ../../packages/constants/$CLUSTER.json ../../packages/templates/airdrops-subquery/adapters.ts.mustache > ./src/generated/adapters.ts",
     "deploy-traceye:devnet": "yarn setup:devnet && yarn run traceye subquery:deploy --url https://app.traceye.io/shared-api/subquery/a80348ee7a697e3459a356bfbe868117c64d75585baabca4/deploy/node --ipfs https://app.traceye.io/shared-api/subquery/a80348ee7a697e3459a356bfbe868117c64d75585baabca4/ipfs/node sablier-solana-airdrops-devnet",
     "dev": "yarn subquery-run-clean:devnet",
+    "publish:mainnet": "yarn setup:mainnet && yarn subql publish",
     "publish:devnet": "yarn setup:devnet && yarn subql publish",
     "setup:devnet": "CLUSTER=devnet yarn _codegen",
+    "setup:mainnet": "CLUSTER=mainnetBeta yarn _codegen",
     "subquery-build": "yarn setup:devnet && yarn subql build",
     "subquery-play": "yarn subql build && docker compose pull && docker compose up --remove-orphans",
-    "subquery-run:devnet": "yarn setup:devnet && yarn subql build && docker compose pull && docker compose up --remove-orphans",
-    "subquery-run-clean:devnet": "rm -rf ./.data && yarn run subquery-run:devnet"
+    "subquery-run:devnet": "yarn setup:devnet && yarn subquery-play",
+    "subquery-run:mainnet": "yarn setup:mainnet && yarn subquery-play",
+    "subquery-run-clean:devnet": "rm -rf ./.data && yarn run subquery-run:devnet",
+    "subquery-run-clean:mainnet": "rm -rf ./.data && yarn run subquery-run:mainnet"
   },
   "files": [
     "dist",

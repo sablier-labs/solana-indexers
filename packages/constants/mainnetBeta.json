@@ -1,0 +1,25 @@
+{
+  "chainId": 900000010,
+  "chainCode": "SOL",
+  "chainGenesis": "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d",
+  "cluster": "mainnet-beta",
+  "rpc": {
+    "helius": "https://mainnet.helius-rpc.com/?api-key=",
+    "onfinality": "https://solana-mainnet.api.onfinality.io/rpc?apikey=",
+    "public": ["https://api.mainnet-beta.solana.com"]
+  },
+  "substream": "solana-mainnet-beta",
+  "startBlock": {
+    "lockup": 365675725,
+    "airdrops": 365675848
+  },
+  "lockupLinear": {
+    "V10": [["4EauRKrNErKfsR4XetEZJNmvACGHbHnHV4R5dvJuqupC", "LL", "V10"]]
+  },
+  "merkleInstant": {
+    "V10": [["7XrxoQejBoGouW4V3aozTSwub7xSDjYqB4Go7YLjF9rV", "MI", "V10"]]
+  },
+  "tokenProgram": {
+    "SPL": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+  }
+}
