@@ -61,6 +61,7 @@ export function log_info(message: string): void {
 
 export {
   chainGenesis,
+  cluster,
   rpc,
   startBlock_lockup,
   lockupLinear,

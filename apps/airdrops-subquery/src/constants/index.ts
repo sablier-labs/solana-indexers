@@ -70,3 +70,11 @@ export function log_error(
 export function log_info(message: string): void {
   logger.error(`Sablier Logger: ${message}`);
 }
+
+export {
+  chainGenesis,
+  cluster,
+  rpc,
+  startBlock_airdrops,
+  merkleInstant
+} from "../generated/env";

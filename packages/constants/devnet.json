@@ -6,18 +6,18 @@
   "rpc": {
     "helius": "https://devnet.helius-rpc.com/?api-key=",
     "onfinality": "https://solana-devnet.api.onfinality.io/rpc?apikey=",
-    "public": ["https://api.devnet.solana.com"]
+    "fallback": ["https://api.devnet.solana.com"]
   },
   "substream": "solana-devnet",
   "startBlock": {
-    "lockup": 405402172,
-    "airdrops": 405402220
+    "lockup": 408019064,
+    "airdrops": 408019095
   },
   "lockupLinear": {
-    "V10": [["B1NkZf77LvLw5nft55LUBgyrBaTEbnEmHSCLdrsFzRe4", "LL", "V10"]]
+    "V10": [["4EauRKrNErKfsR4XetEZJNmvACGHbHnHV4R5dvJuqupC", "LL", "V10"]]
   },
   "merkleInstant": {
-    "V10": [["8t2R21V3vjS1ucZzmX2memtGptjYZi2yGY3cYVa8dak7", "MI", "V10"]]
+    "V10": [["7XrxoQejBoGouW4V3aozTSwub7xSDjYqB4Go7YLjF9rV", "MI", "V10"]]
   },
   "tokenProgram": {
     "SPL": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"

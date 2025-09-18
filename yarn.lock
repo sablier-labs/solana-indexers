@@ -1728,9 +1728,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sablier/solana-indexers-airdrops-subquery@workspace:apps/airdrops-subquery":
+"@sablier-indexers-solana/airdrops-subquery@workspace:apps/airdrops-subquery":
   version: 0.0.0-use.local
-  resolution: "@sablier/solana-indexers-airdrops-subquery@workspace:apps/airdrops-subquery"
+  resolution: "@sablier-indexers-solana/airdrops-subquery@workspace:apps/airdrops-subquery"
   dependencies:
     "@codama/nodes-from-anchor": "npm:^1.2.6"
     "@solana/kit": "npm:^3.0.2"
@@ -1751,9 +1751,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sablier/solana-indexers-airdrops@workspace:apps/airdrops/subgraph":
+"@sablier-indexers-solana/airdrops-substream@workspace:apps/airdrops-substream/subgraph":
   version: 0.0.0-use.local
-  resolution: "@sablier/solana-indexers-airdrops@workspace:apps/airdrops/subgraph"
+  resolution: "@sablier-indexers-solana/airdrops-substream@workspace:apps/airdrops-substream/subgraph"
   dependencies:
     "@graphprotocol/graph-cli": "npm:^0.73.0"
     "@graphprotocol/graph-ts": "npm:^0.34.0"
@@ -1772,9 +1772,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sablier/solana-indexers-lockup-subquery@workspace:apps/lockup-subquery":
+"@sablier-indexers-solana/lockup-subquery@workspace:apps/lockup-subquery":
   version: 0.0.0-use.local
-  resolution: "@sablier/solana-indexers-lockup-subquery@workspace:apps/lockup-subquery"
+  resolution: "@sablier-indexers-solana/lockup-subquery@workspace:apps/lockup-subquery"
   dependencies:
     "@codama/nodes-from-anchor": "npm:^1.2.6"
     "@solana/kit": "npm:^3.0.2"
@@ -1795,9 +1795,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sablier/solana-indexers-lockup@workspace:apps/lockup/subgraph":
+"@sablier-indexers-solana/lockup-substream@workspace:apps/lockup-substream/subgraph":
   version: 0.0.0-use.local
-  resolution: "@sablier/solana-indexers-lockup@workspace:apps/lockup/subgraph"
+  resolution: "@sablier-indexers-solana/lockup-substream@workspace:apps/lockup-substream/subgraph"
   dependencies:
     "@graphprotocol/graph-cli": "npm:^0.73.0"
     "@graphprotocol/graph-ts": "npm:^0.34.0"
@@ -10974,14 +10974,14 @@ __metadata:
   linkType: hard
 
 "tar-fs@npm:~1.16.3":
-  version: 1.16.5
-  resolution: "tar-fs@npm:1.16.5"
+  version: 1.16.6
+  resolution: "tar-fs@npm:1.16.6"
   dependencies:
     chownr: "npm:^1.0.1"
     mkdirp: "npm:^0.5.1"
     pump: "npm:^1.0.0"
     tar-stream: "npm:^1.1.2"
-  checksum: 10/86061a6a66616d3c424d3f68ceab76d8a62c9326b6d412c8f043f61ae762e5345fae305d983e1abdaff6713e0c470237ec27fa2708eae50c162b42d8c1411bf7
+  checksum: 10/68998350087495258974335118ee66b9de0c794e4bc99b95135bf153896711ce6245c285eb721ba4ae63a0d9bb838dae7f82cea2e3a66353ae8a15a077184f08
   languageName: node
   linkType: hard
 

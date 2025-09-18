@@ -9,10 +9,11 @@ import path from "path";
 
 import {
   chainGenesis,
+  cluster,
   rpc,
-  merkleInstant,
-  startBlock_airdrops
-} from "./src/generated/env";
+  startBlock_airdrops,
+  merkleInstant
+} from "./src/constants/index";
 
 dotenv.config({ path: path.resolve(__dirname, "./../../.env"), quiet: true });
 
@@ -23,7 +24,7 @@ const RPC_ONFINALITY = process.env.ONFINALITY_RPC_KEY
   ? `${rpc.onfinality}${process.env.ONFINALITY_RPC_KEY}`
   : undefined;
 
-const endpoint = [RPC_HELIUS, RPC_ONFINALITY, ...rpc.public].filter(
+const endpoint = [RPC_HELIUS, RPC_ONFINALITY, ...rpc.fallback].filter(
   r => r
 ) as string[];
 
@@ -31,7 +32,7 @@ const endpoint = [RPC_HELIUS, RPC_ONFINALITY, ...rpc.public].filter(
 const project: SolanaProject = {
   specVersion: "1.0.0",
   version: "0.1.1",
-  name: "Sablier Solana Airdrops Devnet",
+  name: `sablier-airdrops-solana-${cluster}`,
   description: "Sablier subquery indexers for airdrops on Solana",
   runner: {
     node: {
