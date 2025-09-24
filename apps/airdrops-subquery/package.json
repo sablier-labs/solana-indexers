@@ -12,7 +12,7 @@
     "publish:mainnet": "yarn setup:mainnet && yarn subql publish",
     "publish:devnet": "yarn setup:devnet && yarn subql publish",
     "setup:devnet": "CLUSTER=devnet yarn _codegen",
-    "setup:mainnet": "CLUSTER=mainnetBeta yarn _codegen",
+    "setup:mainnet": "CLUSTER=mainnet yarn _codegen",
     "subquery-build": "yarn setup:devnet && yarn subql build",
     "subquery-play": "yarn subql build && docker compose pull && docker compose up --remove-orphans",
     "subquery-run:devnet": "yarn setup:devnet && yarn subquery-play",

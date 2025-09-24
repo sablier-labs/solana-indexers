@@ -5,7 +5,7 @@
   "cluster": "mainnet-beta",
   "rpc": {
     "helius": "https://mainnet.helius-rpc.com/?api-key=",
-    "onfinality": "https://solana-mainnet.api.onfinality.io/rpc?apikey=",
+    "onfinality": "https://solana.api.onfinality.io/rpc?apikey=",
     "fallback": ["https://api.mainnet-beta.solana.com"]
   },
   "substream": "solana-mainnet",
