@@ -67,10 +67,19 @@ pub fn get_transfer(instruction: &InstructionView) -> Option<(String, String, St
             let from_owner = accounts.get(3).unwrap().to_string();
 
             if let Some((to_owner, nft_mint)) = get_transfer_entities(instruction, from_owner.clone()) {
-                let amount = SPLTransferChecked::try_from_slice(rest).unwrap().amount;
+                if rest.len() > 9 {
+                    let (rest_split, _) = rest.split_at(9);
+                    let amount = SPLTransferChecked::try_from_slice(rest_split).unwrap().amount;
 
-                if amount == 1 {
-                    return Some((from, to, from_owner, to_owner, nft_mint, amount));
+                    if amount == 1 {
+                        return Some((from, to, from_owner, to_owner, nft_mint, amount));
+                    }
+                } else {
+                    let amount = SPLTransferChecked::try_from_slice(rest).unwrap().amount;
+
+                    if amount == 1 {
+                        return Some((from, to, from_owner, to_owner, nft_mint, amount));
+                    }
                 }
             }
 
