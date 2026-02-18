@@ -8,6 +8,7 @@
     "_codegen-constants": "mkdir -p ./src/generated && mustache ../../packages/constants/$CLUSTER.json ../../packages/templates/constants.ts.mustache > ./src/generated/env.ts",
     "_codegen-adapter": "mkdir -p ./src/generated && mustache ../../packages/constants/$CLUSTER.json ../../packages/templates/lockup-subquery/adapters.ts.mustache > ./src/generated/adapters.ts",
     "dev": "yarn subquery-run-clean:devnet",
+    "main": "yarn subquery-run-clean:mainnet",
     "publish:mainnet": "yarn setup:mainnet && yarn subql publish",
     "publish:devnet": "yarn setup:devnet && yarn subql publish",
     "setup:devnet": "CLUSTER=devnet yarn _codegen",
@@ -36,7 +37,7 @@
   },
   "devDependencies": {
     "@codama/nodes-from-anchor": "^1.2.6",
-    "@subql/cli": "^6.3.0",
+    "@subql/cli": "^6.6.2",
     "@traceye-tech/cli": "^2.0.0",
     "@types/events": "^3",
     "@types/fastestsmallesttextencoderdecoder": "^1",

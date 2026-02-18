@@ -54,3 +54,5 @@ packages/scripts/out
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+
+.claude
