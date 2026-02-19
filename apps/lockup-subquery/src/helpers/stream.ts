@@ -8,7 +8,7 @@ import {
   InstructionCreateWithDurations,
   InstructionCreateWithTimestamps
 } from "../generated/adapters";
-import { bindGetAccount, getProgramId } from "../utils";
+import { bindGetAccount, decodeLogs, getProgramId } from "../utils";
 import { ActionCategory, Contract, Stream, StreamCategory } from "../types";
 import { createOwnership } from "./ownership";
 import { createAction } from "./action";
@@ -16,10 +16,10 @@ import { createAction } from "./action";
 async function getCreated(
   instruction: InstructionCreateWithDurations | InstructionCreateWithTimestamps
 ) {
-  const logs = instruction.transaction.meta?.logMessages || [];
-  const list = decoder.decodeLogs(logs) || [];
+  const logs = (instruction.transaction.meta as any)?.logs || [];
+  const list = decodeLogs(logs);
 
-  for (let i = 0; i < logs.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     try {
       const decoded = await list[i].decodedMessage;
       if (

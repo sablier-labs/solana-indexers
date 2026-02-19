@@ -12,14 +12,14 @@ import {
 import { createAction } from "../helpers/action";
 import { ActionCategory } from "../types";
 import { log_error, one } from "../constants";
-import { bindGetAccount } from "../utils";
+import { bindGetAccount, decodeLogs } from "../utils";
 import { getOrCreateActivity } from "../helpers/activity";
 
 async function getClaimed(instruction: InstructionClaim) {
-  const logs = instruction.transaction.meta?.logMessages || [];
-  const list = decoder.decodeLogs(logs) || [];
+  const logs = (instruction.transaction.meta as any)?.logs || [];
+  const list = decodeLogs(logs);
 
-  for (let i = 0; i < logs.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     try {
       const decoded = await list[i].decodedMessage;
       if (decoded?.name.toLowerCase() === "Claim".toLowerCase()) {

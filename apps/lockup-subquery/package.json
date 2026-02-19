@@ -17,8 +17,8 @@
     "subquery-play": "yarn subql build && docker compose pull && docker compose up --remove-orphans",
     "subquery-run:devnet": "yarn setup:devnet && yarn subquery-play",
     "subquery-run:mainnet": "yarn setup:mainnet && yarn subquery-play",
-    "subquery-run-clean:devnet": "rm -rf ./.data && yarn run subquery-run:devnet",
-    "subquery-run-clean:mainnet": "rm -rf ./.data && yarn run subquery-run:mainnet"
+    "subquery-run-clean:devnet": "rm -rf ./.data && rm -rf ./dist && yarn run subquery-run:devnet",
+    "subquery-run-clean:mainnet": "rm -rf ./.data && rm -rf ./dist && yarn run subquery-run:mainnet"
   },
   "files": [
     "dist",

@@ -14,7 +14,7 @@ import {
 import { createAction } from "../helpers/action";
 import { ActionCategory } from "../types";
 import { log_error, zero } from "../constants";
-import { bindGetAccount, getProgramId } from "../utils";
+import { bindGetAccount, decodeLogs, getProgramId } from "../utils";
 import {
   createLinearStream,
   getStreamByNftMint,
@@ -29,10 +29,10 @@ import {
 } from "../helpers/transfer";
 
 async function getCanceled(instruction: InstructionCancel) {
-  const logs = instruction.transaction.meta?.logMessages || [];
-  const list = decoder.decodeLogs(logs) || [];
+  const logs = (instruction.transaction.meta as any)?.logs || [];
+  const list = decodeLogs(logs);
 
-  for (let i = 0; i < logs.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     try {
       const decoded = await list[i].decodedMessage;
       if (decoded?.name.toLowerCase() === "CancelLockupStream".toLowerCase()) {
@@ -318,10 +318,10 @@ export async function handleWithdraw(instruction: InstructionWithdraw) {
 }
 
 async function getWithdrawnMax(instruction: InstructionWithdrawMax) {
-  const logs = instruction.transaction.meta?.logMessages || [];
-  const list = decoder.decodeLogs(logs) || [];
+  const logs = (instruction.transaction.meta as any)?.logs || [];
+  const list = decodeLogs(logs);
 
-  for (let i = 0; i < logs.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     try {
       const decoded = await list[i].decodedMessage;
       if (

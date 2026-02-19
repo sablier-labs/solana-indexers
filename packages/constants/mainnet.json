@@ -10,8 +10,8 @@
   },
   "substream": "solana-mainnet",
   "startBlock": {
-    "lockup": 367886464,
-    "airdrops": 365675848
+    "lockup": 367886420,
+    "airdrops": 368990750
   },
   "lockupLinear": {
     "V10": [["4EauRKrNErKfsR4XetEZJNmvACGHbHnHV4R5dvJuqupC", "LL", "V10"]]

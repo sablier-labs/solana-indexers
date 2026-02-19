@@ -3,17 +3,17 @@ import { getOrCreateWatcher } from "./watcher";
 import { getOrCreateFactory } from "./factory";
 import { getOrCreateAsset } from "./asset";
 import { InstructionCreate } from "../generated/adapters";
-import { bindGetAccount, fromUint8Array, getProgramId } from "../utils";
+import { bindGetAccount, decodeLogs, fromUint8Array, getProgramId } from "../utils";
 import { CampaignCategory, Campaign } from "../types";
 import { EventCreate } from "../generated/adapters";
 
 async function getCreated(instruction: InstructionCreate) {
-  const logs = instruction.transaction.meta?.logMessages || [];
-  const list = decoder.decodeLogs(logs) || [];
+  const logs = (instruction.transaction.meta as any)?.logs || [];
+  const decodedList = decodeLogs(logs);
 
-  for (let i = 0; i < logs.length; i++) {
+  for (let i = 0; i < decodedList.length; i++) {
     try {
-      const decoded = await list[i].decodedMessage;
+      const decoded = await decodedList[i].decodedMessage;
       if (decoded?.name.toLowerCase() === "CreateCampaign".toLowerCase()) {
         return decoded.data as EventCreate;
       }

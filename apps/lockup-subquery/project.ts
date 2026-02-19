@@ -48,7 +48,7 @@ const project: SolanaProject = {
           }
         : {
             name: "@subql/query",
-            version: ">=2.23.6"
+            version: ">=2.25.0"
           }
   },
   schema: {

@@ -1945,7 +1945,7 @@
     "definedTypes": [
       {
         "kind": "definedTypeNode",
-        "name": "claim",
+        "name": "Claim",
         "docs": [],
         "type": {
           "kind": "structTypeNode",
@@ -2009,7 +2009,7 @@
       },
       {
         "kind": "definedTypeNode",
-        "name": "clawback",
+        "name": "Clawback",
         "docs": [],
         "type": {
           "kind": "structTypeNode",
@@ -2047,7 +2047,7 @@
       },
       {
         "kind": "definedTypeNode",
-        "name": "createCampaign",
+        "name": "CreateCampaign",
         "docs": [],
         "type": {
           "kind": "structTypeNode",
@@ -2163,7 +2163,7 @@
       },
       {
         "kind": "definedTypeNode",
-        "name": "feesCollected",
+        "name": "FeesCollected",
         "docs": [],
         "type": {
           "kind": "structTypeNode",
