@@ -25,7 +25,7 @@ const RPC_ONFINALITY = process.env.ONFINALITY_RPC_KEY
   ? `${rpc.onfinality}${process.env.ONFINALITY_RPC_KEY}`
   : undefined;
 
-const endpoint = [RPC_HELIUS, RPC_ONFINALITY, ...rpc.fallback].filter(
+const endpoint = [RPC_ONFINALITY, RPC_HELIUS, ...rpc.fallback].filter(
   r => r
 ) as string[];
 
@@ -117,23 +117,23 @@ const project: SolanaProject = {
               programId: lockupLinear[0][0],
               discriminator: "withdrawMax"
             }
-          },
-          {
-            kind: SolanaHandlerKind.Instruction,
-            handler: "handleSPLTransfer",
-            filter: {
-              programId: tokenProgram.SPL,
-              discriminator: "transfer"
-            }
-          },
-          {
-            kind: SolanaHandlerKind.Instruction,
-            handler: "handleSPLTransferChecked",
-            filter: {
-              programId: tokenProgram.SPL,
-              discriminator: "transferChecked"
-            }
           }
+          // {
+          //   kind: SolanaHandlerKind.Instruction,
+          //   handler: "handleSPLTransfer",
+          //   filter: {
+          //     programId: tokenProgram.SPL,
+          //     discriminator: "transfer"
+          //   }
+          // },
+          // {
+          //   kind: SolanaHandlerKind.Instruction,
+          //   handler: "handleSPLTransferChecked",
+          //   filter: {
+          //     programId: tokenProgram.SPL,
+          //     discriminator: "transferChecked"
+          //   }
+          // }
         ]
       }
     }
