@@ -44,7 +44,7 @@ async function getCanceled(instruction: InstructionCancel) {
   return undefined;
 }
 
-export async function handleCanceled(instruction: InstructionCancel) {
+export async function handleCancel(instruction: InstructionCancel) {
   const decoded = await instruction.decodedData;
   if (!decoded) {
     log_error("Missing instruction decoding for transaction", instruction);
@@ -170,7 +170,7 @@ export async function handleCreateWithTimestamps(
   await handleCreateStreamDependencies(instruction, stream);
 }
 
-export async function handleRenounced(instruction: InstructionRenounce) {
+export async function handleRenounce(instruction: InstructionRenounce) {
   const decoded = await instruction.decodedData;
   if (!decoded) {
     log_error("Missing instruction decoding for transaction", instruction);
