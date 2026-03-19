@@ -88,7 +88,7 @@ After dealing with all the necessary dependencies from [Getting Started](#gettin
 #### Set up ⭐
 
 ```bash
-   yarn setup:devnet
+   yarn setup:mainnet
 ```
 
 The `setup` command will:
@@ -108,8 +108,8 @@ To develop new features into the substream, look into modifying the following fi
 To test your changes locally, you can run:
 
 ```bash
-   # Relies on files already generated using yarn setup:devnet
-   yarn substream-gui:devnet
+   # Relies on files already generated using yarn setup:mainnet
+   yarn substream-gui:mainnet
 ```
 
 #### Subgraphs
@@ -127,23 +127,23 @@ Create a placeholder project in the Studio. We'll need the `auth` key and the na
 ##### 3. Deploy
 
 ```bash
-   yarn setup:devnet
+   yarn setup:mainnet
 ```
 
 ### Deployment 🚀
 
-To engage with the `devnet` substream gui you can run:
+To engage with the `mainnet` substream gui you can run:
 
 ```bash
 cd ./subgraph
-yarn stream-gui:devnet
+yarn stream-gui:mainnet
 ```
 
 To configure a subgraph for deployment on the studio, you can run:
 
 ```bash
 cd ./subgraph
-yarn setup:devnet
+yarn setup:mainnet
 
 ```
 
@@ -181,7 +181,7 @@ After dealing with all the necessary dependencies from [Getting Started](#gettin
 #### Set up ⭐
 
 ```bash
-   yarn setup:devnet
+   yarn setup:mainnet
 ```
 
 The `setup` command will:
@@ -201,12 +201,4 @@ Using docker you can run an instance of your subquery indexer on your computer. 
 
 > [!NOTE]
 >
-> To test certain events in particular you don't need to wait for the indexer to read everything from the start block. Check `project.ts` and replace the startBlock with one from the useful resources section to quickly reach relevant events. You can use the [constants](./packages/constants/devnet.json) to investigate onchain for other key blocks.
-
-### Useful Resources 📦
-
-- Blocks for quick tests on devnet, lockup
-  - Stream create: `406699648` (create)
-  - Stream transfer: `406699648` (create), `406699649` (transfer)
-- Blocks for quick tests on devnet, airdrops
-  - Campaign create: `405402287`
+> To test certain events in particular you don't need to wait for the indexer to read everything from the start block. Check `project.ts` and replace the startBlock with one from the useful resources section to quickly reach relevant events. You can use the [constants](./packages/constants/mainnet.json) to investigate onchain for other key blocks.
