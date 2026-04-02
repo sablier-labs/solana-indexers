@@ -1751,7 +1751,7 @@ __metadata:
   dependencies:
     "@codama/nodes-from-anchor": "npm:^1.2.6"
     "@solana/kit": "npm:^3.0.2"
-    "@subql/cli": "npm:^6.6.2"
+    "@subql/cli": "npm:^6.6.3"
     "@subql/common-solana": "npm:^1.2.0"
     "@subql/types-solana": "npm:^1.1.0"
     "@traceye-tech/cli": "npm:^2.0.0"
@@ -1795,7 +1795,7 @@ __metadata:
   dependencies:
     "@codama/nodes-from-anchor": "npm:^1.2.6"
     "@solana/kit": "npm:^3.0.2"
-    "@subql/cli": "npm:^6.6.2"
+    "@subql/cli": "npm:^6.6.3"
     "@subql/common-solana": "npm:^1.2.0"
     "@subql/types-solana": "npm:^1.1.0"
     "@traceye-tech/cli": "npm:^2.0.0"
@@ -2490,9 +2490,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@subql/cli@npm:^6.6.2":
-  version: 6.6.2
-  resolution: "@subql/cli@npm:6.6.2"
+"@subql/cli@npm:^6.6.3":
+  version: 6.6.3
+  resolution: "@subql/cli@npm:6.6.3"
   dependencies:
     "@apollo/client": "npm:^3.14.0"
     "@inquirer/prompts": "npm:^5.3.6"
@@ -2534,7 +2534,7 @@ __metadata:
     zod: "npm:^3.25.67"
   bin:
     subql: ./bin/run
-  checksum: 10/210423da08115fd236a1264bb48b254bbaf0b67c030175186524845f76d26b2f82368a6a7b2094ef07695c3dc465d5e6dd43d2e1e8b5e05932d1c918323bc3e3
+  checksum: 10/4a0981a3d6b41e257e1e40ee3fe5f4e0f1c0bc9f9deef25ba920f1272a3be73db18bdb8a7d9b53a1ba0a4309b5cf822c8cb6cd0d948be04fdfcf40431b8a6a1e
   languageName: node
   linkType: hard
 

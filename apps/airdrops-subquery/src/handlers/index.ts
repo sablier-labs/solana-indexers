@@ -40,7 +40,7 @@ export async function handleClaim(instruction: InstructionClaim) {
 
   const getAccount = bindGetAccount(instruction);
 
-  const campaign = await getCampaignByAccount(getAccount(4)); // campaign
+  const campaign = await getCampaignByAccount(getAccount(5)); // campaign
 
   if (!campaign) {
     log_error("Campaign not registered yet", instruction);
